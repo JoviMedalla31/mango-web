@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
+
 function App() {
   return (
-    <div className="flex w-full h-dvh items-center justify-center">
+    <div className="flex h-dvh w-full items-center justify-center">
       <h1 className="text-4xl font-extrabold">
         <span className="text-xl font-bold">Home of</span>
-        <br /> Guadalupe Dried Mangoes
+        <br /> <Link to="test">Guadalupe Dried Mangoes</Link>
       </h1>
     </div>
   );
