@@ -19,7 +19,17 @@
   --font-courier-prime: "Courier Prime", monospace;
   --font-cascadia-code: "Cascadia Code", monospace;
 
-  --color-journal-800: #2b2625;
+  --color-mango-400: #ffde7a;
 
-  --color-accent-400: #ffc05b;
+  --color-ripe-600: #f76618;
+}
+
+body {
+  background-color: var(--color-mango-400);
+}
+
+@layer base {
+  ::selection {
+    @apply bg-ripe-600 text-white;
+  }
 }
