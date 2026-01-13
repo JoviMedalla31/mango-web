@@ -1,6 +1,7 @@
 import mangoes from '@/assets/mangoes.jpg';
 
 function Test() {
+  console.log(import.meta.env.BASE_URL);
   return (
     <div className="bg-mango-100">
       <header className="bg-mango-400 h-16 w-full"></header>

@@ -15,6 +15,13 @@ const router = createHashRouter([
       return { Component: Test.default };
     },
   },
+  {
+    path: 'products/:product',
+    lazy: async () => {
+      let Products = await import('@/app/routes/Product');
+      return { Component: Products.default };
+    },
+  },
 ]);
 
 export default router;
