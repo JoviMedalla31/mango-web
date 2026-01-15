@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import logo from '/images/logo.svg';
 import strips from '@/assets/products/strips.csv?raw';
 import stripsImg from '/images/strips/product.png';
-import ingredientsTop from '/images/products/ingredients-top.svg';
+import ingredientsTop from '/images/footer/tab-top2.svg';
 import footerA from '/images/footer/footer-a.svg';
 import footerB from '/images/footer/footer-b.svg';
 import { Menu } from 'lucide-react';
@@ -118,7 +118,7 @@ const Products = () => {
             <path d="M431.76 21.8398L648.48 45.3604L863.52 16.7998L1080.24 40.3203L1295.28 38.6406L1440 24.0557V56.5H0V30.2402L216.72 0L431.76 21.8398Z" />
           </svg>
         </div>
-        <div className="bg-mango-400 z-2 h-20 w-full">
+        <div className="bg-mango-400 z-2 h-200 w-full">
           <svg
             preserveAspectRatio="none"
             height="51"
