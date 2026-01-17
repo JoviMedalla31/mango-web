@@ -11,28 +11,48 @@ import ingredientsTop from '/images/footer/tab-top2.svg';
 import footerA from '/images/footer/footer-a.svg';
 import footerB from '/images/footer/footer-b.svg';
 import orderNow from '/images/footer/order-now.svg';
-import { Menu } from 'lucide-react';
+import logoText from '/images/logo-text.svg';
+import { Menu, X } from 'lucide-react';
+import useLockBodyScroll from '@/hooks/useLockBodyScroll';
 
 const Header = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  useLockBodyScroll(showSidebar);
+
+  const handleMenuPressed = () => {
+    setShowSidebar(true);
+  };
+
+  const handleMenuClosePressed = () => {
+    setShowSidebar(false);
+  };
+
   return (
-    <header className="flex w-full flex-col items-center">
-      <nav className="poppins bg-mango-400 flex h-12 w-full items-center justify-center text-xl text-white">
-        <div className="hidden items-center justify-center gap-8 sm:flex">
+    <header className="relative flex w-full flex-col items-center overflow-x-hidden">
+      <nav className="poppins bg-mango-400 hidden h-12 w-full items-center justify-center text-xl text-white sm:flex">
+        <div className="flex items-center justify-center gap-8">
           <p>About Us</p>
           <p>Products</p>
           <p>How to Order?</p>
           <p>Contact Us</p>
         </div>
-        <div className="flex w-full items-center justify-between px-6 sm:hidden">
-          <p className="font-semibold">Guadalupe</p>
-          <Menu className="" />
-        </div>
       </nav>
-      <div className="hidden w-full max-w-300 -translate-y-0.5 sm:block">
+      <div className="flex w-full max-w-300 justify-between sm:-translate-y-0.5">
         <Link to="/">
-          <img src={logo} className="ml-28" />
+          <img src={logo} className="ml-6 sm:ml-28" />
         </Link>
+        <Menu className="mt-4 mr-6 block w-8 cursor-pointer stroke-3 sm:hidden" onClick={handleMenuPressed} />
       </div>
+      <motion.div className="bg-mango-400 fixed left-[100dvw] h-full w-full" animate={{ left: showSidebar ? '0dvw' : '100dvw' }}>
+        <X className="absolute top-5 right-5 aspect-square h-8 w-8 cursor-pointer" onClick={handleMenuClosePressed} />
+        <div className="flex h-full w-full flex-col items-center justify-center gap-8 text-2xl font-bold">
+          <p>About Us</p>
+          <p>Products</p>
+          <p>How to Order?</p>
+          <p>Contact Us</p>
+        </div>
+      </motion.div>
     </header>
   );
 };
@@ -141,7 +161,7 @@ const Products = () => {
           </div>
         </div>
       </main>
-      <footer className="z-1 flex w-full flex-col items-center">
+      <footer className="z-1 flex w-full flex-col items-center overflow-x-hidden">
         <div className="z-1 grid w-full max-w-180 grid-cols-1 gap-x-8 px-4 text-2xl sm:grid-cols-2 sm:text-lg/snug lg:max-w-240 lg:grid-cols-3 lg:text-xl xl:max-w-300 xl:text-2xl">
           <div className="col-start-1 mt-8 max-w-70 px-8 text-center sm:mt-0 sm:max-w-90">
             <div>

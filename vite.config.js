@@ -5,7 +5,7 @@ import { fileURLToPath, URL } from 'url';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/mango-site/',
+  base: '/mango-web/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

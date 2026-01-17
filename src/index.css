@@ -24,10 +24,10 @@
 
   --color-ripe-600: #f76618;
 }
-/* 
+
 body {
-  background-color: var(--color-mango-400);
-} */
+  overflow-x: hidden;
+}
 
 @layer base {
   ::selection {
