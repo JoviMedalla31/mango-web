@@ -78,7 +78,7 @@ function App() {
             <p>Contact Us</p>
           </header>
           <main className="w-full">
-            <section className="bg-mango-100 relative h-312">
+            <section className="bg-mango-100 relative h-312 w-full overflow-x-hidden">
               <img src={logo} className="absolute top-82 left-1/2 -translate-x-1/2 -rotate-[9.6deg]" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <Img src={charA} scrollY={scrollYSpring} initialX={150} X={290} initialY={-10} Y={200} rotate={120} initialRotate={-6.64} />
