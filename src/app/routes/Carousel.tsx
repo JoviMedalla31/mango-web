@@ -1,43 +1,81 @@
-import { useRef, useLayoutEffect, type RefObject } from 'react';
+import { useState, useRef, useLayoutEffect, type RefObject } from 'react';
 import { motion, useAnimationFrame, useMotionValue, useTransform, type MotionStyle } from 'motion/react';
+import { useWidthCheck } from '@/hooks/useWidthCheck';
+import { animate } from 'motion';
 
-function CarouselItem({ parent, pauseAnim, index }: { parent: RefObject<HTMLDivElement | null>; pauseAnim: RefObject<boolean>; index: number }) {
-  const initX = useRef(0);
+function CarouselItem({
+  parent,
+  pauseAnim,
+  index,
+  itemsRef,
+  offset,
+}: {
+  parent: RefObject<HTMLDivElement | null>;
+  pauseAnim: RefObject<boolean>;
+  index: number;
+  itemsRef: RefObject<(HTMLDivElement | null)[]>;
+  offset: RefObject<number>;
+}) {
+  const { isSm, isMd } = useWidthCheck();
+
+  // Refs
   const itemRef = useRef<HTMLDivElement>(null);
+  const fullWidth = useRef(isSm ? 50 : 25);
+  const gap = useRef(3);
+  const itemWidth = useRef(fullWidth.current - gap.current);
 
-  // widths
-  const parentWidth = useRef(0);
-  const left = useRef(0);
-  const width = useRef(0);
+  const [rerender, setRerender] = useState(false);
 
-  // -----------------------
-  // Motion Values
-  // -----------------------
-
-  const x = useMotionValue(0);
-  const translateX = useTransform(x, (val) => `calc(${val}%`);
+  const x = useMotionValue(-itemWidth.current);
+  const translateX = useTransform(x, (val) => `${val}dvw`);
 
   // -----------------------
   // Effects
   // -----------------------
 
+  function getWrappedOffset() {
+    const m = itemsRef.current.length;
+    const mod = ((((offset.current + index) % m) + m) % m) - index;
+    return mod;
+  }
+
+  useLayoutEffect(() => {
+    fullWidth.current = isSm ? 50 : isMd ? 33 : 25;
+    gap.current = isSm ? 5 : 3;
+    itemWidth.current = fullWidth.current - gap.current;
+    x.set(-itemWidth.current / 2);
+    setRerender((v) => !v);
+  }, [isSm, isMd]);
+
   useLayoutEffect(() => {
     const measure = () => {
-      parentWidth.current = parent.current?.offsetWidth ?? 0;
-      width.current = itemRef.current?.offsetWidth ?? 0;
-      left.current = itemRef.current?.offsetLeft ?? 0;
+      // console.log('medium', isMd);
+      // console.log('small', isSm);
+      pauseAnim.current = true;
+      if (isMd && !isSm) {
+        animate(x, gap.current / 2 + fullWidth.current * getWrappedOffset(), {
+          duration: 1,
+          type: 'tween',
+          ease: 'easeOut',
+          onComplete: () => (pauseAnim.current = false),
+        });
+      } else {
+        console.log('this one');
+        animate(x, -itemWidth.current / 2 + fullWidth.current * getWrappedOffset(), {
+          duration: 1,
+          type: 'tween',
+          ease: 'easeOut',
+          onComplete: () => (pauseAnim.current = false),
+        });
+      }
     };
-
     measure();
-    const observer = new ResizeObserver(() => measure());
-    if (itemRef.current) observer.observe(itemRef.current);
-
+    const observer = new ResizeObserver(() => {
+      measure();
+    });
+    if (itemsRef.current[index]) observer.observe(itemsRef.current[index]!);
     return () => observer.disconnect();
-  }, [itemRef]);
-
-  const getPosInPx = (x: number) => {
-    return (x / 100) * width.current + left.current - width.current / 2;
-  };
+  }, [itemsRef.current[index], isSm, isMd]);
 
   useAnimationFrame((t, delta) => {
     if (pauseAnim.current) return;
@@ -46,49 +84,52 @@ function CarouselItem({ parent, pauseAnim, index }: { parent: RefObject<HTMLDivE
     const current = x.get();
     let next = current - (delta / 1000) * speed;
 
-    if (index == 0) console.log(width, getPosInPx(next) + width.current);
-    if (getPosInPx(next) + width.current < 0) {
-      next += (parentWidth.current * 100) / width.current;
+    if (next < -fullWidth.current * (index + 1)) {
+      next += itemsRef.current.length * fullWidth.current;
+      offset.current -= 1;
     }
-    // if (getPosInPx(next) + width.current < 0) {
-    //   // next += (parentWidth.current + width.current) / width.current;
-    //   next += (parentWidth.current * 100) / width.current;
-    // }
 
     x.set(next);
-    // console.log(parentWidth.current, width.current, left.current);
   });
 
   return (
     <motion.div
-      ref={itemRef}
-      className="h-140 min-w-[21dvw] rounded-[8rem] border-2 border-black/50 first:bg-amber-200 nth-2:bg-emerald-200 nth-3:bg-sky-200 nth-4:bg-amber-800 nth-5:bg-slate-600 nth-6:bg-indigo-400"
+      ref={(el) => {
+        itemRef.current = el;
+        itemsRef.current[index] = el;
+      }}
+      className="group h-140"
       style={{
+        minWidth: `${fullWidth.current}dvw`,
+        paddingRight: `${gap.current}dvw`,
         translateX,
       }}
       transition={{}}
-    ></motion.div>
+    >
+      <div className="h-full rounded-[8rem] border-2 border-black/50 group-first:bg-amber-200 group-nth-2:bg-emerald-200 group-nth-3:bg-sky-200 group-nth-4:bg-amber-800 group-nth-5:bg-slate-600 group-nth-6:bg-indigo-400" />
+    </motion.div>
   );
 }
 
 function Carousel() {
   const isHovered = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const offset = useRef(0);
 
   const handleMouseEnter = () => {
-    console.log();
-    isHovered.current = true;
+    // isHovered.current = true;
   };
 
   const handleMouseLeave = () => {
-    isHovered.current = false;
+    // isHovered.current = false;
   };
 
   return (
     <div className="max-w-full items-center overflow-x-hidden bg-gray-200 py-12" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div ref={containerRef} className="flex w-fit -translate-x-[10.5dvw] gap-[4dvw] border pr-[4dvw]">
+      <div ref={containerRef} className="flex w-fit border">
         {[...Array(5)].map((_, i) => (
-          <CarouselItem key={i} index={i} parent={containerRef} pauseAnim={isHovered} />
+          <CarouselItem key={i} index={i} parent={containerRef} pauseAnim={isHovered} itemsRef={itemsRef} offset={offset} />
         ))}
       </div>
     </div>
