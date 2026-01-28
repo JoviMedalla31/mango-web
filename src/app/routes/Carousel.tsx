@@ -1,17 +1,20 @@
 import { useState, useRef, useLayoutEffect, type RefObject } from 'react';
-import { motion, useAnimationFrame, useMotionValue, useTransform, type MotionStyle } from 'motion/react';
+import { animate, motion, MotionValue, PanInfo, useAnimationFrame, useMotionValue, useMotionValueEvent, useTransform } from 'motion/react';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
-import { animate } from 'motion';
 
 function CarouselItem({
   parent,
-  pauseAnim,
+  x,
+  isPaused,
+  isDragged,
   index,
   itemsRef,
   offset,
 }: {
   parent: RefObject<HTMLDivElement | null>;
-  pauseAnim: RefObject<boolean>;
+  x: MotionValue;
+  isPaused: RefObject<boolean>;
+  isDragged: RefObject<boolean>;
   index: number;
   itemsRef: RefObject<(HTMLDivElement | null)[]>;
   offset: RefObject<number>;
@@ -26,8 +29,20 @@ function CarouselItem({
 
   const [rerender, setRerender] = useState(false);
 
-  const x = useMotionValue(-itemWidth.current);
+  x.set(-itemWidth.current);
   const translateX = useTransform(x, (val) => `${val}dvw`);
+
+  useMotionValueEvent(x, 'change', (val) => {
+    if (val < -fullWidth.current * (index + 1)) {
+      val += fullWidth.current * itemsRef.current.length;
+      x.set(val);
+      offset.current -= 1;
+    } else if (val > fullWidth.current * (itemsRef.current.length - (index + 1))) {
+      val -= fullWidth.current * itemsRef.current.length;
+      x.set(val);
+      offset.current += 1;
+    }
+  });
 
   // -----------------------
   // Effects
@@ -43,31 +58,22 @@ function CarouselItem({
     fullWidth.current = isSm ? 50 : isMd ? 33 : 25;
     gap.current = isSm ? 5 : 3;
     itemWidth.current = fullWidth.current - gap.current;
-    x.set(-itemWidth.current / 2);
+    x.set(-itemWidth.current / 2 + fullWidth.current * getWrappedOffset());
     setRerender((v) => !v);
   }, [isSm, isMd]);
 
   useLayoutEffect(() => {
     const measure = () => {
-      // console.log('medium', isMd);
-      // console.log('small', isSm);
-      pauseAnim.current = true;
-      if (isMd && !isSm) {
-        animate(x, gap.current / 2 + fullWidth.current * getWrappedOffset(), {
-          duration: 1,
-          type: 'tween',
-          ease: 'easeOut',
-          onComplete: () => (pauseAnim.current = false),
-        });
-      } else {
-        console.log('this one');
-        animate(x, -itemWidth.current / 2 + fullWidth.current * getWrappedOffset(), {
-          duration: 1,
-          type: 'tween',
-          ease: 'easeOut',
-          onComplete: () => (pauseAnim.current = false),
-        });
-      }
+      const nextPos =
+        isMd && !isSm ? gap.current / 2 + fullWidth.current * getWrappedOffset() : -itemWidth.current / 2 + fullWidth.current * getWrappedOffset();
+
+      isPaused.current = true;
+      animate(x, nextPos, {
+        duration: 1,
+        type: 'tween',
+        ease: 'easeOut',
+        onComplete: () => (isPaused.current = false),
+      });
     };
     measure();
     const observer = new ResizeObserver(() => {
@@ -78,16 +84,12 @@ function CarouselItem({
   }, [itemsRef.current[index], isSm, isMd]);
 
   useAnimationFrame((t, delta) => {
-    if (pauseAnim.current) return;
+    if (isDragged.current) return;
+    if (isPaused.current) return;
 
-    const speed = 10;
+    const speed = 2;
     const current = x.get();
     let next = current - (delta / 1000) * speed;
-
-    if (next < -fullWidth.current * (index + 1)) {
-      next += itemsRef.current.length * fullWidth.current;
-      offset.current -= 1;
-    }
 
     x.set(next);
   });
@@ -112,26 +114,91 @@ function CarouselItem({
 }
 
 function Carousel() {
-  const isHovered = useRef(false);
+  const windowWidth = useRef(window.innerWidth);
+  const motionValues = useRef<MotionValue[]>([new MotionValue(0), new MotionValue(0), new MotionValue(0), new MotionValue(0), new MotionValue(0)]);
+  const initItemPositions = useRef<number[]>([]);
+  const isPaused = useRef(false);
+  const isDragged = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const offset = useRef(0);
+  const containerWidth = useRef(0);
+
+  // -----------------------
+  // Effects
+  // -----------------------
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      windowWidth.current = window.innerWidth;
+      containerWidth.current = containerRef.current?.offsetWidth ?? 0;
+    };
+
+    measure();
+    const observer = new ResizeObserver(() => {
+      measure();
+    });
+
+    if (itemsRef.current[0]) observer.observe(itemsRef.current[0]!);
+    return () => observer.disconnect();
+  }, [itemsRef.current[0]]);
+
+  // -----------------------
+  // Event Handlers
+  // -----------------------
 
   const handleMouseEnter = () => {
-    // isHovered.current = true;
+    isPaused.current = true;
   };
 
   const handleMouseLeave = () => {
-    // isHovered.current = false;
+    isPaused.current = false;
+  };
+
+  const handleDragStart = () => {
+    isDragged.current = true;
+    initItemPositions.current = motionValues.current.map((x) => x.get());
+    console.log(initItemPositions.current);
+  };
+
+  const handleDragEnd = () => {
+    isDragged.current = false;
+    initItemPositions.current = [];
+  };
+
+  const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const offset = (info.offset.x / windowWidth.current) * 100;
+    motionValues.current.forEach((x, i) => {
+      x.set((initItemPositions.current[i] ?? x.get()) + offset);
+    });
   };
 
   return (
     <div className="max-w-full items-center overflow-x-hidden bg-gray-200 py-12" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div ref={containerRef} className="flex w-fit border">
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0}
+        onDragStart={handleDragStart}
+        onDrag={handleDrag}
+        onDragEnd={handleDragEnd}
+        ref={containerRef}
+        className="flex w-fit border"
+      >
         {[...Array(5)].map((_, i) => (
-          <CarouselItem key={i} index={i} parent={containerRef} pauseAnim={isHovered} itemsRef={itemsRef} offset={offset} />
+          <CarouselItem
+            x={motionValues.current[i]}
+            key={i}
+            index={i}
+            parent={containerRef}
+            isPaused={isPaused}
+            isDragged={isDragged}
+            itemsRef={itemsRef}
+            offset={offset}
+          />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
