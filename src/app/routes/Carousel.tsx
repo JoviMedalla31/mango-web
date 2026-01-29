@@ -19,6 +19,8 @@ import {
 } from 'motion/react';
 import { CarouselDimensions } from '@/types/carousel';
 import { modulo, moduloOffset } from '@/util/math';
+import useRerender from '@/hooks/useRerender';
+import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 const items = [
   'bg-orange-300',
@@ -37,6 +39,7 @@ const CarouselItem = ({
   color,
   x,
   itemsRef,
+  onRefsAssigned: handleRefsAssigned,
   itemCount,
   dimensions,
 }: {
@@ -45,6 +48,7 @@ const CarouselItem = ({
   color: string;
   x: MotionValue;
   itemsRef: RefObject<(HTMLDivElement | null)[]>;
+  onRefsAssigned: () => void;
   itemCount: RefObject<number>;
   dimensions: CarouselDimensions;
 }) => {
@@ -53,7 +57,6 @@ const CarouselItem = ({
     const containerOffset = -((index + 1) * dimensions.full.current);
 
     // Add offset to items
-    console.log(dimensions.full.current, dimensions.gap.current, dimensions.item.current);
     val += dimensions.item.current / 2;
     // Wrap item on container
     val = moduloOffset(val, containerWidth, containerOffset);
@@ -71,6 +74,7 @@ const CarouselItem = ({
       }}
       ref={(el) => {
         itemsRef.current[index] = el;
+        handleRefsAssigned();
       }}
     >
       <div
@@ -83,6 +87,11 @@ const CarouselItem = ({
 };
 
 const Carousel = () => {
+  // Hooks
+  const { refreshed, rerender } = useRerender();
+  const { isSm, isMd } = useWidthCheck();
+
+  // Meta
   const itemCount = useRef(items.length);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -117,7 +126,23 @@ const Carousel = () => {
     measure();
     if (itemsRef.current[0]) observer.observe(itemsRef.current[0]);
     return () => observer.disconnect();
-  }, [itemsRef.current[0]]);
+  }, [itemsRef.current[0], refreshed]);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const next = offset.current * fullItemWidth.current;
+      animation.current = animate(translateX, next, {
+        type: 'spring',
+      });
+    };
+    const observer = new ResizeObserver(() => {
+      measure();
+    });
+
+    measure();
+    if (itemsRef.current[0]) observer.observe(itemsRef.current[0]);
+    return () => observer.disconnect();
+  });
 
   // -----------------------
   // Framer Animation
@@ -164,7 +189,6 @@ const Carousel = () => {
     nextX = offset.current * fullItemWidth.current;
 
     translateX.stop();
-    console.log(info.velocity.x);
     animation.current = animate(translateX, nextX, {
       type: 'spring',
       velocity: Math.max(Math.min(info.velocity.x, 100), -100),
@@ -191,6 +215,10 @@ const Carousel = () => {
     pauseScroll.current = false;
   };
 
+  const handleRefsAssigned = () => {
+    rerender();
+  };
+
   return (
     <div
       onMouseEnter={handleMouseEnter}
@@ -214,6 +242,7 @@ const Carousel = () => {
             color={color}
             x={translateX}
             itemsRef={itemsRef}
+            onRefsAssigned={handleRefsAssigned}
             itemCount={itemCount}
             dimensions={{ full: fullItemWidth, gap: gapWidth, item: itemWidth }}
           >
