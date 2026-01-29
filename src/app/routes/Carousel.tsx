@@ -50,10 +50,11 @@ const CarouselItem = ({
   const translateX = useTransform(x, (val) => {
     const containerWidth = dimensions.full.current * itemCount.current;
 
-    if (val + index * dimensions.full.current < containerWidth) {
-      val = modulo(val, containerWidth);
+    val = modulo(val + index * dimensions.full.current, containerWidth);
+
+    if (index == 7) {
+      console.log(modulo(val + (index + 1) * dimensions.full.current, containerWidth));
     }
-    if (index == 1) console.log(val + index * dimensions.full.current);
 
     return `${val}dvw`;
   });
