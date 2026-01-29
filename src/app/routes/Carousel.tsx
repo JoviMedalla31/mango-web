@@ -15,6 +15,7 @@ import {
   PanInfo,
   AnimationPlaybackControlsWithThen,
   useAnimate,
+  useAnimationFrame,
 } from 'motion/react';
 import { CarouselDimensions } from '@/types/carousel';
 import { modulo, moduloOffset } from '@/util/math';
@@ -84,7 +85,6 @@ const CarouselItem = ({
 const Carousel = () => {
   const itemCount = useRef(items.length);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const motionValues = useRef<MotionValue[]>(items.map((_) => new MotionValue(0)));
 
   // Carousel Dimensions
   const windowWidth = useRef(0);
@@ -97,6 +97,10 @@ const Carousel = () => {
   const animation = useRef<AnimationPlaybackControlsWithThen>(null);
   const offset = useRef(0);
   const dragStartX = useRef<number | null>(null);
+
+  // Autoscroll
+  const scrollProgress = useRef(fullItemWidth.current / 2);
+  const pauseScroll = useRef(false);
 
   // -----------------------
   // Effects
@@ -116,10 +120,31 @@ const Carousel = () => {
   }, [itemsRef.current[0]]);
 
   // -----------------------
+  // Framer Animation
+  // -----------------------
+
+  useAnimationFrame((t, delta) => {
+    if (pauseScroll.current) return;
+
+    const speed = 3;
+    const change = (delta / 1000) * speed;
+    const next = translateX.get() - change;
+
+    scrollProgress.current += change;
+    translateX.set(next);
+
+    if (scrollProgress.current >= fullItemWidth.current) {
+      offset.current -= 1;
+      scrollProgress.current -= fullItemWidth.current;
+    }
+  });
+
+  // -----------------------
   // Event Hanlders
   // -----------------------
 
   const handleDragStart = () => {
+    scrollProgress.current = fullItemWidth.current / 2;
     dragStartX.current = translateX.get();
   };
 
@@ -145,12 +170,11 @@ const Carousel = () => {
       velocity: Math.max(Math.min(info.velocity.x, 100), -100),
       duration: 1.2,
     });
-
-    motionValues.current.map((x, i) => {});
   };
 
   const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (dragStartX.current == null) {
+      // Stop the animation because if not it will still play in the BG.
       animation.current?.stop();
       return;
     }
@@ -159,8 +183,20 @@ const Carousel = () => {
     translateX.set((dragStartX.current ?? translateX.get()) + dragOffset);
   };
 
+  const handleMouseEnter = () => {
+    pauseScroll.current = true;
+  };
+
+  const handleMouseLeave = () => {
+    pauseScroll.current = false;
+  };
+
   return (
-    <div className="max-w-full overflow-x-hidden bg-gray-200 py-12">
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="max-w-full overflow-x-hidden bg-gray-200 py-12"
+    >
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
