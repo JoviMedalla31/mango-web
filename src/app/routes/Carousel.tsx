@@ -17,7 +17,7 @@ import {
   useAnimate,
 } from 'motion/react';
 import { CarouselDimensions } from '@/types/carousel';
-import { modulo } from '@/util/math';
+import { modulo, moduloOffset } from '@/util/math';
 
 const items = [
   'bg-orange-300',
@@ -49,24 +49,25 @@ const CarouselItem = ({
 }) => {
   const translateX = useTransform(x, (val) => {
     const containerWidth = dimensions.full.current * itemCount.current;
+    const containerOffset = -((index + 1) * dimensions.full.current);
 
-    val = modulo(val + index * dimensions.full.current, containerWidth);
-
-    if (index == 7) {
-      console.log(modulo(val + (index + 1) * dimensions.full.current, containerWidth));
-    }
+    // Add offset to items
+    console.log(dimensions.full.current, dimensions.gap.current, dimensions.item.current);
+    val += dimensions.item.current / 2;
+    // Wrap item on container
+    val = moduloOffset(val, containerWidth, containerOffset);
 
     return `${val}dvw`;
   });
 
-  // useMotionValueEvent(x, 'change', () => {
-  //   // TODO: Add Looping Logic
-  // });
-
   return (
     <motion.div
-      style={{ width: `${25}dvw`, x: translateX }}
-      className="min-w-[25dvw] pr-[2dvw]"
+      style={{
+        minWidth: `${dimensions.full.current}dvw`,
+        width: `${dimensions.full.current}dvw`,
+        paddingRight: `${dimensions.gap.current}dvw`,
+        x: translateX,
+      }}
       ref={(el) => {
         itemsRef.current[index] = el;
       }}
@@ -88,7 +89,7 @@ const Carousel = () => {
   // Carousel Dimensions
   const windowWidth = useRef(0);
   const fullItemWidth = useRef(25);
-  const gapWidth = useRef(3);
+  const gapWidth = useRef(2);
   const itemWidth = useRef(fullItemWidth.current - gapWidth.current);
 
   // Drag & Carousel Props
