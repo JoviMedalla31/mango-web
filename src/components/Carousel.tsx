@@ -63,8 +63,6 @@ const CarouselItem = ({
     const mdLayoutOffset = dimensions.item.current / 2;
     const lgLayoutOffset = dimensions.item.current / 2;
 
-    console.log(mdLayoutOffset);
-
     // Add offset to items
     val += isSm ? smLayoutOffset : isMd ? mdLayoutOffset : lgLayoutOffset;
     // Wrap item on container
@@ -100,7 +98,7 @@ const CarouselItem = ({
 
 const Carousel = ({ items }: { items: ReactNode[] }) => {
   // Carousel Items
-  // const carouselItems = [...items, ...items];
+  const carouselItems = [...items, ...items];
   // const carouselItems = true ? [...items, ...items] : [items];
 
   // Hooks
@@ -108,7 +106,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
   const { isSm, isMd } = useWidthCheck();
 
   // Meta
-  const itemCount = useRef(items.length);
+  const itemCount = useRef(carouselItems.length);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   // Carousel Dimensions
@@ -270,6 +268,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
+        style={{ width: `${carouselItems.length * fullItemWidth.current}dvw` }}
         dragElastic={0}
         dragMomentum={false}
         onDrag={handleDrag}
@@ -277,7 +276,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
         onDragEnd={handleDragEnd}
         className="flex"
       >
-        {[...Array(6)].map((node, i) => (
+        {carouselItems.map((node, i) => (
           <CarouselItem
             key={i}
             index={i}
@@ -287,7 +286,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
             itemCount={itemCount}
             dimensions={{ full: fullItemWidth, gap: gapWidth, item: itemWidth }}
           >
-            {<p>pee</p>}
+            {node}
           </CarouselItem>
         ))}
       </motion.div>
