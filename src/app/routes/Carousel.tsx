@@ -1,24 +1,15 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  ReactNode,
-  RefObject,
-} from 'react';
+import { useRef, useLayoutEffect, ReactNode, RefObject } from 'react';
 import {
   motion,
   animate,
   MotionValue,
   useTransform,
-  useMotionValueEvent,
   PanInfo,
   AnimationPlaybackControlsWithThen,
-  useAnimate,
   useAnimationFrame,
 } from 'motion/react';
 import { CarouselDimensions } from '@/types/carousel';
-import { modulo, moduloOffset } from '@/util/math';
+import { clamp, moduloOffset } from '@/util/math';
 import useRerender from '@/hooks/useRerender';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
@@ -32,6 +23,18 @@ const items = [
   'bg-violet-400',
   'bg-rose-400',
 ];
+
+const FULL_ITEM_WIDTH = {
+  SM: 50,
+  MD: 50,
+  LG: 25,
+};
+
+const GAP_WIDTH = {
+  SM: 3,
+  MD: 3,
+  LG: 2,
+};
 
 const CarouselItem = ({
   children,
@@ -52,14 +55,22 @@ const CarouselItem = ({
   itemCount: RefObject<number>;
   dimensions: CarouselDimensions;
 }) => {
+  const { isSm, isMd } = useWidthCheck();
+
   const translateX = useTransform(x, (val) => {
     const containerWidth = dimensions.full.current * itemCount.current;
-    const containerOffset = -((index + 1) * dimensions.full.current);
+    const scrollOffset = -((index + 1) * dimensions.full.current);
+
+    const smLayoutOffset = dimensions.gap.current / 2;
+    const mdLayoutOffset = dimensions.item.current / 2;
+    const lgLayoutOffset = dimensions.item.current / 2;
+
+    console.log(mdLayoutOffset);
 
     // Add offset to items
-    val += dimensions.item.current / 2;
+    val += isSm ? smLayoutOffset : isMd ? mdLayoutOffset : lgLayoutOffset;
     // Wrap item on container
-    val = moduloOffset(val, containerWidth, containerOffset);
+    val = moduloOffset(val, containerWidth, scrollOffset);
 
     return `${val}dvw`;
   });
@@ -81,7 +92,7 @@ const CarouselItem = ({
       }}
     >
       <div
-        className={`${color} flex h-full w-full items-center justify-center rounded-[4rem]`}
+        className={`${color} flex aspect-3/4 w-full items-center justify-center rounded-[4rem]`}
       >
         <div className="select-none">{children}</div>
       </div>
@@ -120,8 +131,16 @@ const Carousel = () => {
   // Effects
   // -----------------------
 
-  useEffect(() => {
-    console.log('small');
+  useLayoutEffect(() => {
+    if (isMd) {
+      fullItemWidth.current = FULL_ITEM_WIDTH.SM;
+    } else {
+      fullItemWidth.current = FULL_ITEM_WIDTH.LG;
+    }
+
+    itemWidth.current = fullItemWidth.current - gapWidth.current;
+
+    rerender();
   }, [isSm, isMd]);
 
   useLayoutEffect(() => {
@@ -163,6 +182,8 @@ const Carousel = () => {
   // -----------------------
 
   useAnimationFrame((t, delta) => {
+    // return;
+    if (isSm) return;
     if (pauseScroll.current) return;
 
     const speed = 3;
@@ -191,11 +212,12 @@ const Carousel = () => {
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) => {
+    const velocityThreshold = 500;
     const dvwOffset = (info.offset.x / windowWidth.current) * 100;
     let draggedOffset = Math.round(dvwOffset / fullItemWidth.current);
     let nextX: number;
 
-    if (draggedOffset == 0 && Math.abs(info.velocity.x) > 1000)
+    if (draggedOffset == 0 && Math.abs(info.velocity.x) > velocityThreshold)
       draggedOffset = info.velocity.x > 0 ? 1 : -1;
 
     offset.current += draggedOffset;
@@ -205,7 +227,7 @@ const Carousel = () => {
     translateX.current.stop();
     animation.current = animate(translateX.current, nextX, {
       type: 'spring',
-      velocity: Math.max(Math.min(info.velocity.x, 100), -100),
+      velocity: clamp(info.velocity.x, 100, -100),
       duration: 1.2,
     });
   };
@@ -247,7 +269,7 @@ const Carousel = () => {
         onDrag={handleDrag}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        className="flex h-60"
+        className="flex"
       >
         {items.map((color, i) => (
           <CarouselItem
