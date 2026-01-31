@@ -66,6 +66,9 @@ const CarouselItem = ({
 
   return (
     <motion.div
+      initial={{
+        x: translateX.get(),
+      }}
       style={{
         minWidth: `${dimensions.full.current}dvw`,
         width: `${dimensions.full.current}dvw`,
@@ -102,18 +105,24 @@ const Carousel = () => {
   const itemWidth = useRef(fullItemWidth.current - gapWidth.current);
 
   // Drag & Carousel Props
-  const translateX = new MotionValue(0);
+  // const translateX = new MotionValue(0);
+  const translateX = useRef<MotionValue>(new MotionValue(0));
   const animation = useRef<AnimationPlaybackControlsWithThen>(null);
   const offset = useRef(0);
   const dragStartX = useRef<number | null>(null);
 
   // Autoscroll
   const scrollProgress = useRef(fullItemWidth.current / 2);
+  const isResizing = useRef(false);
   const pauseScroll = useRef(false);
 
   // -----------------------
   // Effects
   // -----------------------
+
+  useEffect(() => {
+    console.log('small');
+  }, [isSm, isMd]);
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -131,7 +140,12 @@ const Carousel = () => {
   useLayoutEffect(() => {
     const measure = () => {
       const next = offset.current * fullItemWidth.current;
-      animation.current = animate(translateX, next, {
+
+      isResizing.current = true;
+      scrollProgress.current = 0;
+      // translateX.set(next);
+      animation.current?.stop();
+      animation.current = animate(translateX.current, next, {
         type: 'spring',
       });
     };
@@ -153,10 +167,10 @@ const Carousel = () => {
 
     const speed = 3;
     const change = (delta / 1000) * speed;
-    const next = translateX.get() - change;
+    const next = translateX.current.get() - change;
 
     scrollProgress.current += change;
-    translateX.set(next);
+    translateX.current.set(next);
 
     if (scrollProgress.current >= fullItemWidth.current) {
       offset.current -= 1;
@@ -170,7 +184,7 @@ const Carousel = () => {
 
   const handleDragStart = () => {
     scrollProgress.current = fullItemWidth.current / 2;
-    dragStartX.current = translateX.get();
+    dragStartX.current = translateX.current.get();
   };
 
   const handleDragEnd = (
@@ -188,8 +202,8 @@ const Carousel = () => {
     dragStartX.current = null;
     nextX = offset.current * fullItemWidth.current;
 
-    translateX.stop();
-    animation.current = animate(translateX, nextX, {
+    translateX.current.stop();
+    animation.current = animate(translateX.current, nextX, {
       type: 'spring',
       velocity: Math.max(Math.min(info.velocity.x, 100), -100),
       duration: 1.2,
@@ -204,7 +218,7 @@ const Carousel = () => {
     }
 
     const dragOffset = (info.offset.x / windowWidth.current) * 100;
-    translateX.set((dragStartX.current ?? translateX.get()) + dragOffset);
+    translateX.current.set((dragStartX.current ?? translateX.current.get()) + dragOffset);
   };
 
   const handleMouseEnter = () => {
@@ -240,7 +254,7 @@ const Carousel = () => {
             key={i}
             index={i}
             color={color}
-            x={translateX}
+            x={translateX.current}
             itemsRef={itemsRef}
             onRefsAssigned={handleRefsAssigned}
             itemCount={itemCount}
