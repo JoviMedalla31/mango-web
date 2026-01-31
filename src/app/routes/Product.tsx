@@ -42,10 +42,19 @@ const Header = () => {
         <Link to="/">
           <img src={logo} className="ml-6 sm:ml-28" />
         </Link>
-        <Menu className="mt-4 mr-6 block w-8 cursor-pointer stroke-3 sm:hidden" onClick={handleMenuPressed} />
+        <Menu
+          className="mt-4 mr-6 block w-8 cursor-pointer stroke-3 sm:hidden"
+          onClick={handleMenuPressed}
+        />
       </div>
-      <motion.div className="bg-mango-400 fixed left-[100dvw] h-full w-full" animate={{ left: showSidebar ? '0dvw' : '100dvw' }}>
-        <X className="absolute top-5 right-5 aspect-square h-8 w-8 cursor-pointer" onClick={handleMenuClosePressed} />
+      <motion.div
+        className="bg-mango-400 fixed left-[100dvw] h-full w-full"
+        animate={{ left: showSidebar ? '0dvw' : '100dvw' }}
+      >
+        <X
+          className="absolute top-5 right-5 aspect-square h-8 w-8 cursor-pointer"
+          onClick={handleMenuClosePressed}
+        />
         <div className="flex h-full w-full flex-col items-center justify-center gap-8 text-2xl font-bold">
           <p>About Us</p>
           <p>Products</p>
@@ -87,7 +96,9 @@ const Products = () => {
     if (!el) return;
 
     const observer = new ResizeObserver((entries) => {
-      setMainRectBottom((mainRef.current?.getBoundingClientRect().bottom ?? 0) + scrollY.get());
+      setMainRectBottom(
+        (mainRef.current?.getBoundingClientRect().bottom ?? 0) + scrollY.get(),
+      );
     });
 
     observer.observe(el);
@@ -117,9 +128,16 @@ const Products = () => {
   return (
     <div className="bg-mango-100 text-mango-800 flex min-h-dvh w-full flex-col items-center">
       <Header />
-      <main ref={mainRef} className="font-poppins mt-8 mb-20 w-full items-center text-2xl sm:mb-60 sm:text-lg/snug lg:text-xl xl:text-2xl">
+      <main
+        ref={mainRef}
+        className="font-poppins mt-8 mb-20 w-full items-center text-2xl sm:mb-60 sm:text-lg/snug lg:text-xl xl:text-2xl"
+      >
         {!isSm && (
-          <motion.div style={{ marginTop: productMargin }} transition={{ duration: 0 }} className="pointer-events-none fixed block w-dvw">
+          <motion.div
+            style={{ marginTop: productMargin }}
+            transition={{ duration: 0 }}
+            className="pointer-events-none fixed block w-dvw"
+          >
             <div className="mx-auto max-w-180 lg:max-w-240 xl:max-w-300">
               <div className="mx-auto w-1/3 px-2">
                 <img src={stripsImg} className="w-full" />
@@ -133,9 +151,13 @@ const Products = () => {
               <div className="text-mango-400 mx-auto mt-18 flex w-fit flex-col items-start">
                 <h1 className="text-[clamp(1rem,14cqw,200rem)]">
                   Dried Mango <br />
-                  <span className="text-mango-800 text-[clamp(1rem,26cqw,200rem)]/[90%] font-extrabold">STRIPS</span>
+                  <span className="text-mango-800 text-[clamp(1rem,26cqw,200rem)]/[90%] font-extrabold">
+                    STRIPS
+                  </span>
                 </h1>
-                <h2 className="self-end text-right text-[clamp(1rem,13cqw,200rem)]">100g</h2>
+                <h2 className="self-end text-right text-[clamp(1rem,13cqw,200rem)]">
+                  100g
+                </h2>
               </div>
             </div>
             {isSm && (
@@ -144,17 +166,26 @@ const Products = () => {
               </div>
             )}
             <div className="col-start-1 mb-12 pt-6 text-center sm:col-start-3">
-              We make use of all parts of the mango, this product is made from the mango surrounding the seeds to create a unique product
-              that taste the same as the Original Slices
+              We make use of all parts of the mango, this product is made from the mango
+              surrounding the seeds to create a unique product that taste the same as the
+              Original Slices
             </div>
             {data.map((block, i) => (
               <div
+                key={i}
                 className={`${i % 2 == 0 ? 'col-start-1 sm:mt-60' : 'col-start-1 sm:col-start-3'} mt-14 flex flex-col items-center text-center sm:mt-0`}
               >
                 <div className="px-2">
-                  <img src={import.meta.env.BASE_URL + `images/${block[0]}`} className="max-w-full" />
+                  <img
+                    src={import.meta.env.BASE_URL + `images/${block[0]}`}
+                    className="max-w-full"
+                  />
                 </div>
-                <h3 className={`font-pt-serif mt-8 text-2xl font-bold lg:text-3xl xl:text-4xl`}>{block[1]}</h3>
+                <h3
+                  className={`font-pt-serif mt-8 text-2xl font-bold lg:text-3xl xl:text-4xl`}
+                >
+                  {block[1]}
+                </h3>
                 <p className="mt-3">{block[2]}</p>
               </div>
             ))}
@@ -165,32 +196,51 @@ const Products = () => {
         <div className="z-1 grid w-full max-w-180 grid-cols-1 gap-x-8 px-4 text-2xl sm:grid-cols-2 sm:text-lg/snug lg:max-w-240 lg:grid-cols-3 lg:text-xl xl:max-w-300 xl:text-2xl">
           <div className="col-start-1 mt-8 max-w-70 px-8 text-center sm:mt-0 sm:max-w-90">
             <div>
-              <svg viewBox="0 0 333 86" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-mango-400 -mb-1 w-full">
+              <svg
+                viewBox="0 0 333 86"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-mango-400 -mb-1 w-full"
+              >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M332.999 85.9998L333.004 16.0816L309.254 4.37001e-05L0.000336502 76.7506L0.000335693 86.0029L332.999 85.9998Z"
                 />
               </svg>
               <div className="bg-mango-400 w-full px-6 pt-8 pb-24">
-                <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">Ingredients</h3>
+                <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">
+                  Ingredients
+                </h3>
                 <p className="mt-4 text-base sm:text-lg lg:text-xl xl:text-2xl">
-                  Selected ripe mangoes, refined sugar, sweeteners (glucose & sorbitol), iodized salt, sodium metabisulfate as perservative
+                  Selected ripe mangoes, refined sugar, sweeteners (glucose & sorbitol),
+                  iodized salt, sodium metabisulfate as perservative
                 </p>
               </div>
             </div>
           </div>
           <div className="col-start-1 row-start-1 mx-auto max-w-100 sm:col-start-2 lg:col-start-3">
             <div className="border-faded-mango-200 rounded-3xl border-4 border-dashed px-8 py-4 text-center">
-              <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">Ready to order?</h3>
-              <p className="mt-2 lg:mt-4">click the link below to see how you can order</p>
+              <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">
+                Ready to order?
+              </h3>
+              <p className="mt-2 lg:mt-4">
+                click the link below to see how you can order
+              </p>
             </div>
-            <div className="mx-auto -mt-1 w-fit" mx-auto>
-              <div className="bg-mango-400 -mt-1 w-fit p-2 pb-0 text-lg font-extrabold text-white lg:text-xl xl:text-2xl">ORDER NOW</div>
-              <svg viewBox="0 0 171 47" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-mango-400 -mt-1">
+            <div className="mx-auto -mt-1 w-fit">
+              <div className="bg-mango-400 -mt-1 w-fit p-2 pb-0 text-lg font-extrabold text-white lg:text-xl xl:text-2xl">
+                ORDER NOW
+              </div>
+              <svg
+                viewBox="0 0 171 47"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-mango-400 -mt-1"
+              >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
                 />
               </svg>

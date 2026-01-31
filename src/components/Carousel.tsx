@@ -13,17 +13,6 @@ import { clamp, moduloOffset } from '@/util/math';
 import useRerender from '@/hooks/useRerender';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
-// const items = [
-//   'bg-orange-300',
-//   'bg-amber-300',
-//   'bg-lime-300',
-//   'bg-emerald-300',
-//   'bg-cyan-300',
-//   'bg-indigo-400',
-//   'bg-violet-400',
-//   'bg-rose-400',
-// ];
-
 const FULL_ITEM_WIDTH = {
   SM: 50,
   MD: 50,
@@ -88,7 +77,7 @@ const CarouselItem = ({
       }}
     >
       <div
-        className={`flex aspect-3/4 w-full items-center justify-center rounded-[4rem] border`}
+        className={`border-faded-mango-100 flex aspect-3/4 w-full cursor-pointer items-center justify-center rounded-[4rem] border-5 px-2 py-4`}
       >
         <div className="select-none">{children}</div>
       </div>
@@ -166,11 +155,6 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
       scrollProgress.current = 0;
 
       translateX.current.set(next);
-
-      // animation.current?.stop();
-      // animation.current = animate(translateX.current, next, {
-      //   type: 'spring',
-      // });
     };
     const observer = new ResizeObserver(() => {
       measure();
@@ -179,7 +163,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
     measure();
     if (itemsRef.current[0]) observer.observe(itemsRef.current[0]);
     return () => observer.disconnect();
-  });
+  }, []);
 
   // -----------------------
   // Framer Animation
@@ -190,7 +174,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
     if (isSm) return;
     if (pauseScroll.current) return;
 
-    const speed = 3;
+    const speed = 2;
     const change = (delta / 1000) * speed;
     const next = translateX.current.get() - change;
 

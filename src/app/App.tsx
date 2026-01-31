@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { DragEvent, MouseEvent, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useScroll, useTransform, motion, useSpring, MotionValue } from 'motion/react';
 
 import logo from '/images/home/logo.svg';
@@ -67,6 +67,10 @@ const Img = ({
 };
 
 function App() {
+  // Hooks
+  const navigate = useNavigate();
+
+  const mouseDownPos = useRef<[number, number] | null>(null);
   const [ready, setReady] = useState(false);
   const { scrollY } = useScroll();
   const scrollYProgress = useTransform(scrollY, [0, 300], [0, 1], { clamp: true });
@@ -78,8 +82,29 @@ function App() {
     );
   });
 
+  const handleDragStart = (e: DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleCarouselMouseDown = (e: MouseEvent) => {
+    mouseDownPos.current = [e.screenX, e.screenY];
+  };
+
+  const handleCarouselClicked = (path: string) => (e: MouseEvent) => {
+    const mouseOffset = [
+      Math.abs((mouseDownPos.current?.[0] ?? 0) - e.screenX),
+      Math.abs((mouseDownPos.current?.[1] ?? 0) - e.screenY),
+    ];
+
+    mouseDownPos.current = null;
+    if (mouseOffset[0] > 10 || mouseOffset[1] > 10) return;
+
+    navigate(`products/${path}`);
+    console.log('item clicked');
+  };
+
   return (
-    <div className="font-poppins text-2xl">
+    <div className="font-poppins bg-mango-100 text-2xl">
       {!ready ? (
         <p>I AM LOADING</p>
       ) : (
@@ -112,10 +137,30 @@ function App() {
             <section>
               <Carousel
                 items={[
-                  <img src={sliceImg} />,
-                  <img src={stripImg} />,
-                  <img src={spaghettiImg} />,
-                  <img src={chocolateImg} />,
+                  <div
+                    onMouseDown={handleCarouselMouseDown}
+                    onClick={handleCarouselClicked('strips')}
+                  >
+                    <img src={sliceImg} className="pointer-events-none select-none" />
+                  </div>,
+                  <div
+                    onMouseDown={handleCarouselMouseDown}
+                    onClick={handleCarouselClicked('strips')}
+                  >
+                    <img src={stripImg} className="pointer-events-none select-none" />
+                  </div>,
+                  <div
+                    onMouseDown={handleCarouselMouseDown}
+                    onClick={handleCarouselClicked('strips')}
+                  >
+                    <img src={spaghettiImg} className="pointer-events-none select-none" />
+                  </div>,
+                  <div
+                    onMouseDown={handleCarouselMouseDown}
+                    onClick={handleCarouselClicked('strips')}
+                  >
+                    <img src={chocolateImg} className="pointer-events-none select-none" />
+                  </div>,
                 ]}
               />
             </section>
