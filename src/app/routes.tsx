@@ -22,13 +22,13 @@ const router = createHashRouter([
       return { Component: Products.default };
     },
   },
-  {
-    path: 'carousel',
-    lazy: async () => {
-      let Carousel = await import('@/app/routes/Carousel');
-      return { Component: Carousel.default };
-    },
-  },
+  // {
+  //   path: 'carousel',
+  //   lazy: async () => {
+  //     let Carousel = await import('@/components/Carousel');
+  //     return { Component: Carousel.default };
+  //   },
+  // },
 ]);
 
 export default router;

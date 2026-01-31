@@ -5,6 +5,12 @@ import { useScroll, useTransform, motion, useSpring, MotionValue } from 'motion/
 import logo from '/images/home/logo.svg';
 import charA from '/images/home/char-a.svg';
 import { useEffect } from 'react';
+import Carousel from '@/components/Carousel';
+
+import chocolateImg from '/images/products/carousel/chocolate.png';
+import sliceImg from '/images/products/carousel/slice.png';
+import spaghettiImg from '/images/products/carousel/spaghetti.png';
+import stripImg from '/images/products/carousel/strip.png';
 
 const pageImages = [logo, charA];
 
@@ -49,7 +55,12 @@ const Img = ({
     <motion.img
       src={src}
       initial={{ x: X, y: Y, rotate }}
-      animate={{ x: initialX, y: initialY, rotate: initialRotate, transition: { duration: 0.7, ease: [0.07, 0.7, 0.2, 1.0] } }}
+      animate={{
+        x: initialX,
+        y: initialY,
+        rotate: initialRotate,
+        transition: { duration: 0.7, ease: [0.07, 0.7, 0.2, 1.0] },
+      }}
       style={{ x, y, rotate: rot }}
     />
   );
@@ -62,7 +73,9 @@ function App() {
   const scrollYSpring = useSpring(scrollYProgress, { bounce: 0 });
 
   useEffect(() => {
-    Promise.all([document.fonts.ready, preloadImages(pageImages)]).then(() => setReady(true));
+    Promise.all([document.fonts.ready, preloadImages(pageImages)]).then(() =>
+      setReady(true),
+    );
   });
 
   return (
@@ -79,10 +92,32 @@ function App() {
           </header>
           <main className="w-full">
             <section className="bg-mango-100 relative h-312 w-full overflow-x-hidden">
-              <img src={logo} className="absolute top-82 left-1/2 -translate-x-1/2 -rotate-[9.6deg]" />
+              <img
+                src={logo}
+                className="absolute top-82 left-1/2 -translate-x-1/2 -rotate-[9.6deg]"
+              />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <Img src={charA} scrollY={scrollYSpring} initialX={150} X={290} initialY={-10} Y={200} rotate={120} initialRotate={-6.64} />
+                <Img
+                  src={charA}
+                  scrollY={scrollYSpring}
+                  initialX={150}
+                  X={290}
+                  initialY={-10}
+                  Y={200}
+                  rotate={120}
+                  initialRotate={-6.64}
+                />
               </div>
+            </section>
+            <section>
+              <Carousel
+                items={[
+                  <img src={sliceImg} />,
+                  <img src={stripImg} />,
+                  <img src={spaghettiImg} />,
+                  <img src={chocolateImg} />,
+                ]}
+              />
             </section>
           </main>
           <Link to="/products/strips">

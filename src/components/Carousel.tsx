@@ -13,16 +13,16 @@ import { clamp, moduloOffset } from '@/util/math';
 import useRerender from '@/hooks/useRerender';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
-const items = [
-  'bg-orange-300',
-  'bg-amber-300',
-  'bg-lime-300',
-  'bg-emerald-300',
-  'bg-cyan-300',
-  'bg-indigo-400',
-  'bg-violet-400',
-  'bg-rose-400',
-];
+// const items = [
+//   'bg-orange-300',
+//   'bg-amber-300',
+//   'bg-lime-300',
+//   'bg-emerald-300',
+//   'bg-cyan-300',
+//   'bg-indigo-400',
+//   'bg-violet-400',
+//   'bg-rose-400',
+// ];
 
 const FULL_ITEM_WIDTH = {
   SM: 50,
@@ -39,7 +39,6 @@ const GAP_WIDTH = {
 const CarouselItem = ({
   children,
   index,
-  color,
   x,
   itemsRef,
   onRefsAssigned: handleRefsAssigned,
@@ -48,7 +47,6 @@ const CarouselItem = ({
 }: {
   children?: ReactNode;
   index: number;
-  color: string;
   x: MotionValue;
   itemsRef: RefObject<(HTMLDivElement | null)[]>;
   onRefsAssigned: () => void;
@@ -92,7 +90,7 @@ const CarouselItem = ({
       }}
     >
       <div
-        className={`${color} flex aspect-3/4 w-full items-center justify-center rounded-[4rem]`}
+        className={`flex aspect-3/4 w-full items-center justify-center rounded-[4rem] border`}
       >
         <div className="select-none">{children}</div>
       </div>
@@ -100,7 +98,11 @@ const CarouselItem = ({
   );
 };
 
-const Carousel = () => {
+const Carousel = ({ items }: { items: ReactNode[] }) => {
+  // Carousel Items
+  // const carouselItems = [...items, ...items];
+  // const carouselItems = true ? [...items, ...items] : [items];
+
   // Hooks
   const { refreshed, rerender } = useRerender();
   const { isSm, isMd } = useWidthCheck();
@@ -138,7 +140,9 @@ const Carousel = () => {
       fullItemWidth.current = FULL_ITEM_WIDTH.LG;
     }
 
+    animation.current?.stop();
     itemWidth.current = fullItemWidth.current - gapWidth.current;
+    translateX.current.set(offset.current * fullItemWidth.current);
 
     rerender();
   }, [isSm, isMd]);
@@ -162,11 +166,13 @@ const Carousel = () => {
 
       isResizing.current = true;
       scrollProgress.current = 0;
-      // translateX.set(next);
-      animation.current?.stop();
-      animation.current = animate(translateX.current, next, {
-        type: 'spring',
-      });
+
+      translateX.current.set(next);
+
+      // animation.current?.stop();
+      // animation.current = animate(translateX.current, next, {
+      //   type: 'spring',
+      // });
     };
     const observer = new ResizeObserver(() => {
       measure();
@@ -259,7 +265,7 @@ const Carousel = () => {
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="max-w-full overflow-x-hidden bg-gray-200 py-12"
+      className="max-w-full overflow-x-hidden"
     >
       <motion.div
         drag="x"
@@ -271,18 +277,17 @@ const Carousel = () => {
         onDragEnd={handleDragEnd}
         className="flex"
       >
-        {items.map((color, i) => (
+        {[...Array(6)].map((node, i) => (
           <CarouselItem
             key={i}
             index={i}
-            color={color}
             x={translateX.current}
             itemsRef={itemsRef}
             onRefsAssigned={handleRefsAssigned}
             itemCount={itemCount}
             dimensions={{ full: fullItemWidth, gap: gapWidth, item: itemWidth }}
           >
-            Items
+            {<p>pee</p>}
           </CarouselItem>
         ))}
       </motion.div>
