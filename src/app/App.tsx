@@ -11,6 +11,7 @@ import chocolateImg from '/images/products/carousel/chocolate.png';
 import sliceImg from '/images/products/carousel/slice.png';
 import spaghettiImg from '/images/products/carousel/spaghetti.png';
 import stripImg from '/images/products/carousel/strip.png';
+import Header from '@/components/Header';
 
 const pageImages = [logo, charA];
 
@@ -28,7 +29,7 @@ function preloadImages(srcs: string[]) {
   );
 }
 
-const Img = ({
+const HeroImg = ({
   src,
   scrollY,
   initialX,
@@ -69,12 +70,21 @@ const Img = ({
 function App() {
   // Hooks
   const navigate = useNavigate();
+  const { scrollY } = useScroll();
+
+  // Ref
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const mouseDownPos = useRef<[number, number] | null>(null);
   const [ready, setReady] = useState(false);
-  const { scrollY } = useScroll();
+
+  // Motion Values
   const scrollYProgress = useTransform(scrollY, [0, 300], [0, 1], { clamp: true });
   const scrollYSpring = useSpring(scrollYProgress, { bounce: 0 });
+
+  // --------------------
+  // Effects
+  // --------------------
 
   useEffect(() => {
     Promise.all([document.fonts.ready, preloadImages(pageImages)]).then(() =>
@@ -82,14 +92,16 @@ function App() {
     );
   });
 
-  const handleDragStart = (e: DragEvent) => {
-    e.preventDefault();
-  };
+  // --------------------
+  // Event Handler
+  // --------------------
 
   const handleCarouselMouseDown = (e: MouseEvent) => {
     mouseDownPos.current = [e.screenX, e.screenY];
   };
 
+  // Navigate to product page if carousel ends on the same position.
+  // (will still navigate even if carousel was dragged and returned to the same position)
   const handleCarouselClicked = (path: string) => (e: MouseEvent) => {
     const mouseOffset = [
       Math.abs((mouseDownPos.current?.[0] ?? 0) - e.screenX),
@@ -109,20 +121,15 @@ function App() {
         <p>I AM LOADING</p>
       ) : (
         <>
-          <header className="bg-mango-400 flex h-12 w-full items-center justify-center gap-8 text-xl text-white">
-            <p>About Us</p>
-            <p>Products</p>
-            <p>How to Order?</p>
-            <p>Contact Us</p>
-          </header>
+          <Header revealRef={carouselRef} />
           <main className="w-full">
-            <section className="bg-mango-100 relative h-312 w-full overflow-x-hidden">
+            <section className="bg-mango-100 relative z-0 h-312 w-full overflow-x-hidden">
               <img
                 src={logo}
                 className="absolute top-82 left-1/2 -translate-x-1/2 -rotate-[9.6deg]"
               />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <Img
+                <HeroImg
                   src={charA}
                   scrollY={scrollYSpring}
                   initialX={150}
@@ -136,6 +143,7 @@ function App() {
             </section>
             <section>
               <Carousel
+                ref={carouselRef}
                 items={[
                   <div
                     onMouseDown={handleCarouselMouseDown}

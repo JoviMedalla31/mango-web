@@ -85,7 +85,13 @@ const CarouselItem = ({
   );
 };
 
-const Carousel = ({ items }: { items: ReactNode[] }) => {
+const Carousel = ({
+  ref,
+  items,
+}: {
+  ref?: RefObject<HTMLDivElement | null>;
+  items: ReactNode[];
+}) => {
   // Carousel Items
   const carouselItems = [...items, ...items];
   // const carouselItems = true ? [...items, ...items] : [items];
@@ -245,6 +251,7 @@ const Carousel = ({ items }: { items: ReactNode[] }) => {
 
   return (
     <div
+      {...{ ref }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="max-w-full overflow-x-hidden"

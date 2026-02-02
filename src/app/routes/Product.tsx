@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import Papa from 'papaparse';
@@ -19,6 +19,18 @@ const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   useLockBodyScroll(showSidebar);
+
+  // ----------------
+  // Effects
+  // ----------------
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // ----------------
+  // Event Handler
+  // ----------------
 
   const handleMenuPressed = () => {
     setShowSidebar(true);
