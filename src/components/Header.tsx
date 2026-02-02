@@ -93,7 +93,7 @@ const Header = ({
               <p>Home</p>
             </Link>
             <Link to="/">
-              <p>Prodcuts</p>
+              <p>Products</p>
             </Link>
             <Link to="/">
               <p>Bulk Orders</p>
