@@ -23,6 +23,7 @@ const Header = ({
   const [showHeader, setShowHeader] = useState(true);
 
   // Reference Object
+  const [hasRevealRef, setHasRevealRef] = useState(revealRef != null);
   const revealY = useRef<number>(0);
 
   // ----------------
@@ -67,8 +68,14 @@ const Header = ({
   }, [revealRef, revealRef?.current]);
 
   useLayoutEffect(() => {
-    if (!revealY?.current) setHeader(false);
+    console.log('reveal ref: ', hasRevealRef);
+    if (!revealY?.current) {
+      setHasRevealRef(false);
+      setHeader(false);
+      return;
+    }
 
+    setHasRevealRef(true);
     revealY.current = revealRef?.current?.offsetTop ?? 0;
   }, [revealRef, revealRef?.current]);
 
@@ -76,7 +83,7 @@ const Header = ({
     <motion.header
       ref={ref}
       initial={{
-        y: HIDDEN,
+        y: hasRevealRef ? HIDDEN : VISIBLE,
       }}
       animate={{
         y: showHeader ? VISIBLE : HIDDEN,
@@ -87,21 +94,23 @@ const Header = ({
       <div className="bg-mango-400 h-4" />
       <div className="w-full">
         <div className="relative mx-auto max-w-(--xl)">
-          <img src={logo} className="absolute top-0 left-8" />
-          <nav className="text-mango-800 flex justify-center gap-10 pt-4 pb-3 text-xl">
-            <Link to="/">
-              <p>Home</p>
-            </Link>
-            <Link to="/">
-              <p>Products</p>
-            </Link>
-            <Link to="/">
-              <p>Bulk Orders</p>
-            </Link>
-            <Link to="/">
-              <p>Contact Us</p>
-            </Link>
-          </nav>
+          <img src={logo} className="absolute -top-px left-8" />
+          <div className="hidden sm:block">
+            <nav className="text-mango-800 flex justify-center gap-10 pt-4 pb-3 text-xl">
+              <Link to="/">
+                <p>Home</p>
+              </Link>
+              <Link to="/">
+                <p>Products</p>
+              </Link>
+              <Link to="/">
+                <p>Bulk Orders</p>
+              </Link>
+              <Link to="/">
+                <p>Contact Us</p>
+              </Link>
+            </nav>
+          </div>
         </div>
       </div>
     </motion.header>
