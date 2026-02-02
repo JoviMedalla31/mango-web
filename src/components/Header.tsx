@@ -1,37 +1,87 @@
-import { RefObject, useLayoutEffect, useRef } from 'react';
-import { motion, MotionStyle, MotionValue, useScroll, useTransform } from 'motion/react';
+import { useState, RefObject, useLayoutEffect, useRef } from 'react';
+import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 import logo from '/images/header-logo.svg';
 
+const HIDDEN = -150;
+const VISIBLE = 0;
+
 const Header = ({
   ref = useRef<HTMLDivElement>(null),
   revealRef,
+  revealOffset = -200,
 }: {
   ref?: RefObject<HTMLDivElement | null>;
   revealRef?: RefObject<HTMLDivElement | null>;
+  revealOffset?: number;
 }) => {
-  const revealY = useRef<number>(0);
-
+  // Hooks
   const { scrollY } = useScroll();
 
-  // Motion Values
-  const nextY = new MotionValue(0);
-  const translateY = useTransform(scrollY, (scroll) => {
-    console.log(revealY.current);
-    // console.log(revealRef?.current?.offsetTop);
-    if (!revealRef?.current) return nextY.get();
-    return nextY.get();
+  // Local States
+  const [showHeader, setShowHeader] = useState(true);
+
+  // Reference Object
+  const revealY = useRef<number>(0);
+
+  // ----------------
+  // Custom Function
+  // ----------------
+
+  const setHeader = (state: boolean) => {
+    if (showHeader != state) setShowHeader(state);
+  };
+
+  // ----------------
+  // Framer Motion
+  // ----------------
+
+  useMotionValueEvent(scrollY, 'change', (scroll) => {
+    const reveal = revealY.current;
+    if (reveal <= 0) {
+      setHeader(true);
+      return;
+    }
+
+    const showHeader = scroll >= reveal + revealOffset;
+    setHeader(showHeader);
   });
 
+  // ----------------
+  // Effects
+  // ----------------
+
   useLayoutEffect(() => {
+    const measure = () => {
+      revealY.current = revealRef?.current?.offsetTop ?? 0;
+    };
+
+    const observer = new ResizeObserver(() => {
+      measure();
+    });
+
+    measure();
+    if (revealRef?.current) observer.observe(revealRef.current);
+    return () => observer.disconnect();
+  }, [revealRef, revealRef?.current]);
+
+  useLayoutEffect(() => {
+    if (!revealY?.current) setHeader(false);
+
     revealY.current = revealRef?.current?.offsetTop ?? 0;
   }, [revealRef, revealRef?.current]);
 
   return (
     <motion.header
       ref={ref}
-      style={{ y: translateY }}
+      initial={{
+        y: HIDDEN,
+      }}
+      animate={{
+        y: showHeader ? VISIBLE : HIDDEN,
+      }}
+      transition={{ type: 'tween', ease: 'easeOut', duration: 0.35 }}
       className="bg-faded-mango-100 fixed top-0 z-20 w-full"
     >
       <div className="bg-mango-400 h-4" />

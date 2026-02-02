@@ -169,7 +169,7 @@ const Carousel = ({
     measure();
     if (itemsRef.current[0]) observer.observe(itemsRef.current[0]);
     return () => observer.disconnect();
-  }, []);
+  }, [itemsRef.current]);
 
   // -----------------------
   // Framer Animation
