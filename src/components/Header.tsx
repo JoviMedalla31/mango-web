@@ -68,7 +68,6 @@ const Header = ({
   }, [revealRef, revealRef?.current]);
 
   useLayoutEffect(() => {
-    console.log('reveal ref: ', hasRevealRef);
     if (!revealY?.current) {
       setHasRevealRef(false);
       setHeader(false);
