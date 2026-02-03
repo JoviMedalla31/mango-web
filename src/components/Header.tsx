@@ -1,8 +1,10 @@
-import { useState, RefObject, useLayoutEffect, useRef } from 'react';
-import { motion, useMotionValueEvent, useScroll } from 'motion/react';
+import { useState, RefObject, useLayoutEffect, useRef, useEffect } from 'react';
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 import logo from '/images/header-logo.svg';
+import { Menu } from 'lucide-react';
+import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 const HIDDEN = -150;
 const VISIBLE = 0;
@@ -18,9 +20,11 @@ const Header = ({
 }) => {
   // Hooks
   const { scrollY } = useScroll();
+  const { isSm, isMd } = useWidthCheck();
 
   // Local States
   const [showHeader, setShowHeader] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
 
   // Reference Object
   const [hasRevealRef, setHasRevealRef] = useState(revealRef != null);
@@ -78,41 +82,118 @@ const Header = ({
     revealY.current = revealRef?.current?.offsetTop ?? 0;
   }, [revealRef, revealRef?.current]);
 
+  useEffect(() => {
+    if (showMenu) setShowMenu(false);
+  }, [showHeader, isSm]);
+
+  // ----------------
+  // Event Handler
+  // ----------------
+
+  const handleHamburgerMenuClicked = () => {
+    setShowMenu((prev) => !prev);
+  };
+
   return (
-    <motion.header
-      ref={ref}
-      initial={{
-        y: hasRevealRef ? HIDDEN : VISIBLE,
-      }}
-      animate={{
-        y: showHeader ? VISIBLE : HIDDEN,
-      }}
-      transition={{ type: 'tween', ease: 'easeOut', duration: 0.35 }}
-      className="bg-faded-mango-100 fixed top-0 z-20 w-full"
-    >
-      <div className="bg-mango-400 h-4" />
-      <div className="w-full">
-        <div className="relative mx-auto max-w-(--xl)">
-          <img src={logo} className="absolute -top-px left-8" />
-          <div className="hidden sm:block">
-            <nav className="text-mango-800 flex justify-center gap-10 pt-4 pb-3 text-xl">
-              <Link to="/">
-                <p>Home</p>
-              </Link>
-              <Link to="/">
-                <p>Products</p>
-              </Link>
-              <Link to="/">
-                <p>Bulk Orders</p>
-              </Link>
-              <Link to="/">
-                <p>Contact Us</p>
-              </Link>
-            </nav>
+    <>
+      <motion.header
+        ref={ref}
+        initial={{
+          y: hasRevealRef ? HIDDEN : VISIBLE,
+        }}
+        animate={{
+          y: showHeader ? VISIBLE : HIDDEN,
+          backgroundColor: showMenu
+            ? 'var(--color-mango-50)'
+            : 'var(--color-faded-mango-100)',
+        }}
+        transition={{ type: 'tween', ease: 'easeOut', duration: 0.35 }}
+        className={`${showMenu && 'menu'} fixed top-0 z-20 w-full`}
+      >
+        <div className="bg-mango-400 h-4" />
+        <div className="w-full">
+          <div
+            className="relative mx-auto flex h-14 max-w-(--xl) items-center justify-end
+              px-4 sm:h-auto"
+          >
+            <motion.div
+              className="absolute w-62 -top-px sm:left-8 left-1/2 -translate-x-1/2 flex
+                flex-col bg-red"
+            >
+              <motion.div
+                animate={{
+                  height: showMenu ? '70dvh' : 0,
+                  paddingTop: showMenu ? '3rem' : '0rem',
+                }}
+                initial={{ height: 0 }}
+                transition={{
+                  type: showMenu ? 'spring' : 'tween',
+                  ease: 'easeOut',
+                }}
+                className="flex justify-center items-center overflow-clip bg-mango-400"
+              >
+                <nav
+                  className="flex sm:hidden flex-col gap-18 text-center font-semibold
+                    text-3xl justify-center text-mango-800"
+                >
+                  <Link to="/">
+                    <p>Home</p>
+                  </Link>
+                  <Link to="/">
+                    <p>Products</p>
+                  </Link>
+                  <Link to="/">
+                    <p>Bulk Orders</p>
+                  </Link>
+                  <Link to="/">
+                    <p>Contact Us</p>
+                  </Link>
+                </nav>
+              </motion.div>
+              <img src={logo} className="pointer-events-none" />
+            </motion.div>
+            <div className="p-1 cursor-pointer">
+              <Menu
+                className="stroke-3 stroke-mango-800"
+                onClick={handleHamburgerMenuClicked}
+              />
+            </div>
+            {!isSm && (
+              <div className="grow">
+                <nav
+                  className="text-mango-800 flex justify-center gap-10 pt-4 pb-3 text-xl"
+                >
+                  <Link to="/">
+                    <p>Home</p>
+                  </Link>
+                  <Link to="/">
+                    <p>Products</p>
+                  </Link>
+                  <Link to="/">
+                    <p>Bulk Orders</p>
+                  </Link>
+                  <Link to="/">
+                    <p>Contact Us</p>
+                  </Link>
+                </nav>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-    </motion.header>
+      </motion.header>
+      <AnimatePresence>
+        {showMenu && (
+          <motion.div
+            id="testid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed z-19 top-0 left-0 w-screen h-screen bg-mango-50/88"
+            onClick={handleHamburgerMenuClicked}
+          ></motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

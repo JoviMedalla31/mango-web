@@ -131,12 +131,12 @@ function App() {
   };
 
   return (
-    <div className="font-poppins bg-mango-100 text-2xl">
+    <div className="font-poppins relative bg-mango-100 text-2xl">
       {!ready ? (
         <p>I AM LOADING</p>
       ) : (
         <>
-          <Header revealRef={carouselRef} />
+          <Header revealRef={carouselRef} revealOffset={-750} />
           <main className="w-full">
             {/* Branding Nav Bar (Not real nav bar) */}
             <section className="bg-faded-mango-100 w-full">
