@@ -20,7 +20,9 @@ const Header = ({
 }) => {
   // Hooks
   const { scrollY } = useScroll();
-  const { isSm, isMd } = useWidthCheck();
+  const { isSm, isMd, isLg } = useWidthCheck();
+
+  console.log('small', isSm)
 
   // Local States
   const [showHeader, setShowHeader] = useState(true);
@@ -84,7 +86,7 @@ const Header = ({
 
   useEffect(() => {
     if (showMenu) setShowMenu(false);
-  }, [showHeader, isSm]);
+  }, [showHeader, isLg]);
 
   // ----------------
   // Event Handler
@@ -93,6 +95,10 @@ const Header = ({
   const handleHamburgerMenuClicked = () => {
     setShowMenu((prev) => !prev);
   };
+
+  const closeHamburgerMenu = () => {
+    setShowMenu(false);
+  }
 
   return (
     <>
@@ -114,10 +120,10 @@ const Header = ({
         <div className="w-full">
           <div
             className="relative mx-auto flex h-14 max-w-(--xl) items-center justify-end
-              px-4 sm:h-auto"
+              px-4 lg:h-auto"
           >
             <motion.div
-              className="absolute w-62 -top-px sm:left-8 left-1/2 -translate-x-1/2 flex
+              className="absolute w-46 lg:w-46 md:w-54 -top-px left-8  flex
                 flex-col bg-red"
             >
               <motion.div
@@ -133,8 +139,8 @@ const Header = ({
                 className="flex justify-center items-center overflow-clip bg-mango-400"
               >
                 <nav
-                  className="flex sm:hidden flex-col gap-18 text-center font-semibold
-                    text-3xl justify-center text-mango-800"
+                  className="flex lg:hidden flex-col gap-18 text-center font-semibold
+                    text-2xl justify-center text-mango-800"
                 >
                   <Link to="/">
                     <p>Home</p>
@@ -154,11 +160,11 @@ const Header = ({
             </motion.div>
             <div className="p-1 cursor-pointer">
               <Menu
-                className="stroke-3 stroke-mango-800"
+                className="stroke-3 block lg:hidden stroke-mango-800"
                 onClick={handleHamburgerMenuClicked}
               />
             </div>
-            {!isSm && (
+            {!isLg && (
               <div className="grow">
                 <nav
                   className="text-mango-800 flex justify-center gap-10 pt-4 pb-3 text-xl"
@@ -189,7 +195,8 @@ const Header = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed z-19 top-0 left-0 w-screen h-screen bg-mango-50/88"
-            onClick={handleHamburgerMenuClicked}
+            onMouseDown={closeHamburgerMenu}
+            onTouchStart={closeHamburgerMenu}
           ></motion.div>
         )}
       </AnimatePresence>
