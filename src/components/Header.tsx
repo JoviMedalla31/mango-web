@@ -61,7 +61,8 @@ const Header = ({
 
   useLayoutEffect(() => {
     const measure = () => {
-      revealY.current = revealRef?.current?.offsetTop ?? 0;
+      console.log(revealRef?.current?.offsetTop)
+      revealY.current = revealRef?.current?.getBoundingClientRect().top ?? 0;
     };
 
     const observer = new ResizeObserver(() => {

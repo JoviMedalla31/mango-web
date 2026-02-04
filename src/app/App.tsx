@@ -10,10 +10,15 @@ import logo from '/images/home/logo.svg';
 import charA from '/images/home/char-a.svg';
 import heroLogo from '/images/hero/hero-logo.svg';
 import dividerA from '/images/divider-a.svg';
+import dividerB from '/images/divider-b.svg';
 // Shapes
 import mango2 from '/images/shapes/mango-2.svg';
 import long3 from '/images/shapes/long-3.svg';
+import long5 from '/images/shapes/long-5.svg';
 import strips2 from '/images/shapes/strips-2.svg';
+import strips4 from '/images/shapes/strips-4.svg';
+
+import tree from '/images/home/tree.svg';
 
 // Carousel Img
 import chocolateImg from '/images/products/carousel/chocolate.png';
@@ -137,7 +142,7 @@ function App() {
       ) : (
         <>
           <Header revealRef={carouselRef} revealOffset={-750} />
-          <main className="w-full">
+          <main id="hero" className="w-full relative">
             {/* Branding Nav Bar (Not real nav bar) */}
             <section className="bg-faded-mango-100 w-full">
               <div className="bg-mango-400 h-4 w-full" />
@@ -177,10 +182,15 @@ function App() {
               </div>
               <img
                 src={dividerA}
-                className="pointer-events-none absolute bottom-0 select-none"
+                className="pointer-events-none absolute min-w-xl left-1/2 -translate-x-1/2
+                  bottom-0 select-none"
               />
             </section>
-            <section className="py-44">
+            <section
+              id="products"
+              className="py-20 pb-22 md:py-28 md:pb-34 lg:py-34 lg:pb-39 xl:py-44 xl:pb-52
+                relative"
+            >
               <Carousel
                 ref={carouselRef}
                 items={[
@@ -210,11 +220,48 @@ function App() {
                   </div>,
                 ]}
               />
+              <img
+                src={dividerB}
+                className="min-w-xl absolute left-1/2 -translate-x-1/2 pointer-events-none
+                  bottom-0 w-full"
+              />
+            </section>
+            <section
+              id="about-us "
+              className="text-mango-800 text-center max-w-360 w-full mx-auto flex flex-col
+                justify-stretch px-40"
+            >
+              <div className="flex">
+                <div className="grow border relative border-red-500">
+                  <img src={tree} className="absolute right-5 top-40" />
+                </div>
+                <div
+                  className="w-160 border-red-500 border h-200 items-center flex
+                    justify-center relative"
+                >
+                  <div className="z-1">
+                    <h3 className="font-pt-serif font-bold text-6xl mb-8">Who Are We?</h3>
+                    <p className="text-faded-mango-500">
+                      The Guadalupe Brand has been under the careful watch of{' '}
+                      <span className="font-bold">Camiluz Enterprises Inc.</span> since
+                      1979. <br /> A family owned business aiming to for provide
+                      high-quality, additive-free dried mangoes that travelers are excited
+                      to bring back home to share.
+                    </p>
+                  </div>
+                  <img
+                    src={strips4}
+                    className="h-64 rotate-112 absolute top-12 -right-12"
+                  />
+                  <img src={long5} className="absolute top-25 left-0" />
+                </div>
+              </div>
             </section>
           </main>
-          <Link to="/products/strips">
+          <div className="h-300" />
+          {/* <Link to="/products/strips">
             <p className="h-300">Strips</p>
-          </Link>
+          </Link> */}
         </>
       )}
     </div>
