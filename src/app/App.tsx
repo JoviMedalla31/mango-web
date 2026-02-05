@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { DragEvent, MouseEvent, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { MapPin } from 'lucide-react';
 import { useScroll, useTransform, motion, useSpring, MotionValue } from 'motion/react';
 import Header from '@/components/Header';
 import Carousel from '@/components/Carousel';
@@ -13,10 +14,12 @@ import dividerA from '/images/divider-a.svg';
 import dividerB from '/images/divider-b.svg';
 // Shapes
 import mango2 from '/images/shapes/mango-2.svg';
+import mango3b from '/images/shapes/mango-3b.svg';
 import long3 from '/images/shapes/long-3.svg';
 import long5 from '/images/shapes/long-5.svg';
 import strips2 from '/images/shapes/strips-2.svg';
 import strips4 from '/images/shapes/strips-4.svg';
+import dashedLine from '/images/shapes/dashed-line.svg';
 
 import tree from '/images/home/tree.svg';
 
@@ -234,6 +237,8 @@ function App() {
               <div className="flex">
                 <div className="grow border relative border-red-500">
                   <img src={tree} className="absolute right-5 top-40" />
+                  <img src={mango3b} className="absolute -left-20 top-58 -rotate-24" />
+                  <img src={strips2} className="absolute bottom-0 -left-2 -rotate-30" />
                 </div>
                 <div
                   className="w-160 border-red-500 border h-200 items-center flex
@@ -254,6 +259,35 @@ function App() {
                     className="h-64 rotate-112 absolute top-12 -right-12"
                   />
                   <img src={long5} className="absolute top-25 left-0" />
+                </div>
+              </div>
+              <div className="flex">
+                <div className="grow border relative border-red-500 order-2">
+                  <img src={tree} className="absolute right-5 top-40" />
+                  <img src={mango3b} className="absolute -left-20 top-58 -rotate-24" />
+                  <img src={strips2} className="absolute bottom-0 -left-2 -rotate-30" />
+                </div>
+                <div
+                  className="w-160 border-red-500 border h-200 items-center flex
+                    justify-center relative"
+                >
+                  <div className="z-1 order-1">
+                    <h3 className="font-pt-serif font-bold text-6xl mb-8">The Heart</h3>
+                    <p className="text-faded-mango-500 w-151">
+                      We invite you to visit our factory store on Happy Valley Road, where
+                      our journey began. Shop our full range of classics and new
+                      innovations directly from the source.
+                    </p>
+                    <div
+                      className="mt-12 w-fit mx-auto px-4 font-semibold text-mango-400
+                        border-mango-400 flex gap-3 py-1 text-4xl border-5 rounded-xl
+                        border-dashed items-center"
+                    >
+                      <MapPin className="w-8 h-8 stroke-2" />
+                      Locate Store
+                    </div>
+                  </div>
+                  <img src={dashedLine} className="absolute left-0 top-0 min-w-385" />
                 </div>
               </div>
             </section>
