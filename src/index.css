@@ -27,7 +27,7 @@
 
   --color-ripe-600: #f76618;
 
-  --breakpoint-lg: 60rem;
+  --breakpoint-lg: 60rem; /*960px*/
 
   --xl: 90rem;
 }
