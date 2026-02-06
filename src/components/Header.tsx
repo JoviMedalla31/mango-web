@@ -6,7 +6,7 @@ import logo from '/images/header-logo.svg';
 import { Menu } from 'lucide-react';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
-const HIDDEN = -150;
+const HIDDEN = -170;
 const VISIBLE = 0;
 
 const Header = ({
@@ -29,7 +29,6 @@ const Header = ({
   // Reference Object
   const [hasRevealRef, setHasRevealRef] = useState(revealRef != null);
   const revealY = useRef<number>(0);
-  console.log('reveal Y: ', revealY.current);
 
   // ----------------
   // Custom Function
@@ -60,7 +59,6 @@ const Header = ({
 
   useLayoutEffect(() => {
     const measure = () => {
-      console.log('revealRef offsetTop: ', revealRef?.current?.offsetTop);
       revealY.current =
         (revealRef?.current?.getBoundingClientRect().top ?? 0) + window.scrollY;
     };

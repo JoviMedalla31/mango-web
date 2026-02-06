@@ -38,6 +38,8 @@ import stripImg from '/images/products/carousel/strip.png';
 // Footer
 import email from '/images/footer/email.svg';
 import phone from '/images/footer/phone.svg';
+import instagram from '/images/footer/instagram.svg';
+import facebook from '/images/footer/facebook.svg';
 
 const pageImages = [
   logo,
@@ -154,7 +156,7 @@ function App() {
         <p>I AM LOADING</p>
       ) : (
         <>
-          <Header revealRef={carouselRef} revealOffset={-750} />
+          <Header revealRef={carouselRef} revealOffset={-450} />
           <main id="hero" className="w-full relative overflow-x-clip">
             {/* Branding Nav Bar (Not real nav bar) */}
             <section className="bg-faded-mango-100 w-full">
@@ -241,14 +243,14 @@ function App() {
             </section>
             <section
               id="about-us "
-              className="text-mango-800 text-center max-w-304 px-16 sm:px-12 w-full
-                mx-auto flex flex-col justify-stretch gap-24 mb-17"
+              className="text-mango-800 my-30 text-center max-w-304 px-16 sm:px-12 w-full
+                mx-auto flex flex-col justify-stretch gap-8 sm:gap-12 md:gap-24"
             >
               <div
                 className="grid grid-cols-1 md:grid-cols-[0.7fr_1fr]
                   xl:grid-cols-[30rem_1fr]"
               >
-                <div className="border row-start-1 col-start-1 relative border-blue-500">
+                <div className="row-start-1 col-start-1 relative">
                   <img
                     src={tree}
                     className="absolute h-4/5 lg:h-auto md:h-full top-7/11
@@ -267,9 +269,8 @@ function App() {
                   />
                 </div>
                 <div
-                  className="border-red-500 row-start col-start-1 md:col-start-2
-                    row-start-1 border h-fit py-12 lg:h-200 items-center flex
-                    justify-center relative"
+                  className="row-start col-start-1 md:col-start-2 row-start-1 h-fit py-12
+                    lg:h-200 items-center flex justify-center relative"
                 >
                   <div className="z-1">
                     <h3 className="font-pt-serif text-3xl font-bold lg:text-6xl mb-8">
@@ -299,19 +300,17 @@ function App() {
                 className="grid grid-cols-1 md:grid-cols-[1fr_0.7fr]
                   xl:grid-cols-[1fr_30rem]"
               >
-                <div
-                  className="border row-start-1 col-start-1 relative border-blue-500
-                    md:col-start-2"
-                >
+                <div className="row-start-1 col-start-1 relative md:col-start-2">
                   <img
                     src={strips6}
-                    className="absolute w-44 right-10 rotate-0 lg:right-24 top-10
-                      lg:-top-10 lg:rotate-20"
+                    className="absolute hidden md:block w-44 right-1/2 translate-x-1/2 z-1
+                      lg:translate-x-0 rotate-0 lg:right-24 top-10 lg:-top-10
+                      lg:rotate-20"
                   />
                 </div>
                 <div
-                  className="border-red-500 row-start col-start-1 row-start-1 border h-fit
-                    py-12 lg:h-200 items-center flex justify-center relative"
+                  className="row-start col-start-1 row-start-1 h-fit py-12 lg:h-200
+                    items-center flex justify-center relative"
                 >
                   <div className="z-1">
                     <h3 className="font-pt-serif text-3xl font-bold lg:text-6xl mb-8">
@@ -323,9 +322,9 @@ function App() {
                       innovations directly from the source.
                     </p>
                     <div
-                      className="mt-12 w-fit mx-auto px-4 font-semibold text-mango-400
-                        border-mango-400 flex gap-3 py-1 text-4xl border-5 rounded-xl
-                        border-dashed items-center"
+                      className="mt-12 text-lg w-fit mx-auto px-4 font-semibold
+                        text-mango-400 border-mango-400 flex gap-3 py-1 sm:text-2xl
+                        lg:text-4xl border-5 rounded-xl border-dashed items-center"
                     >
                       <MapPin className="w-8 h-8 stroke-2" />
                       Locate Store
@@ -338,18 +337,20 @@ function App() {
                   />
                   <img
                     src={long1}
-                    className="absolute block md:hidden lg:block -left-45 top-20
+                    className="absolute block md:hidden lg:block left-1/2 md:translate-x-0
+                      -translate-x-55 md:w-auto w-25 top-5 md:-left-45 md:top-20
                       -rotate-5"
                   />
                   <img
                     src={mango4}
-                    className="absolute w-20 left-1/2 -translate-x-76 lg:-left-20 bottom-7
-                      lg:bottom-22 -rotate-70"
+                    className="absolute w-16 left-1/2 -translate-x-55 sm:-translate-x-64
+                      lg:-left-20 bottom-7 lg:bottom-22 -rotate-70"
                   />
                   <img
                     src={mapPin}
-                    className="absolute block md:hidden lg:block left-1/2 translate-x-95
-                      top-32 z-1"
+                    className="absolute block md:hidden lg:block left-1/2 translate-x-28
+                      sm:translate-x-36 lg:w-auto w-30 lg:translate-x-95 lg:bottom-auto
+                      bottom-5 lg:top-32 z-1"
                   />
                 </div>
               </div>
@@ -357,9 +358,9 @@ function App() {
           </main>
           <footer className="z-1 flex w-full flex-col items-center overflow-x-hidden">
             <div
-              className="z-1 grid w-full max-w-180 grid-cols-1 gap-x-8 px-4 text-2xl
-                md:grid-cols-2 sm:text-lg/snug lg:max-w-240 lg:grid-cols-3 lg:text-xl
-                xl:max-w-300 xl:text-2xl"
+              className="z-1 grid justify-items-center w-full max-w-180 grid-cols-1
+                gap-x-8 px-4 text-2xl md:grid-cols-2 sm:text-lg/snug lg:max-w-240
+                lg:grid-cols-3 lg:text-xl xl:max-w-300 xl:text-2xl"
             >
               <div className="col-start-1 mt-8 max-w-70 text-center md:mt-0 md:max-w-90">
                 <div>
@@ -375,7 +376,9 @@ function App() {
                       d="M332.999 85.9998L333.004 16.0816L309.254 4.37001e-05L0.000336502 76.7506L0.000335693 86.0029L332.999 85.9998Z"
                     />
                   </svg>
-                  <div className="bg-mango-400 w-full text-mango-800 px-6 pt-8 pb-24">
+                  <div
+                    className="bg-mango-400 w-full text-mango-800 px-6 pt-8 pb-8 md:pb-24"
+                  >
                     <h3
                       className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl"
                     >
@@ -385,7 +388,10 @@ function App() {
                       Please contact us with the following for bulk orders and wholesale
                       pricing
                     </p>
-                    <div className="mt-12 text-base flex gap-4 flex-col items-center">
+                    <div
+                      className="mt-12 hidden md:flex text-base gap-4 flex-col
+                        items-center"
+                    >
                       <div className="flex gap-2">
                         <img src={phone} />
                         <p>(032)254-1572</p>
@@ -446,16 +452,36 @@ function App() {
                 <path d="M431.76 21.8398L648.48 45.3604L863.52 16.7998L1080.24 40.3203L1295.28 38.6406L1440 24.0557V56.5H0V30.2402L216.72 0L431.76 21.8398Z" />
               </svg>
             </div>
-            <div className="bg-mango-400 z-2 w-full min-w-300">
+            <div className="bg-mango-400 z-2 w-full min-h-10 relative">
               <svg
                 preserveAspectRatio="none"
                 height="51"
                 viewBox="0 0 1440 51"
                 xmlns="http://www.w3.org/2000/svg"
-                className="fill-mango-400 w-full -translate-y-[98%]"
+                className="fill-mango-400 absolute left-1/2 -translate-x-1/2 top-0 w-full
+                  min-w-300 -translate-y-[98%]"
               >
                 <path d="M1440 51H0V14.5742L216.72 33.0537L431.76 7.85352L648.48 16.2539L863.521 33.0537L1080.24 43.1338L1295.28 7.85352L1440 0V51Z" />
               </svg>
+              <div className="md:hidden flex text-base mt-12 gap-2 flex-col items-center">
+                <div className="flex gap-2">
+                  <img src={phone} />
+                  <p>(032)254-1572</p>
+                </div>
+                <div className="flex gap-2">
+                  <img src={email} />
+                  <p>camiluzenterprises@gmail.com</p>
+                </div>
+              </div>
+              <div className="md:hidden flex flex-col items-center my-8">
+                <h3 className="font-pt-serif text-3xl italic text-mango-800">
+                  Join the Community
+                </h3>
+                <div className="gap-8 mt-2 flex">
+                  <img className="w-10" src={instagram} />
+                  <img className="w-10" src={facebook} />
+                </div>
+              </div>
             </div>
           </footer>
         </>
