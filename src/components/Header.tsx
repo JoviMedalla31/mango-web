@@ -22,8 +22,6 @@ const Header = ({
   const { scrollY } = useScroll();
   const { isSm, isMd, isLg } = useWidthCheck();
 
-  console.log('small', isSm)
-
   // Local States
   const [showHeader, setShowHeader] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
@@ -31,6 +29,7 @@ const Header = ({
   // Reference Object
   const [hasRevealRef, setHasRevealRef] = useState(revealRef != null);
   const revealY = useRef<number>(0);
+  console.log('reveal Y: ', revealY.current);
 
   // ----------------
   // Custom Function
@@ -61,8 +60,9 @@ const Header = ({
 
   useLayoutEffect(() => {
     const measure = () => {
-      console.log(revealRef?.current?.offsetTop)
-      revealY.current = revealRef?.current?.getBoundingClientRect().top ?? 0;
+      console.log('revealRef offsetTop: ', revealRef?.current?.offsetTop);
+      revealY.current =
+        (revealRef?.current?.getBoundingClientRect().top ?? 0) + window.scrollY;
     };
 
     const observer = new ResizeObserver(() => {
@@ -99,7 +99,7 @@ const Header = ({
 
   const closeHamburgerMenu = () => {
     setShowMenu(false);
-  }
+  };
 
   return (
     <>
@@ -115,7 +115,7 @@ const Header = ({
             : 'var(--color-faded-mango-100)',
         }}
         transition={{ type: 'tween', ease: 'easeOut', duration: 0.35 }}
-        className={`${showMenu && 'menu'} fixed top-0 z-20 w-full`}
+        className={`${showMenu && 'menu'} fixed top-0 z-21 w-full`}
       >
         <div className="bg-mango-400 h-4" />
         <div className="w-full">
@@ -124,8 +124,8 @@ const Header = ({
               px-4 lg:h-auto"
           >
             <motion.div
-              className="absolute w-46 lg:w-46 md:w-54 -top-px left-8  flex
-                flex-col bg-red"
+              className="absolute w-46 lg:w-46 md:w-54 -top-px left-8 flex flex-col
+                bg-red"
             >
               <motion.div
                 animate={{
