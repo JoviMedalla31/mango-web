@@ -56,6 +56,7 @@ import phone from '/images/footer/phone.svg';
 import instagram from '/images/footer/instagram.svg';
 import facebook from '/images/footer/facebook.svg';
 import Footer from '@/components/Footer';
+import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 const pageImages = [
   logo,
@@ -95,11 +96,14 @@ const HeroImg = ({
   y?: [number, number];
   rotate?: [number, number];
 }) => {
+  const { isSm, isMd, isLg } = useWidthCheck();
+
   const x = useTransform(scrollY, [0, 1], [initialX, X], { clamp: true });
   const y = useTransform(scrollY, [0, 1], [initialY, Y], { clamp: true });
   const rot = useTransform(scrollY, [0, 1], [initialRotate, rotate], { clamp: true });
 
-  const transformX = useTransform(x, (val) => `${val / 16}rem`);
+  const baseUnit = isSm ? 24 : 16;
+  const transformX = useTransform(x, (val) => `${val / baseUnit}rem`);
   const transformY = useTransform(y, (val) => `${val / 16}rem`);
 
   return (
@@ -112,7 +116,7 @@ const HeroImg = ({
         rotate: initialRotate,
         transition: { duration: 0.7, ease: [0.07, 0.7, 0.2, 1.0] },
       }}
-      style={{ x: transformX, y: transformY, rotate: rot }}
+      style={{ x: transformX, y: transformY, rotate: rot, scale: isSm ? 0.7 : 1 }}
       className="absolute"
     />
   );
@@ -130,11 +134,11 @@ function App() {
   const [ready, setReady] = useState(false);
 
   // Motion Values
-  const scrollYProgress = useTransform(scrollY, [0, 650], [0, 1], { clamp: true });
+  const scrollYProgress = useTransform(scrollY, [0, 750], [0, 1], { clamp: true });
   const scrollYSpring = useSpring(scrollYProgress, { bounce: 0 });
 
   // Hero
-  const heroLogoHeight = useTransform(scrollYSpring, [0, 1], [0, 500], { clamp: true });
+  const heroLogoHeight = useTransform(scrollYProgress, [0, 1], [0, 700], { clamp: true });
 
   // --------------------
   // Effects
@@ -181,12 +185,12 @@ function App() {
             <section className="bg-faded-mango-100 w-full">
               <div className="bg-mango-400 h-4 w-full" />
               <div className="relative h-16">
-                <div className="absolute left-1/2 -translate-x-1/2 w-fit z-20">
+                <div className="absolute w-88 left-1/2 -translate-x-1/2 z-20">
                   <motion.div
                     className="w-full bg-mango-400"
                     style={{ height: heroLogoHeight }}
                   />
-                  <img src={heroLogo} className="w-88" />
+                  <img src={heroLogo} className="" />
                 </div>
               </div>
             </section>
