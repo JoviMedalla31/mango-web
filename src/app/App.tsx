@@ -13,17 +13,32 @@ import heroLogo from '/images/hero/hero-logo.svg';
 import dividerA from '/images/divider-a.svg';
 import dividerB from '/images/divider-b.svg';
 // Shapes
+import mango1 from '/images/shapes/mango-1.svg';
 import mango2 from '/images/shapes/mango-2.svg';
+import mango3 from '/images/shapes/mango-3.svg';
 import mango3b from '/images/shapes/mango-3b.svg';
 import mango4 from '/images/shapes/mango-4.svg';
+import mango5 from '/images/shapes/mango-5.svg';
+import mango6 from '/images/shapes/mango-6.svg';
 import long1 from '/images/shapes/long-1.svg';
 import long2 from '/images/shapes/long-2.svg';
 import long3 from '/images/shapes/long-3.svg';
 import long5 from '/images/shapes/long-5.svg';
 import strips1 from '/images/shapes/strips-1.svg';
 import strips2 from '/images/shapes/strips-2.svg';
+import strips3 from '/images/shapes/strips-3.svg';
 import strips4 from '/images/shapes/strips-4.svg';
+import strips5 from '/images/shapes/strips-5.svg';
 import strips6 from '/images/shapes/strips-6.svg';
+import strips7 from '/images/shapes/strips-7.svg';
+import strips8 from '/images/shapes/strips-8.svg';
+import strips9 from '/images/shapes/strips-9.svg';
+import strips10 from '/images/shapes/strips-10.svg';
+import strips11 from '/images/shapes/strips-11.svg';
+import strips12 from '/images/shapes/strips-12.svg';
+import strips13 from '/images/shapes/strips-13.svg';
+import strips14 from '/images/shapes/strips-14.svg';
+import strips15 from '/images/shapes/strips-15.svg';
 import dashedLine from '/images/shapes/dashed-line.svg';
 import mapPin from '/images/shapes/map-pin.svg';
 
@@ -40,6 +55,7 @@ import email from '/images/footer/email.svg';
 import phone from '/images/footer/phone.svg';
 import instagram from '/images/footer/instagram.svg';
 import facebook from '/images/footer/facebook.svg';
+import Footer from '@/components/Footer';
 
 const pageImages = [
   logo,
@@ -114,8 +130,11 @@ function App() {
   const [ready, setReady] = useState(false);
 
   // Motion Values
-  const scrollYProgress = useTransform(scrollY, [0, 500], [0, 1], { clamp: true });
+  const scrollYProgress = useTransform(scrollY, [0, 650], [0, 1], { clamp: true });
   const scrollYSpring = useSpring(scrollYProgress, { bounce: 0 });
+
+  // Hero
+  const heroLogoHeight = useTransform(scrollYSpring, [0, 1], [0, 500], { clamp: true });
 
   // --------------------
   // Effects
@@ -162,11 +181,17 @@ function App() {
             <section className="bg-faded-mango-100 w-full">
               <div className="bg-mango-400 h-4 w-full" />
               <div className="relative h-16">
-                <img src={heroLogo} className="absolute left-1/2 z-20 -translate-x-1/2" />
+                <div className="absolute left-1/2 -translate-x-1/2 w-fit z-20">
+                  <motion.div
+                    className="w-full bg-mango-400"
+                    style={{ height: heroLogoHeight }}
+                  />
+                  <img src={heroLogo} className="w-88" />
+                </div>
               </div>
             </section>
             {/* Hero Section */}
-            <section className="bg-mango-100 relative z-0 h-270 w-full overflow-x-hidden">
+            <section className="bg-mango-100 relative z-0 h-270 w-full overflow-hidden">
               {/* <img
                 src={logo}
                 className="absolute top-82 left-1/2 -translate-x-1/2 -rotate-[9.6deg]"
@@ -190,15 +215,204 @@ function App() {
                 <HeroImg
                   src={strips2}
                   scrollY={scrollYSpring}
-                  x={[240, 200]}
-                  y={[-250, -430]}
+                  x={[240, 203]}
+                  y={[-250, -439]}
                   rotate={[34, 0]}
+                />
+                <HeroImg
+                  src={mango5}
+                  scrollY={scrollYSpring}
+                  x={[40, 13]}
+                  y={[80, -183]}
+                  rotate={[20, 0]}
+                />
+                <HeroImg
+                  src={strips12}
+                  scrollY={scrollYSpring}
+                  x={[-270, -245]}
+                  y={[20, -121]}
+                  rotate={[50, 0]}
+                />
+                <HeroImg
+                  src={strips5}
+                  scrollY={scrollYSpring}
+                  x={[-68, -42]}
+                  y={[200, 10]}
+                  rotate={[-150, 0]}
+                />
+                <HeroImg
+                  src={mango6}
+                  scrollY={scrollYSpring}
+                  x={[40, 72]}
+                  y={[320, 182]}
+                  rotate={[-60, 0]}
+                />
+                <HeroImg
+                  src={strips8}
+                  scrollY={scrollYSpring}
+                  x={[-190, -180]}
+                  y={[240, 100]}
+                  rotate={[-20, -92]}
+                />
+                <HeroImg
+                  src={strips4}
+                  scrollY={scrollYSpring}
+                  x={[-480, -436]}
+                  y={[60, -109]}
+                  rotate={[-60, -24]}
+                />
+                <HeroImg
+                  src={strips14}
+                  scrollY={scrollYSpring}
+                  x={[-280, -209]}
+                  y={[390, 236]}
+                  rotate={[70, 31]}
+                />
+                <HeroImg
+                  src={mango3}
+                  scrollY={scrollYSpring}
+                  x={[-440, -340]}
+                  y={[410, 220]}
+                  rotate={[-120, -20]}
+                />
+                <HeroImg
+                  src={strips6}
+                  scrollY={scrollYSpring}
+                  x={[189, 159]}
+                  y={[159, -50]}
+                  rotate={[-70, 0]}
+                />
+                <HeroImg
+                  src={long5}
+                  scrollY={scrollYSpring}
+                  x={[260, 283]}
+                  y={[360, 140]}
+                  rotate={[260, 40]}
+                />
+                <HeroImg
+                  src={strips9}
+                  scrollY={scrollYSpring}
+                  x={[372, 372]}
+                  y={[500, 250]}
+                  rotate={[0, 40]}
+                />
+                <HeroImg
+                  src={strips13}
+                  scrollY={scrollYSpring}
+                  x={[430, 370]}
+                  y={[250, -20]}
+                  rotate={[100, 23]}
+                />
+                <HeroImg
+                  src={mango3}
+                  scrollY={scrollYSpring}
+                  x={[623, 543]}
+                  y={[190, 50]}
+                  rotate={[-100, 0]}
+                />
+                <HeroImg
+                  src={strips7}
+                  scrollY={scrollYSpring}
+                  x={[780, 564]}
+                  y={[460, -123]}
+                  rotate={[240, 0]}
+                />
+                <HeroImg
+                  src={mango1}
+                  scrollY={scrollYSpring}
+                  x={[370, 235]}
+                  y={[0, -210]}
+                  rotate={[120, 0]}
+                />
+                <HeroImg
+                  src={strips11}
+                  scrollY={scrollYSpring}
+                  x={[450, 385]}
+                  y={[0, -304]}
+                  rotate={[-120, 5.8]}
+                />
+                <HeroImg
+                  src={long3}
+                  scrollY={scrollYSpring}
+                  x={[380, 291]}
+                  y={[-290, -550]}
+                  rotate={[0, -20]}
+                />
+                <HeroImg
+                  src={strips3}
+                  scrollY={scrollYSpring}
+                  x={[330, 355]}
+                  y={[-90, -453]}
+                  rotate={[120, 20]}
+                />
+                <HeroImg
+                  src={mango2}
+                  scrollY={scrollYSpring}
+                  x={[570, 524]}
+                  y={[-240, -559]}
+                  rotate={[0, -48]}
+                />
+                <HeroImg
+                  src={mango3}
+                  scrollY={scrollYSpring}
+                  x={[741, 621]}
+                  y={[-140, -455]}
+                  rotate={[-20, 70]}
+                />
+                <HeroImg
+                  src={long1}
+                  scrollY={scrollYSpring}
+                  x={[-690, -640]}
+                  y={[450, 267]}
+                  rotate={[240, 0]}
+                />
+                <HeroImg
+                  src={mango4}
+                  scrollY={scrollYSpring}
+                  x={[-920, -680]}
+                  y={[320, -31]}
+                  rotate={[0, -50]}
+                />
+                <HeroImg
+                  src={strips15}
+                  scrollY={scrollYSpring}
+                  x={[-580, -693]}
+                  y={[320, -309]}
+                  rotate={[90, -20]}
+                />
+                <HeroImg
+                  src={strips1}
+                  scrollY={scrollYSpring}
+                  x={[-720, -423]}
+                  y={[80, -338]}
+                  rotate={[-50, 30]}
+                />
+                <HeroImg
+                  src={strips10}
+                  scrollY={scrollYSpring}
+                  x={[-470, -381]}
+                  y={[-190, -505]}
+                  rotate={[-170, 20]}
+                />
+                <HeroImg
+                  src={mango1}
+                  scrollY={scrollYSpring}
+                  x={[-740, -555]}
+                  y={[-190, -445]}
+                  rotate={[-170, 20]}
+                />
+                <HeroImg
+                  src={long2}
+                  scrollY={scrollYSpring}
+                  x={[-740, -580]}
+                  y={[-420, -597]}
+                  rotate={[80, 0]}
                 />
               </div>
               <img
                 src={dividerA}
                 className="pointer-events-none absolute min-w-xl left-1/2 -translate-x-1/2
-                  bottom-0 select-none"
+                  bottom-0 select-none translate-y-px"
               />
             </section>
             <section
@@ -343,8 +557,9 @@ function App() {
                   />
                   <img
                     src={mango4}
-                    className="absolute w-16 left-1/2 -translate-x-55 sm:-translate-x-64
-                      lg:-left-20 bottom-7 lg:bottom-22 -rotate-70"
+                    className="absolute w-16 lg:w-auto left-1/2 -translate-x-55
+                      sm:-translate-x-64 lg:translate-x-0 lg:-left-20 bottom-7
+                      lg:bottom-22 -rotate-70"
                   />
                   <img
                     src={mapPin}
@@ -356,134 +571,7 @@ function App() {
               </div>
             </section>
           </main>
-          <footer className="z-1 flex w-full flex-col items-center overflow-x-hidden">
-            <div
-              className="z-1 grid justify-items-center w-full max-w-180 grid-cols-1
-                gap-x-8 px-4 text-2xl md:grid-cols-2 sm:text-lg/snug lg:max-w-240
-                lg:grid-cols-3 lg:text-xl xl:max-w-300 xl:text-2xl"
-            >
-              <div className="col-start-1 mt-8 max-w-70 text-center md:mt-0 md:max-w-90">
-                <div>
-                  <svg
-                    viewBox="0 0 333 86"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-mango-400 -mb-1 w-full"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M332.999 85.9998L333.004 16.0816L309.254 4.37001e-05L0.000336502 76.7506L0.000335693 86.0029L332.999 85.9998Z"
-                    />
-                  </svg>
-                  <div
-                    className="bg-mango-400 w-full text-mango-800 px-6 pt-8 pb-8 md:pb-24"
-                  >
-                    <h3
-                      className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl"
-                    >
-                      Bulk Orders?
-                    </h3>
-                    <p className="mt-4 text-base sm:text-lg lg:text-xl xl:text-2xl">
-                      Please contact us with the following for bulk orders and wholesale
-                      pricing
-                    </p>
-                    <div
-                      className="mt-12 hidden md:flex text-base gap-4 flex-col
-                        items-center"
-                    >
-                      <div className="flex gap-2">
-                        <img src={phone} />
-                        <p>(032)254-1572</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <img src={email} />
-                        <p>camiluzenterprises@gmail.com</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="col-start-1 row-start-1 mx-auto max-w-100 md:col-start-2
-                  lg:col-start-3"
-              >
-                <div
-                  className="border-faded-mango-200 rounded-3xl border-4 border-dashed
-                    px-8 py-8 text-center"
-                >
-                  <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">
-                    Ready to order?
-                  </h3>
-                  <p className="mt-2 lg:mt-4">
-                    click the link below to see how you can order
-                  </p>
-                </div>
-                <div className="mx-auto -mt-1 w-fit">
-                  <div
-                    className="bg-mango-400 -mt-1 w-fit p-2 py-5 pb-3 text-lg
-                      font-extrabold text-white lg:text-xl xl:text-2xl"
-                  >
-                    ORDER NOW
-                  </div>
-                  <svg
-                    viewBox="0 0 171 47"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="fill-mango-400 -mt-1"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="bg-faded-mango-200 relative -mt-20 h-20 w-full min-w-300">
-              <svg
-                preserveAspectRatio="none"
-                height="51"
-                viewBox="0 0 1440 51"
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-faded-mango-200 w-full -translate-y-[98%]"
-              >
-                <path d="M431.76 21.8398L648.48 45.3604L863.52 16.7998L1080.24 40.3203L1295.28 38.6406L1440 24.0557V56.5H0V30.2402L216.72 0L431.76 21.8398Z" />
-              </svg>
-            </div>
-            <div className="bg-mango-400 z-2 w-full min-h-10 relative">
-              <svg
-                preserveAspectRatio="none"
-                height="51"
-                viewBox="0 0 1440 51"
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-mango-400 absolute left-1/2 -translate-x-1/2 top-0 w-full
-                  min-w-300 -translate-y-[98%]"
-              >
-                <path d="M1440 51H0V14.5742L216.72 33.0537L431.76 7.85352L648.48 16.2539L863.521 33.0537L1080.24 43.1338L1295.28 7.85352L1440 0V51Z" />
-              </svg>
-              <div className="md:hidden flex text-base mt-12 gap-2 flex-col items-center">
-                <div className="flex gap-2">
-                  <img src={phone} />
-                  <p>(032)254-1572</p>
-                </div>
-                <div className="flex gap-2">
-                  <img src={email} />
-                  <p>camiluzenterprises@gmail.com</p>
-                </div>
-              </div>
-              <div className="md:hidden flex flex-col items-center my-8">
-                <h3 className="font-pt-serif text-3xl italic text-mango-800">
-                  Join the Community
-                </h3>
-                <div className="gap-8 mt-2 flex">
-                  <img className="w-10" src={instagram} />
-                  <img className="w-10" src={facebook} />
-                </div>
-              </div>
-            </div>
-          </footer>
+          <Footer />
         </>
       )}
     </div>
