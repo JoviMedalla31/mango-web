@@ -32,7 +32,7 @@ const ProductCarousel = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) =>
     mouseDownPos.current = null;
     if (mouseOffset[0] > 10 || mouseOffset[1] > 10) return;
 
-    navigate(`products/${path}`);
+    navigate(`/products/${path}`);
     console.log('item clicked');
   };
 
@@ -42,16 +42,16 @@ const ProductCarousel = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) =>
       onMouseDown={handleCarouselMouseDown}
       items={[
         <Link
-          to="products/strips"
+          to="/products/slices"
           onMouseDownCapture={(e) => e.preventDefault()}
           onClick={(e) => e.preventDefault()}
         >
-          <div onClick={handleCarouselClicked('strips')}>
+          <div onClick={handleCarouselClicked('slices')}>
             <img src={sliceImg} className="pointer-events-none select-none" />
           </div>
         </Link>,
         <Link
-          to="products/strips"
+          to="/products/strips"
           onMouseDownCapture={(e) => e.preventDefault()}
           onClick={(e) => e.preventDefault()}
         >
@@ -66,7 +66,7 @@ const ProductCarousel = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) =>
           <img src={chocolateImg} className="pointer-events-none select-none" />
         </div>,
         <Link
-          to="products/chocolate-slices"
+          to="/products/chocolate-slices"
           onMouseDownCapture={(e) => e.preventDefault()}
           onClick={(e) => e.preventDefault()}
         >

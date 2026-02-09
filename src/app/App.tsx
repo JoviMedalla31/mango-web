@@ -54,6 +54,7 @@ import sliceImg from '/images/products/shots/slice.png';
 import spaghettiImg from '/images/products/shots/spaghetti.png';
 import stripImg from '/images/products/shots/strip.png';
 
+// Array of page imags for pre-loading the page
 const pageImages = [
   logo,
   charA,
