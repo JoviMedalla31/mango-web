@@ -128,11 +128,7 @@ const Products = ({
             className="mx-auto flex w-full max-w-180 flex-col gap-8 sm:grid
               sm:auto-rows-auto sm:grid-cols-3 lg:max-w-240 xl:max-w-300"
           >
-            <div
-              className="@container col-start-1 mx-auto w-full max-w-100 justify-center"
-            >
-              {title}
-            </div>
+            {title}
             {isSm && (
               <div className="px-4">
                 <img src={imgSrc} className="mx-auto w-full max-w-100" />

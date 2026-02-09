@@ -59,12 +59,24 @@ const ProductCarousel = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) =>
             <img src={stripImg} className="pointer-events-none select-none" />
           </div>
         </Link>,
-        <div onClick={handleCarouselClicked('strips')}>
-          <img src={spaghettiImg} className="pointer-events-none select-none" />
-        </div>,
-        <div onClick={handleCarouselClicked('strips')}>
-          <img src={chocolateImg} className="pointer-events-none select-none" />
-        </div>,
+        <Link
+          to="/products/spaghetti"
+          onMouseDownCapture={(e) => e.preventDefault()}
+          onClick={(e) => e.preventDefault()}
+        >
+          <div onClick={handleCarouselClicked('spaghetti')}>
+            <img src={spaghettiImg} className="pointer-events-none select-none" />
+          </div>
+        </Link>,
+        <Link
+          to="/products/chocolate-strips"
+          onMouseDownCapture={(e) => e.preventDefault()}
+          onClick={(e) => e.preventDefault()}
+        >
+          <div onClick={handleCarouselClicked('chocolate-strips')}>
+            <img src={chocolateImg} className="pointer-events-none select-none" />
+          </div>
+        </Link>,
         <Link
           to="/products/chocolate-slices"
           onMouseDownCapture={(e) => e.preventDefault()}

@@ -17,16 +17,40 @@ const router = createHashRouter([
   },
   {
     path: 'products',
-    // lazy: async () => {
-    //   let Products = await import('@/app/routes/Product');
-    //   return { Component: Products.default };
-    // },
     Component: Outlet,
     children: [
       {
         path: 'strips',
         lazy: async () => {
           let Products = await import('@/app/routes/products/Strips');
+          return { Component: Products.default };
+        },
+      },
+      {
+        path: 'slices',
+        lazy: async () => {
+          let Products = await import('@/app/routes/products/Slices');
+          return { Component: Products.default };
+        },
+      },
+      {
+        path: 'spaghetti',
+        lazy: async () => {
+          let Products = await import('@/app/routes/products/Spaghetti');
+          return { Component: Products.default };
+        },
+      },
+      {
+        path: 'chocolate-slices',
+        lazy: async () => {
+          let Products = await import('@/app/routes/products/ChocolateSlices');
+          return { Component: Products.default };
+        },
+      },
+      {
+        path: 'chocolate-strips',
+        lazy: async () => {
+          let Products = await import('@/app/routes/products/ChocolateStrips');
           return { Component: Products.default };
         },
       },

@@ -1,8 +1,8 @@
 import Products from '../Product';
-import imgSrc from '/images/products/shots/strip.png';
-import csvRaw from '@/assets/products/strips.csv?raw';
+import imgSrc from '/images/products/shots/slice.png';
+import csvRaw from '@/assets/products/slices.csv?raw';
 
-const Strips = () => {
+const Slices = () => {
   return (
     <Products
       title={
@@ -11,20 +11,20 @@ const Strips = () => {
             <h1 className="text-[clamp(1rem,14cqw,200rem)]">
               Dried Mango <br />
               <span
-                className="text-mango-800 text-[clamp(1rem,26cqw,200rem)]/[90%]
+                className="text-mango-800 text-[clamp(1rem,27cqw,200rem)]/[90%]
                   font-extrabold"
               >
-                STRIPS
+                SLICES
               </span>
             </h1>
           </div>
         </div>
       }
       imgSrc={imgSrc}
-      description="Made from 100% real mangoes. To achieve a smooth, strip-style texture, we gently remove the naturally fibrous, insoluble parts of the fruit before drying and shaping."
+      description=" Our classic dried mango slices offer a clean texture and long-lasting tropical flavor. 100% natural color, zero food enhancers, and packed with the real sweetness of premium Philippine mangoes."
       csvRaw={csvRaw}
     />
   );
 };
 
-export default Strips;
+export default Slices;
