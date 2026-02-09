@@ -72,7 +72,7 @@ const Footer = () => {
                 Join the <br className="hidden md:block" />
                 Community
               </h3>
-              <div className="gap-2 mt-2 flex flex-row md:flex-col md:gap-8">
+              <div className="gap-8 md:gap-2 mt-2 flex flex-row md:flex-col">
                 <img className="w-8" src={instagram} />
                 <img className="w-8" src={facebook} />
               </div>
