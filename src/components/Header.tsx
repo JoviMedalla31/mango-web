@@ -148,7 +148,7 @@ const Header = ({
                   <Link to="/">
                     <p>Home</p>
                   </Link>
-                  <Link to="/">
+                  <Link to="/products">
                     <p>Products</p>
                   </Link>
                   <Link to="/">
@@ -175,7 +175,7 @@ const Header = ({
                   <Link to="/">
                     <p>Home</p>
                   </Link>
-                  <Link to="/">
+                  <Link to="/products">
                     <p>Products</p>
                   </Link>
                   <Link to="/">
