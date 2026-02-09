@@ -3,8 +3,12 @@ import { DragEvent, MouseEvent, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import { useScroll, useTransform, motion, useSpring, MotionValue } from 'motion/react';
+import { useWidthCheck } from '@/hooks/useWidthCheck';
+
+// Components
 import Header from '@/components/Header';
-import Carousel from '@/components/Carousel';
+import ProductCarousel from '@/components/ProductCarousel';
+import Footer from '@/components/Footer';
 
 // Hero Img
 import logo from '/images/home/logo.svg';
@@ -49,14 +53,6 @@ import chocolateImg from '/images/products/shots/chocolate.png';
 import sliceImg from '/images/products/shots/slice.png';
 import spaghettiImg from '/images/products/shots/spaghetti.png';
 import stripImg from '/images/products/shots/strip.png';
-
-// Footer
-import email from '/images/footer/email.svg';
-import phone from '/images/footer/phone.svg';
-import instagram from '/images/footer/instagram.svg';
-import facebook from '/images/footer/facebook.svg';
-import Footer from '@/components/Footer';
-import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 const pageImages = [
   logo,
@@ -149,33 +145,6 @@ function App() {
       setReady(true),
     );
   });
-
-  // --------------------
-  // Event Handler
-  // --------------------
-
-  const handleCarouselMouseDown = (e: MouseEvent) => {
-    mouseDownPos.current = [e.screenX, e.screenY];
-  };
-
-  // Navigate to product page if carousel ends on the same position.
-  // (will still navigate even if carousel was dragged and returned to the same position)
-  const handleCarouselClicked = (path: string) => (e: MouseEvent) => {
-    const mouseOffset = [
-      Math.abs((mouseDownPos.current?.[0] ?? 0) - e.screenX),
-      Math.abs((mouseDownPos.current?.[1] ?? 0) - e.screenY),
-    ];
-
-    mouseDownPos.current = null;
-    if (mouseOffset[0] > 10 || mouseOffset[1] > 10) return;
-
-    navigate(`products/${path}`);
-    console.log('item clicked');
-  };
-
-  const handleCarouselLinkClicked = (e: MouseEvent) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="font-poppins relative bg-mango-100 text-2xl">
@@ -433,48 +402,7 @@ function App() {
               className="py-20 pb-22 md:py-28 md:pb-34 lg:py-34 lg:pb-39 xl:py-44 xl:pb-52
                 relative"
             >
-              <Carousel
-                ref={carouselRef}
-                items={[
-                  <Link
-                    to="products/strips"
-                    onMouseDownCapture={(e) => e.preventDefault()}
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <div
-                      onMouseDown={handleCarouselMouseDown}
-                      onClick={handleCarouselClicked('strips')}
-                    >
-                      <img src={sliceImg} className="pointer-events-none select-none" />
-                    </div>
-                  </Link>,
-
-                  <Link
-                    to="products/strips"
-                    onMouseDownCapture={(e) => e.preventDefault()}
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <div
-                      onMouseDown={handleCarouselMouseDown}
-                      onClick={handleCarouselClicked('strips')}
-                    >
-                      <img src={stripImg} className="pointer-events-none select-none" />
-                    </div>
-                  </Link>,
-                  <div
-                    onMouseDown={handleCarouselMouseDown}
-                    onClick={handleCarouselClicked('strips')}
-                  >
-                    <img src={spaghettiImg} className="pointer-events-none select-none" />
-                  </div>,
-                  <div
-                    onMouseDown={handleCarouselMouseDown}
-                    onClick={handleCarouselClicked('strips')}
-                  >
-                    <img src={chocolateImg} className="pointer-events-none select-none" />
-                  </div>,
-                ]}
-              />
+              <ProductCarousel ref={carouselRef} />
               <img
                 src={dividerB}
                 className="min-w-xl absolute left-1/2 -translate-x-1/2 pointer-events-none

@@ -1,4 +1,10 @@
-import { useRef, useLayoutEffect, ReactNode, RefObject } from 'react';
+import {
+  useRef,
+  useLayoutEffect,
+  ReactNode,
+  RefObject,
+  MouseEvent as RMouseEvent,
+} from 'react';
 import {
   motion,
   animate,
@@ -77,7 +83,8 @@ const CarouselItem = ({
       }}
     >
       <div
-        className={`border-faded-mango-100 flex aspect-3/4 w-full cursor-pointer items-center justify-center rounded-[4rem] border-5 px-2 py-4`}
+        className={`border-faded-mango-100 flex aspect-3/4 w-full cursor-pointer
+          items-center justify-center rounded-[4rem] border-5 px-2 py-4`}
       >
         <div className="select-none">{children}</div>
       </div>
@@ -88,9 +95,11 @@ const CarouselItem = ({
 const Carousel = ({
   ref,
   items,
+  onMouseDown: handleMouseDown,
 }: {
   ref?: RefObject<HTMLDivElement | null>;
   items: ReactNode[];
+  onMouseDown?: (e: RMouseEvent) => any;
 }) => {
   // Carousel Items
   const carouselItems = [...items, ...items];
@@ -252,6 +261,7 @@ const Carousel = ({
   return (
     <div
       {...{ ref }}
+      onMouseDown={handleMouseDown}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="max-w-full overflow-x-hidden"

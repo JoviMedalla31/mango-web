@@ -12,13 +12,13 @@ import { clamp } from '@/util/math';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 import Papa from 'papaparse';
 
-import Carousel from '@/components/Carousel';
 import Header from '@/components/Header';
 import Footer from '@/components/FooterB';
 
 // Images
 import dividerB from '/images/divider-b.svg';
 import catalogueImg from '/images/products/page/catalogue.svg';
+import ProductCarousel from '@/components/ProductCarousel';
 
 // Carousel Img
 import chocolateImg from '/images/products/shots/chocolate.png';
@@ -100,29 +100,6 @@ const Products = ({
       mainRectBottom.current - scroll - 176 /*top margin*/ - productHeight.current;
     return clamp(topMargin, 0, -Infinity);
   });
-
-  // --------------------
-  // Event Handler
-  // --------------------
-
-  const handleCarouselMouseDown = (e: MouseEvent) => {
-    mouseDownPos.current = [e.screenX, e.screenY];
-  };
-
-  // Navigate to product page if carousel ends on the same position.
-  // (will still navigate even if carousel was dragged and returned to the same position)
-  const handleCarouselClicked = (path: string) => (e: MouseEvent) => {
-    const mouseOffset = [
-      Math.abs((mouseDownPos.current?.[0] ?? 0) - e.screenX),
-      Math.abs((mouseDownPos.current?.[1] ?? 0) - e.screenY),
-    ];
-
-    mouseDownPos.current = null;
-    if (mouseOffset[0] > 10 || mouseOffset[1] > 10) return;
-
-    navigate(`products/${path}`);
-    console.log('item clicked');
-  };
 
   return (
     <div
@@ -227,47 +204,7 @@ const Products = ({
           id="products"
           className="pt-20 mb-15 pb-1 md:pt-28 lg:pt-34 xl:pt-44 relative"
         >
-          <Carousel
-            items={[
-              <Link
-                to="products/strips"
-                onMouseDownCapture={(e) => e.preventDefault()}
-                onClick={(e) => e.preventDefault()}
-              >
-                <div
-                  onMouseDown={handleCarouselMouseDown}
-                  onClick={handleCarouselClicked('strips')}
-                >
-                  <img src={sliceImg} className="pointer-events-none select-none" />
-                </div>
-              </Link>,
-
-              <Link
-                to="products/strips"
-                onMouseDownCapture={(e) => e.preventDefault()}
-                onClick={(e) => e.preventDefault()}
-              >
-                <div
-                  onMouseDown={handleCarouselMouseDown}
-                  onClick={handleCarouselClicked('strips')}
-                >
-                  <img src={stripImg} className="pointer-events-none select-none" />
-                </div>
-              </Link>,
-              <div
-                onMouseDown={handleCarouselMouseDown}
-                onClick={handleCarouselClicked('strips')}
-              >
-                <img src={spaghettiImg} className="pointer-events-none select-none" />
-              </div>,
-              <div
-                onMouseDown={handleCarouselMouseDown}
-                onClick={handleCarouselClicked('strips')}
-              >
-                <img src={chocolateImg} className="pointer-events-none select-none" />
-              </div>,
-            ]}
-          />
+          <ProductCarousel />
           <div
             className="xl:pt-36 pt-16 lg:pt-28 flex justify-center md:justify-end px-12"
           >
