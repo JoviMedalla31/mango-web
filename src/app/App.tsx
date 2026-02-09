@@ -45,10 +45,10 @@ import mapPin from '/images/shapes/map-pin.svg';
 import tree from '/images/home/tree.svg';
 
 // Carousel Img
-import chocolateImg from '/images/products/carousel/chocolate.png';
-import sliceImg from '/images/products/carousel/slice.png';
-import spaghettiImg from '/images/products/carousel/spaghetti.png';
-import stripImg from '/images/products/carousel/strip.png';
+import chocolateImg from '/images/products/shots/chocolate.png';
+import sliceImg from '/images/products/shots/slice.png';
+import spaghettiImg from '/images/products/shots/spaghetti.png';
+import stripImg from '/images/products/shots/strip.png';
 
 // Footer
 import email from '/images/footer/email.svg';
@@ -109,9 +109,9 @@ const HeroImg = ({
   return (
     <motion.img
       src={src}
-      initial={{ x: X / 16 + 'rem', y: Y / 16 + 'rem', rotate }}
+      initial={{ x: X / baseUnit + 'rem', y: Y / 16 + 'rem', rotate }}
       animate={{
-        x: initialX / 16 + 'rem',
+        x: initialX / baseUnit + 'rem',
         y: initialY / 16 + 'rem',
         rotate: initialRotate,
         transition: { duration: 0.7, ease: [0.07, 0.7, 0.2, 1.0] },
@@ -138,7 +138,7 @@ function App() {
   const scrollYSpring = useSpring(scrollYProgress, { bounce: 0 });
 
   // Hero
-  const heroLogoHeight = useTransform(scrollYProgress, [0, 1], [0, 700], { clamp: true });
+  const heroLogoHeight = useTransform(scrollYProgress, [0, 1], [0, 800], { clamp: true });
 
   // --------------------
   // Effects
@@ -173,13 +173,22 @@ function App() {
     console.log('item clicked');
   };
 
+  const handleCarouselLinkClicked = (e: MouseEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="font-poppins relative bg-mango-100 text-2xl">
       {!ready ? (
         <p>I AM LOADING</p>
       ) : (
         <>
-          <Header revealRef={carouselRef} revealOffset={-450} />
+          <Header
+            key="home"
+            revealRef={carouselRef}
+            revealOffset={-450}
+            initialHide={true}
+          />
           <main id="hero" className="w-full relative overflow-x-clip">
             {/* Branding Nav Bar (Not real nav bar) */}
             <section className="bg-faded-mango-100 w-full">
@@ -187,7 +196,7 @@ function App() {
               <div className="relative h-16">
                 <div className="absolute w-88 left-1/2 -translate-x-1/2 z-20">
                   <motion.div
-                    className="w-full bg-mango-400"
+                    className="w-full bg-mango-400 -mt-px"
                     style={{ height: heroLogoHeight }}
                   />
                   <img src={heroLogo} className="" />
@@ -427,18 +436,31 @@ function App() {
               <Carousel
                 ref={carouselRef}
                 items={[
-                  <div
-                    onMouseDown={handleCarouselMouseDown}
-                    onClick={handleCarouselClicked('strips')}
+                  <Link
+                    to="products/strips"
+                    onMouseDownCapture={(e) => e.preventDefault()}
+                    onClick={(e) => e.preventDefault()}
                   >
-                    <img src={sliceImg} className="pointer-events-none select-none" />
-                  </div>,
-                  <div
-                    onMouseDown={handleCarouselMouseDown}
-                    onClick={handleCarouselClicked('strips')}
+                    <div
+                      onMouseDown={handleCarouselMouseDown}
+                      onClick={handleCarouselClicked('strips')}
+                    >
+                      <img src={sliceImg} className="pointer-events-none select-none" />
+                    </div>
+                  </Link>,
+
+                  <Link
+                    to="products/strips"
+                    onMouseDownCapture={(e) => e.preventDefault()}
+                    onClick={(e) => e.preventDefault()}
                   >
-                    <img src={stripImg} className="pointer-events-none select-none" />
-                  </div>,
+                    <div
+                      onMouseDown={handleCarouselMouseDown}
+                      onClick={handleCarouselClicked('strips')}
+                    >
+                      <img src={stripImg} className="pointer-events-none select-none" />
+                    </div>
+                  </Link>,
                   <div
                     onMouseDown={handleCarouselMouseDown}
                     onClick={handleCarouselClicked('strips')}

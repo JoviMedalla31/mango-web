@@ -13,10 +13,12 @@ const Header = ({
   ref = useRef<HTMLDivElement>(null),
   revealRef,
   revealOffset = -200,
+  initialHide = false,
 }: {
   ref?: RefObject<HTMLDivElement | null>;
   revealRef?: RefObject<HTMLDivElement | null>;
   revealOffset?: number;
+  initialHide?: boolean;
 }) => {
   // Hooks
   const { scrollY } = useScroll();
@@ -44,7 +46,7 @@ const Header = ({
 
   useMotionValueEvent(scrollY, 'change', (scroll) => {
     const reveal = revealY.current;
-    if (reveal <= 0) {
+    if (reveal <= 0 || revealRef == undefined) {
       setHeader(true);
       return;
     }
@@ -73,14 +75,15 @@ const Header = ({
   }, [revealRef, revealRef?.current]);
 
   useLayoutEffect(() => {
-    if (!revealY?.current) {
+    if (!revealRef?.current) {
       setHasRevealRef(false);
-      setHeader(false);
+      setHeader(true);
       return;
     }
 
     setHasRevealRef(true);
     revealY.current = revealRef?.current?.offsetTop ?? 0;
+    setHeader(revealY.current <= scrollY.get());
   }, [revealRef, revealRef?.current]);
 
   useEffect(() => {
@@ -104,7 +107,8 @@ const Header = ({
       <motion.header
         ref={ref}
         initial={{
-          y: hasRevealRef ? HIDDEN : VISIBLE,
+          y: initialHide ? HIDDEN : VISIBLE,
+          backgroundColor: 'var(--color-faded-mango-100)',
         }}
         animate={{
           y: showHeader ? VISIBLE : HIDDEN,

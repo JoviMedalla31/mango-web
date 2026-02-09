@@ -1,148 +1,137 @@
-import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+  ReactNode,
+  type MouseEvent,
+} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { clamp } from '@/util/math';
+import { useWidthCheck } from '@/hooks/useWidthCheck';
 import Papa from 'papaparse';
-import { Link } from 'react-router-dom';
 
-import logo from '/images/logo.svg';
-import strips from '@/assets/products/strips.csv?raw';
-import stripsImg from '/images/strips/product.png';
-import ingredientsTop from '/images/footer/tab-top2.svg';
-import footerA from '/images/footer/footer-a.svg';
-import footerB from '/images/footer/footer-b.svg';
-import orderNow from '/images/footer/order-now.svg';
-import logoText from '/images/logo-text.svg';
-import { Menu, X } from 'lucide-react';
-import useLockBodyScroll from '@/hooks/useLockBodyScroll';
+import Carousel from '@/components/Carousel';
+import Header from '@/components/Header';
+import Footer from '@/components/FooterB';
 
-const Header = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+// Images
+import dividerB from '/images/divider-b.svg';
+import catalogueImg from '/images/products/page/catalogue.svg';
 
-  useLockBodyScroll(showSidebar);
+// Carousel Img
+import chocolateImg from '/images/products/shots/chocolate.png';
+import sliceImg from '/images/products/shots/slice.png';
+import spaghettiImg from '/images/products/shots/spaghetti.png';
+import stripImg from '/images/products/shots/strip.png';
 
-  // ----------------
-  // Effects
-  // ----------------
+const Products = ({
+  title,
+  imgSrc,
+  description,
+  csvRaw,
+}: {
+  title: ReactNode;
+  imgSrc: string;
+  description: string;
+  csvRaw: string;
+}) => {
+  // Hooks
+  const navigate = useNavigate();
+  const { isSm } = useWidthCheck();
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // Local State
+  const mouseDownPos = useRef<[number, number] | null>(null);
 
-  // ----------------
-  // Event Handler
-  // ----------------
-
-  const handleMenuPressed = () => {
-    setShowSidebar(true);
-  };
-
-  const handleMenuClosePressed = () => {
-    setShowSidebar(false);
-  };
-
-  return (
-    <header className="relative flex w-full flex-col items-center overflow-x-hidden">
-      <nav className="poppins bg-mango-400 hidden h-12 w-full items-center justify-center text-xl text-white sm:flex">
-        <div className="flex items-center justify-center gap-8">
-          <p>About Us</p>
-          <p>Products</p>
-          <p>How to Order?</p>
-          <p>Contact Us</p>
-        </div>
-      </nav>
-      <div className="flex w-full max-w-300 justify-between sm:-translate-y-0.5">
-        <Link to="/">
-          <img src={logo} className="ml-6 sm:ml-28" />
-        </Link>
-        <Menu
-          className="mt-4 mr-6 block w-8 cursor-pointer stroke-3 sm:hidden"
-          onClick={handleMenuPressed}
-        />
-      </div>
-      <motion.div
-        className="bg-mango-400 fixed left-[100dvw] h-full w-full"
-        animate={{ left: showSidebar ? '0dvw' : '100dvw' }}
-      >
-        <X
-          className="absolute top-5 right-5 aspect-square h-8 w-8 cursor-pointer"
-          onClick={handleMenuClosePressed}
-        />
-        <div className="flex h-full w-full flex-col items-center justify-center gap-8 text-2xl font-bold">
-          <p>About Us</p>
-          <p>Products</p>
-          <p>How to Order?</p>
-          <p>Contact Us</p>
-        </div>
-      </motion.div>
-    </header>
-  );
-};
-
-const Products = () => {
-  const mainRef = useRef<HTMLDivElement>(null);
-
-  const { product } = useParams();
+  // CSV Data
   const [data, setData] = useState<string[][]>([]);
-  const { scrollY } = useScroll();
 
-  const [mainRectBottom, setMainRectBottom] = useState<number>(0);
-  const [isSm, setIsSm] = useState<boolean>(false);
+  // Motion Variables
+  const imgRef = useRef<HTMLImageElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const windowHeight = useRef<number>(0);
+  const productHeight = useRef<number>(200);
+  const mainRectBottom = useRef<number>(0);
+  const { scrollY } = useScroll();
+  // const [mainRectBottom, setMainRectBottom] = useState<number>(0);
 
   // ------------------------
   // Effects
   // ------------------------
 
   useEffect(() => {
-    const parseData = async () => {
-      let { data: nextData }: { data: string[][] } = await Papa.parse(strips);
-      setData(nextData);
+    window.scrollTo({ top: 0 });
+  }, []);
 
-      console.log(nextData);
+  // Parse product SVG Data on load
+  useEffect(() => {
+    const parseData = async () => {
+      let { data: nextData }: { data: string[][] } = await Papa.parse(csvRaw);
+      setData(nextData);
     };
 
     parseData();
   }, []);
 
-  useEffect(() => {
+  // Calculate container height
+  useLayoutEffect(() => {
     const el = mainRef.current;
     if (!el) return;
 
     const observer = new ResizeObserver((entries) => {
-      setMainRectBottom(
-        (mainRef.current?.getBoundingClientRect().bottom ?? 0) + scrollY.get(),
-      );
+      // setMainRectBottom(
+      //   (mainRef.current?.getBoundingClientRect().bottom ?? 0) + scrollY.get(),
+      // );
+      mainRectBottom.current =
+        (mainRef.current?.getBoundingClientRect().bottom ?? 0) + scrollY.get();
+      productHeight.current = imgRef.current?.offsetHeight ?? 0;
+      windowHeight.current = screen.height;
     });
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [mainRef, mainRef.current]);
 
   const productMargin = useTransform(scrollY, (scroll) => {
     if (isSm) return 0;
 
-    const topMargin = mainRectBottom - scroll - 240;
-    return topMargin > 0 ? 0 : topMargin;
+    const topMargin =
+      mainRectBottom.current - scroll - 176 /*top margin*/ - productHeight.current;
+    return clamp(topMargin, 0, -Infinity);
   });
 
-  // Detect window change size
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 641px)');
-    if (media.matches !== isSm) setIsSm(media.matches);
+  // --------------------
+  // Event Handler
+  // --------------------
 
-    const listener = () => setIsSm(media.matches);
-    media.addEventListener('change', listener);
+  const handleCarouselMouseDown = (e: MouseEvent) => {
+    mouseDownPos.current = [e.screenX, e.screenY];
+  };
 
-    return () => media.removeEventListener('change', listener);
-  }, []);
+  // Navigate to product page if carousel ends on the same position.
+  // (will still navigate even if carousel was dragged and returned to the same position)
+  const handleCarouselClicked = (path: string) => (e: MouseEvent) => {
+    const mouseOffset = [
+      Math.abs((mouseDownPos.current?.[0] ?? 0) - e.screenX),
+      Math.abs((mouseDownPos.current?.[1] ?? 0) - e.screenY),
+    ];
 
-  console.log('is small: ', isSm);
+    mouseDownPos.current = null;
+    if (mouseOffset[0] > 10 || mouseOffset[1] > 10) return;
+
+    navigate(`products/${path}`);
+    console.log('item clicked');
+  };
 
   return (
-    <div className="bg-mango-100 text-mango-800 flex min-h-dvh w-full flex-col items-center">
-      <Header />
+    <div
+      className="bg-mango-100 text-mango-800 flex min-h-dvh w-full flex-col items-center"
+    >
+      <Header key="product" revealOffset={0} />
       <main
-        ref={mainRef}
-        className="font-poppins mt-8 mb-20 w-full items-center text-2xl sm:mb-60 sm:text-lg/snug lg:text-xl xl:text-2xl"
+        className="font-poppins mt-44 w-full items-center text-2xl sm:text-lg/snug
+          lg:text-xl xl:text-2xl"
       >
         {!isSm && (
           <motion.div
@@ -152,40 +141,34 @@ const Products = () => {
           >
             <div className="mx-auto max-w-180 lg:max-w-240 xl:max-w-300">
               <div className="mx-auto w-1/3 px-2">
-                <img src={stripsImg} className="w-full" />
+                <img ref={imgRef} src={imgSrc} className="w-full" />
               </div>
             </div>
           </motion.div>
         )}
-        <div className="w-full px-4">
-          <div className="mx-auto flex w-full max-w-180 flex-col gap-8 sm:grid sm:auto-rows-auto sm:grid-cols-3 lg:max-w-240 xl:max-w-300">
-            <div className="@container col-start-1 mx-auto w-full max-w-100 justify-center">
-              <div className="text-mango-400 mx-auto mt-18 flex w-fit flex-col items-start">
-                <h1 className="text-[clamp(1rem,14cqw,200rem)]">
-                  Dried Mango <br />
-                  <span className="text-mango-800 text-[clamp(1rem,26cqw,200rem)]/[90%] font-extrabold">
-                    STRIPS
-                  </span>
-                </h1>
-                <h2 className="self-end text-right text-[clamp(1rem,13cqw,200rem)]">
-                  100g
-                </h2>
-              </div>
+        <section className="w-full px-4" ref={mainRef}>
+          <div
+            className="mx-auto flex w-full max-w-180 flex-col gap-8 sm:grid
+              sm:auto-rows-auto sm:grid-cols-3 lg:max-w-240 xl:max-w-300"
+          >
+            <div
+              className="@container col-start-1 mx-auto w-full max-w-100 justify-center"
+            >
+              {title}
             </div>
             {isSm && (
               <div className="px-4">
-                <img src={stripsImg} className="mx-auto w-full max-w-100" />
+                <img src={imgSrc} className="mx-auto w-full max-w-100" />
               </div>
             )}
             <div className="col-start-1 mb-12 pt-6 text-center sm:col-start-3">
-              We make use of all parts of the mango, this product is made from the mango
-              surrounding the seeds to create a unique product that taste the same as the
-              Original Slices
+              {description}
             </div>
             {data.map((block, i) => (
               <div
                 key={i}
-                className={`${i % 2 == 0 ? 'col-start-1 sm:mt-60' : 'col-start-1 sm:col-start-3'} mt-14 flex flex-col items-center text-center sm:mt-0`}
+                className={`${i % 2 == 0 ? 'col-start-1 sm:mt-60' : 'col-start-1 sm:col-start-3'}
+                mt-14 flex flex-col items-center text-center sm:mt-0`}
               >
                 <div className="px-2">
                   <img
@@ -194,94 +177,112 @@ const Products = () => {
                   />
                 </div>
                 <h3
-                  className={`font-pt-serif mt-8 text-2xl font-bold lg:text-3xl xl:text-4xl`}
+                  className={`font-pt-serif mt-8 text-2xl font-bold lg:text-3xl
+                  xl:text-4xl`}
                 >
                   {block[1]}
                 </h3>
-                <p className="mt-3">{block[2]}</p>
+                <p className="mt-3 px-10">{block[2]}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </main>
-      <footer className="z-1 flex w-full flex-col items-center overflow-x-hidden">
-        <div className="z-1 grid w-full max-w-180 grid-cols-1 gap-x-8 px-4 text-2xl sm:grid-cols-2 sm:text-lg/snug lg:max-w-240 lg:grid-cols-3 lg:text-xl xl:max-w-300 xl:text-2xl">
-          <div className="col-start-1 mt-8 max-w-70 px-8 text-center sm:mt-0 sm:max-w-90">
-            <div>
-              <svg
-                viewBox="0 0 333 86"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-mango-400 -mb-1 w-full"
+            <div className="mx-auto max-w-100 col-start-3">
+              <div
+                className="border-faded-mango-200 rounded-3xl border-4 border-dashed px-8
+                  py-8 text-center"
               >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M332.999 85.9998L333.004 16.0816L309.254 4.37001e-05L0.000336502 76.7506L0.000335693 86.0029L332.999 85.9998Z"
-                />
-              </svg>
-              <div className="bg-mango-400 w-full px-6 pt-8 pb-24">
                 <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">
-                  Ingredients
+                  Ready to order?
                 </h3>
-                <p className="mt-4 text-base sm:text-lg lg:text-xl xl:text-2xl">
-                  Selected ripe mangoes, refined sugar, sweeteners (glucose & sorbitol),
-                  iodized salt, sodium metabisulfate as perservative
+                <p className="mt-2 lg:mt-4">
+                  click the link below to see how you can order
                 </p>
               </div>
-            </div>
-          </div>
-          <div className="col-start-1 row-start-1 mx-auto max-w-100 sm:col-start-2 lg:col-start-3">
-            <div className="border-faded-mango-200 rounded-3xl border-4 border-dashed px-8 py-4 text-center">
-              <h3 className="font-pt-serif text-2xl font-bold lg:text-3xl xl:text-4xl">
-                Ready to order?
-              </h3>
-              <p className="mt-2 lg:mt-4">
-                click the link below to see how you can order
-              </p>
-            </div>
-            <div className="mx-auto -mt-1 w-fit">
-              <div className="bg-mango-400 -mt-1 w-fit p-2 pb-0 text-lg font-extrabold text-white lg:text-xl xl:text-2xl">
-                ORDER NOW
+              <div className="mx-auto -mt-1 w-fit">
+                <div
+                  className="bg-mango-400 -mt-1 w-fit p-2 py-5 pb-3 text-lg font-extrabold
+                    text-white lg:text-xl xl:text-2xl"
+                >
+                  ORDER NOW
+                </div>
+                <svg
+                  viewBox="0 0 171 47"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="fill-mango-400 -mt-1"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
+                  />
+                </svg>
               </div>
-              <svg
-                viewBox="0 0 171 47"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-mango-400 -mt-1"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
-                />
-              </svg>
             </div>
           </div>
-        </div>
-        <div className="bg-faded-mango-200 relative -mt-20 h-20 w-full min-w-300">
-          <svg
-            preserveAspectRatio="none"
-            height="51"
-            viewBox="0 0 1440 51"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-faded-mango-200 w-full -translate-y-[98%]"
+        </section>
+        <section id="divider" className="relative">
+          <img src={dividerB} className="mt-40" />
+        </section>
+        <section
+          id="products"
+          className="pt-20 mb-15 pb-1 md:pt-28 lg:pt-34 xl:pt-44 relative"
+        >
+          <Carousel
+            items={[
+              <Link
+                to="products/strips"
+                onMouseDownCapture={(e) => e.preventDefault()}
+                onClick={(e) => e.preventDefault()}
+              >
+                <div
+                  onMouseDown={handleCarouselMouseDown}
+                  onClick={handleCarouselClicked('strips')}
+                >
+                  <img src={sliceImg} className="pointer-events-none select-none" />
+                </div>
+              </Link>,
+
+              <Link
+                to="products/strips"
+                onMouseDownCapture={(e) => e.preventDefault()}
+                onClick={(e) => e.preventDefault()}
+              >
+                <div
+                  onMouseDown={handleCarouselMouseDown}
+                  onClick={handleCarouselClicked('strips')}
+                >
+                  <img src={stripImg} className="pointer-events-none select-none" />
+                </div>
+              </Link>,
+              <div
+                onMouseDown={handleCarouselMouseDown}
+                onClick={handleCarouselClicked('strips')}
+              >
+                <img src={spaghettiImg} className="pointer-events-none select-none" />
+              </div>,
+              <div
+                onMouseDown={handleCarouselMouseDown}
+                onClick={handleCarouselClicked('strips')}
+              >
+                <img src={chocolateImg} className="pointer-events-none select-none" />
+              </div>,
+            ]}
+          />
+          <div
+            className="xl:pt-36 pt-16 lg:pt-28 flex justify-center md:justify-end px-12"
           >
-            <path d="M431.76 21.8398L648.48 45.3604L863.52 16.7998L1080.24 40.3203L1295.28 38.6406L1440 24.0557V56.5H0V30.2402L216.72 0L431.76 21.8398Z" />
-          </svg>
-        </div>
-        <div className="bg-mango-400 z-2 h-400 w-full min-w-300">
-          <svg
-            preserveAspectRatio="none"
-            height="51"
-            viewBox="0 0 1440 51"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-mango-400 w-full -translate-y-[98%]"
-          >
-            <path d="M1440 51H0V14.5742L216.72 33.0537L431.76 7.85352L648.48 16.2539L863.521 33.0537L1080.24 43.1338L1295.28 7.85352L1440 0V51Z" />
-          </svg>
-        </div>
-      </footer>
+            <button
+              type="button"
+              className="text-4xl text-mango-400 border-4 rounded-xl flex gap-2 p-2
+                border-dashed"
+            >
+              <img src={catalogueImg} />
+              Catalogue
+            </button>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </div>
   );
 };

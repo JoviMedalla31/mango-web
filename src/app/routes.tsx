@@ -1,4 +1,4 @@
-import { createHashRouter } from 'react-router-dom';
+import { createHashRouter, Outlet } from 'react-router-dom';
 
 const router = createHashRouter([
   {
@@ -16,11 +16,21 @@ const router = createHashRouter([
     },
   },
   {
-    path: 'products/:product',
-    lazy: async () => {
-      let Products = await import('@/app/routes/Product');
-      return { Component: Products.default };
-    },
+    path: 'products',
+    // lazy: async () => {
+    //   let Products = await import('@/app/routes/Product');
+    //   return { Component: Products.default };
+    // },
+    Component: Outlet,
+    children: [
+      {
+        path: 'strips',
+        lazy: async () => {
+          let Products = await import('@/app/routes/products/Strips');
+          return { Component: Products.default };
+        },
+      },
+    ],
   },
 ]);
 
