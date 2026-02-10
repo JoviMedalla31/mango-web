@@ -142,6 +142,7 @@ const Header = ({
                 className="flex justify-center items-center overflow-clip bg-mango-400"
               >
                 <nav
+                  onClick={closeHamburgerMenu}
                   className="flex lg:hidden flex-col gap-18 text-center font-semibold
                     text-2xl justify-center text-mango-800"
                 >
@@ -159,7 +160,9 @@ const Header = ({
                   </Link>
                 </nav>
               </motion.div>
-              <img src={logo} className="pointer-events-none" />
+              <Link to="/" className="cursor-pointer">
+                <img src={logo} className="pointer-events-none" />
+              </Link>
             </motion.div>
             <div className="p-1 cursor-pointer">
               <Menu
@@ -181,7 +184,10 @@ const Header = ({
                   <Link to="/products/#bulk-orders">
                     <p>Bulk Orders</p>
                   </Link>
-                  <Link to="/contact">
+                  <Link
+                    to="/contact
+                  "
+                  >
                     <p>Contact Us</p>
                   </Link>
                 </nav>

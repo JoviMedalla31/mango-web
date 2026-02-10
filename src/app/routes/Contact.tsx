@@ -19,8 +19,15 @@ import mapPin from '/images/shapes/map-pin.svg';
 
 import tree from '/images/home/tree.svg';
 import Footer from '@/components/FooterB';
+import { useEffect } from 'react';
 
 const Contact = () => {
+  useEffect(() => {
+    scrollTo({
+      top: 0,
+    });
+  }, []);
+
   return (
     <div className="font-poppins text-mango-800 pt-18 relative bg-mango-100 text-2xl">
       <Header />
