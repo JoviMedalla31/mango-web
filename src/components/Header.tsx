@@ -142,21 +142,20 @@ const Header = ({
                 className="flex justify-center items-center overflow-clip bg-mango-400"
               >
                 <nav
-                  onClick={closeHamburgerMenu}
                   className="flex lg:hidden flex-col gap-18 text-center font-semibold
                     text-2xl justify-center text-mango-800"
                 >
                   <Link to="/">
-                    <p>Home</p>
+                    <p onClick={closeHamburgerMenu}>Home</p>
                   </Link>
                   <Link to="/products">
-                    <p>Products</p>
+                    <p onClick={closeHamburgerMenu}>Products</p>
                   </Link>
                   <Link to="/products/#bulk-orders">
-                    <p>Bulk Orders</p>
+                    <p onClick={closeHamburgerMenu}>Bulk Orders</p>
                   </Link>
                   <Link to="/contact">
-                    <p>Contact Us</p>
+                    <p onClick={closeHamburgerMenu}>Contact Us</p>
                   </Link>
                 </nav>
               </motion.div>
