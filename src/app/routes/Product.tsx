@@ -20,12 +20,6 @@ import dividerB from '/images/divider-b.svg';
 import catalogueImg from '/images/products/page/catalogue.svg';
 import ProductCarousel from '@/components/ProductCarousel';
 
-// Carousel Img
-import chocolateImg from '/images/products/shots/chocolate.png';
-import sliceImg from '/images/products/shots/slice.png';
-import spaghettiImg from '/images/products/shots/spaghetti.png';
-import stripImg from '/images/products/shots/strip.png';
-
 const Products = ({
   title,
   imgSrc,
@@ -204,14 +198,16 @@ const Products = ({
           <div
             className="xl:pt-36 pt-16 lg:pt-28 flex justify-center md:justify-end px-12"
           >
-            <button
-              type="button"
-              className="text-4xl text-mango-400 border-4 rounded-xl flex gap-2 p-2
-                border-dashed"
-            >
-              <img src={catalogueImg} />
-              Catalogue
-            </button>
+            <Link to="/products" className="cursor-pointer">
+              <button
+                type="button"
+                className="text-4xl text-mango-400 border-4 rounded-xl flex gap-2 p-2
+                  border-dashed cursor-pointer"
+              >
+                <img src={catalogueImg} />
+                Catalogue
+              </button>
+            </Link>
           </div>
         </section>
       </main>
