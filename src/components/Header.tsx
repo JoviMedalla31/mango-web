@@ -154,7 +154,7 @@ const Header = ({
                   <Link to="/products/#bulk-orders">
                     <p>Bulk Orders</p>
                   </Link>
-                  <Link to="/">
+                  <Link to="/contact">
                     <p>Contact Us</p>
                   </Link>
                 </nav>
@@ -181,7 +181,7 @@ const Header = ({
                   <Link to="/products/#bulk-orders">
                     <p>Bulk Orders</p>
                   </Link>
-                  <Link to="/">
+                  <Link to="/contact">
                     <p>Contact Us</p>
                   </Link>
                 </nav>

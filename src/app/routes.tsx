@@ -9,6 +9,13 @@ const router = createHashRouter([
     },
   },
   {
+    path: 'contact',
+    lazy: async () => {
+      let Contact = await import('@/app/routes/Contact');
+      return { Component: Contact.default };
+    },
+  },
+  {
     path: 'products',
     Component: Outlet,
     children: [
