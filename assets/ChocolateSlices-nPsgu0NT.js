@@ -1,4 +1,4 @@
-import{j as e}from"./index-tj4Y0vg2.js";import{P as s}from"./Product-Djw76aF5.js";import{f as a}from"./divider-b-BPqEJvuu.js";const o=`strips/B.svg,no artificial Flavors,"No Additives. No Compromises."
+import{j as e}from"./index-B2ICrUq2.js";import{P as s}from"./Product-BSCNdaXE.js";import{f as a}from"./divider-b-DKJAj0Fk.js";const o=`strips/B.svg,no artificial Flavors,"No Additives. No Compromises."
 products/page/local.png,local Pinoy magnoes,"Our mangoes are sourced from our local farmers, we believe in the taste and soul of  Philippine Mangoes"
 products/page/no-additives.svg,No Additives,"No Additives. No Compromises."
 products/page/gift.svg,The Perfect Gift,"share the unique flavor from the heart of cebu"

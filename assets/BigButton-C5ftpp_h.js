@@ -1,0 +1,2 @@
+import{j as s}from"./index-B2ICrUq2.js";const c="/mango-web/images/products/pin.svg",r=({img:t,children:o,onClick:e})=>s.jsxs("button",{type:"button",onClick:e,className:`cursor-pointer text-3xl sm:text-4xl text-mango-400 border-4 rounded-xl
+        font-semibold flex items-center gap-3 p-2 px-4 border-dashed`,children:[t&&s.jsx("img",{src:t,className:"pointer-events-none w-6 sm:w-8"}),o]}),i=({img:t,children:o,onClick:e,link:n=""})=>n!=""?s.jsx("a",{href:n,children:s.jsx(r,{img:t,onClick:e,children:o})}):s.jsx(r,{img:t,onClick:e,children:o});export{i as B,c as p};
