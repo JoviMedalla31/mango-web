@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Footer from '@/components/FooterB';
 import Header from '@/components/Header';
 
@@ -89,6 +90,28 @@ const ProductItem = ({
 };
 
 const ProductList = () => {
+  // hooks
+  const location = useLocation();
+
+  // Ref
+  const bulkOrdersRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('running');
+
+    if (location.hash) {
+      requestAnimationFrame(() => {
+        bulkOrdersRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      });
+      return;
+    }
+
+    scrollTo({ top: 0 });
+  }, [location]);
+
   return (
     <div className="font-poppins text-mango-800 pt-18 relative bg-mango-100 text-2xl">
       <Header />
@@ -268,7 +291,8 @@ const ProductList = () => {
           </section>
         </div>
         <section
-          id="footer-hero"
+          ref={bulkOrdersRef}
+          id="bulk-orders"
           className="h-164 sm:h-205 relative px-8 flex items-center justify-center
             overflow-hidden"
         >
