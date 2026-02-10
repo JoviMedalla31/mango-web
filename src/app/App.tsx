@@ -2,7 +2,14 @@ import { useEffect } from 'react';
 import { DragEvent, MouseEvent, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { useScroll, useTransform, motion, useSpring, MotionValue } from 'motion/react';
+import {
+  useScroll,
+  useTransform,
+  motion,
+  useSpring,
+  MotionValue,
+  AnimatePresence,
+} from 'motion/react';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 // Components
@@ -137,11 +144,41 @@ const HeroImg = ({
         x: initialX / baseUnit + 'rem',
         y: initialY / 16 + 'rem',
         rotate: initialRotate,
-        transition: { duration: 0.7, ease: [0.07, 0.7, 0.2, 1.0] },
+        transition: { duration: 2, ease: [0.07, 0.7, 0.2, 1.0], delay: 0.2 },
       }}
       style={{ x: transformX, y: transformY, rotate: rot, scale: isSm ? 0.7 : 1 }}
       className="absolute"
     />
+  );
+};
+
+const Loading = () => {
+  const [dots, setDots] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prev) => {
+        const nextDots = (prev % 3) + 1;
+        return nextDots;
+      });
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <motion.div
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="w-screen h-screen bg-mango-100 flex items-center justify-center px-12"
+    >
+      <div className="@container w-full max-w-60">
+        <p className="mb-2 text-mango-800/80 text-[clamp(1rem,10.7cqw,200rem)] font-bold">
+          Drying Mangoes{[...Array(dots)].map((_) => '.')}
+        </p>
+        <img src={logo} className="pointer-events-none" />
+      </div>
+    </motion.div>
   );
 };
 
@@ -158,7 +195,7 @@ function App() {
 
   // Motion Values
   const scrollYProgress = useTransform(scrollY, [0, 750], [0, 1], { clamp: true });
-  const scrollYSpring = useSpring(scrollYProgress, { bounce: 0 });
+  const scrollYSpring = useSpring(scrollYProgress, { bounce: 0.2 });
 
   // Hero
   const heroLogoHeight = useTransform(scrollYProgress, [0, 1], [0, 800], { clamp: true });
@@ -175,9 +212,8 @@ function App() {
 
   return (
     <div className="font-poppins relative bg-mango-100 text-2xl">
-      {!ready ? (
-        <p>I AM LOADING</p>
-      ) : (
+      <AnimatePresence>{!ready && <Loading />}</AnimatePresence>
+      {ready && (
         <>
           <Header
             key="home"
