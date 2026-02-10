@@ -3,6 +3,7 @@ import email from '/images/footer/email.svg';
 import phone from '/images/footer/phone.svg';
 import instagram from '/images/footer/instagram.svg';
 import facebook from '/images/footer/facebook.svg';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -31,18 +32,8 @@ const Footer = () => {
                 Bulk Orders?
               </h3>
               <p className="mt-4 text-base sm:text-lg lg:text-xl xl:text-2xl">
-                Please contact us with the following for bulk orders and wholesale pricing
+                Please contact us for bulk orders and wholesale pricing
               </p>
-              <div className="mt-12 hidden md:flex text-base gap-4 flex-col items-center">
-                <div className="flex gap-2">
-                  <img src={phone} />
-                  <p>(032)254-1572</p>
-                </div>
-                <div className="flex gap-2">
-                  <img src={email} />
-                  <p>camiluzenterprises@gmail.com</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -60,24 +51,26 @@ const Footer = () => {
             <p className="mt-2 lg:mt-4">click the link below to see how you can order</p>
           </div>
           <div className="mx-auto -mt-1 w-fit">
-            <div
-              className="bg-mango-400 -mt-1 w-fit p-2 py-5 pb-3 text-lg font-extrabold
-                text-white lg:text-xl xl:text-2xl"
-            >
-              ORDER NOW
-            </div>
-            <svg
-              viewBox="0 0 171 47"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="fill-mango-400 -mt-1"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
-              />
-            </svg>
+            <Link to="/products">
+              <div
+                className="bg-mango-400 -mt-1 w-fit p-2 py-5 pb-3 text-lg font-extrabold
+                  text-white lg:text-xl xl:text-2xl"
+              >
+                ORDER NOW
+              </div>
+              <svg
+                viewBox="0 0 171 47"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-mango-400 -mt-1"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
@@ -103,23 +96,57 @@ const Footer = () => {
         >
           <path d="M1440 51H0V14.5742L216.72 33.0537L431.76 7.85352L648.48 16.2539L863.521 33.0537L1080.24 43.1338L1295.28 7.85352L1440 0V51Z" />
         </svg>
-        <div className="md:hidden flex text-base mt-12 gap-2 flex-col items-center">
-          <div className="flex gap-2">
-            <img src={phone} />
-            <p>(032)254-1572</p>
-          </div>
-          <div className="flex gap-2">
-            <img src={email} />
-            <p>camiluzenterprises@gmail.com</p>
-          </div>
-        </div>
-        <div className="md:hidden flex flex-col items-center my-8">
-          <h3 className="font-pt-serif text-3xl gititalic text-mango-800">
-            Join the Community
-          </h3>
-          <div className="gap-8 mt-2 flex">
-            <img className="w-10" src={instagram} />
-            <img className="w-10" src={facebook} />
+        <div className="max-w-300 mx-auto mb-10 px-8 text-mango-800">
+          <div
+            className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[3fr_4fr_3fr]
+              items-end"
+          >
+            <div
+              id="contact-info"
+              className="flex mb-8 md:mb-0 text-base items-center md:justify-start mt-12
+                gap-2 flex-col md:items-baseline justify-center"
+            >
+              <div className="flex gap-2">
+                <img src={phone} />
+                <p className="w-full whitespace-nowrap">+63 955 622 2783</p>
+              </div>
+              <div className="flex gap-2">
+                <img src={email} />
+                <p>camiluzenterprises@gmail.com</p>
+              </div>
+            </div>
+            <div
+              id="copyright"
+              className="xl:row-start-auto xl:col-span-1 col-span-full row-start-3
+                md:row-start-2 xl:pt-0 xl:border-0 text-center md:text-left text-base
+                font-poppins xl:mt-0 mt-8 border-t border-mango-800/20 pt-4"
+            >
+              © 2026 Camiluz Enterprises. All Rights Reserved.
+            </div>
+            <div
+              id="join-community"
+              className="flex justify-end items-center md:flex-row flex-col gap-1
+                md:gap-2"
+            >
+              <h3 className="font-pt-serif text-right text-3xl italic text-mango-800">
+                Join the <br className="hidden md:block" />
+                Community
+              </h3>
+              <div className="gap-8 md:gap-2 mt-2 flex flex-row md:flex-col">
+                <a
+                  href="https://www.instagram.com/guadalupe_dried_mangoes/"
+                  className="cursor-pointer"
+                >
+                  <img className="w-10" src={instagram} />
+                </a>
+                <a
+                  href="https://www.facebook.com/GuadalupeDriedMangoes/"
+                  className="cursor-pointer"
+                >
+                  <img className="w-10" src={facebook} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

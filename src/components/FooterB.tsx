@@ -36,7 +36,7 @@ const Footer = () => {
         >
           <path d="M1440 51H0V14.5742L216.72 33.0537L431.76 7.85352L648.48 16.2539L863.521 33.0537L1080.24 43.1338L1295.28 7.85352L1440 0V51Z" />
         </svg>
-        <div className="max-w-300 mx-auto mb-10 px-8">
+        <div className="max-w-300 mx-auto mb-10 px-8 text-mango-800">
           <div
             className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[3fr_4fr_3fr]
               items-end"
@@ -48,7 +48,7 @@ const Footer = () => {
             >
               <div className="flex gap-2">
                 <img src={phone} />
-                <p>(032)254-1572</p>
+                <p className="w-full whitespace-nowrap">+63 955 622 2783</p>
               </div>
               <div className="flex gap-2">
                 <img src={email} />
@@ -65,16 +65,26 @@ const Footer = () => {
             </div>
             <div
               id="join-community"
-              className="flex justify-end items-center md:items-end md:flex-row flex-col
-                gap-1 md:gap-2"
+              className="flex justify-end items-center md:flex-row flex-col gap-1
+                md:gap-2"
             >
               <h3 className="font-pt-serif text-right text-3xl italic text-mango-800">
                 Join the <br className="hidden md:block" />
                 Community
               </h3>
               <div className="gap-8 md:gap-2 mt-2 flex flex-row md:flex-col">
-                <img className="w-8" src={instagram} />
-                <img className="w-8" src={facebook} />
+                <a
+                  href="https://www.instagram.com/guadalupe_dried_mangoes/"
+                  className="cursor-pointer"
+                >
+                  <img className="w-10" src={instagram} />
+                </a>
+                <a
+                  href="https://www.facebook.com/GuadalupeDriedMangoes/"
+                  className="cursor-pointer"
+                >
+                  <img className="w-10" src={facebook} />
+                </a>
               </div>
             </div>
           </div>

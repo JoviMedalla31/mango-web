@@ -127,7 +127,9 @@ const ProductList = () => {
               Click below to connect to our <br className="sm:hidden block" />
               facebook to place your order!
             </p>
-            <BigButton img={messengerImg}>ORDER NOW</BigButton>
+            <BigButton link="https://m.me/GuadalupeDriedMangoes/" img={messengerImg}>
+              ORDER NOW
+            </BigButton>
           </div>
           <img
             src={bgA}
@@ -173,7 +175,12 @@ const ProductList = () => {
               <p className="mt-4 text-base md:text-2xl text-center">
                 View our list of stores where our products are available
               </p>
-              <BigButton img={pin}>Locate Store</BigButton>
+              <BigButton
+                link="https://www.google.com/maps/d/viewer?hl=en&mid=1oaTuY8CJkk-KMWyK2WHyHFWxptXPyiw6&ll=10.303844621040035%2C123.89564333246445&z=14"
+                img={pin}
+              >
+                Locate Store
+              </BigButton>
             </div>
           </section>
           <DividerTitle>

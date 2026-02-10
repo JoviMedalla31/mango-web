@@ -165,24 +165,26 @@ const Products = ({
                 </p>
               </div>
               <div className="mx-auto -mt-1 w-fit">
-                <div
-                  className="bg-mango-400 -mt-1 w-fit p-2 py-5 pb-3 text-lg font-extrabold
-                    text-white lg:text-xl xl:text-2xl"
-                >
-                  ORDER NOW
-                </div>
-                <svg
-                  viewBox="0 0 171 47"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="fill-mango-400 -mt-1"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
-                  />
-                </svg>
+                <Link to="/products">
+                  <div
+                    className="bg-mango-400 -mt-1 w-fit p-2 py-5 pb-3 text-lg
+                      font-extrabold text-white lg:text-xl xl:text-2xl"
+                  >
+                    ORDER NOW
+                  </div>
+                  <svg
+                    viewBox="0 0 171 47"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="fill-mango-400 -mt-1"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M0 0L0 36.3851C0 37.7137 0.659704 38.9556 1.76059 39.6994L10.7729 45.7888C11.7146 46.425 12.8824 46.6307 13.9848 46.3544L167.975 7.75881C169.755 7.3128 171.003 5.7134 171.003 3.87882V0L0 0Z"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>

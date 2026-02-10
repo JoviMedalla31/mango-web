@@ -88,14 +88,17 @@ const Contact = () => {
                   directly from the source.
                 </p>
 
-                <button
-                  type="button"
-                  className="mx-auto mt-10 sm:mt-16 flex gap-3 font-semibold text-2xl
-                    sm:text-4xl text-white bg-mango-400 rounded-2xl px-4 py-2"
-                >
-                  <img src={pin} className="w-6 sm:w-8" />
-                  Location
-                </button>
+                <a href="https://www.google.com/maps?cid=13376923318380608819">
+                  <button
+                    type="button"
+                    className="cursor-pointer mx-auto mt-10 sm:mt-16 flex gap-3
+                      font-semibold text-2xl sm:text-4xl text-white bg-mango-400
+                      rounded-2xl px-4 py-2"
+                  >
+                    <img src={pin} className="w-6 sm:w-8" />
+                    Location
+                  </button>
+                </a>
               </div>
               <img
                 src={dashedLine}

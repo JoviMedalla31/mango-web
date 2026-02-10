@@ -52,7 +52,7 @@ import strips14 from '/images/shapes/strips-14.svg';
 import strips15 from '/images/shapes/strips-15.svg';
 import dashedLine from '/images/shapes/dashed-line.svg';
 import mapPin from '/images/shapes/map-pin.svg';
-
+import pin from '/images/products/pin.svg';
 import tree from '/images/home/tree.svg';
 
 // Carousel Img
@@ -60,6 +60,9 @@ import chocolateImg from '/images/products/shots/chocolate.png';
 import sliceImg from '/images/products/shots/slice.png';
 import spaghettiImg from '/images/products/shots/spaghetti.png';
 import stripImg from '/images/products/shots/strip.png';
+import BigButton from '@/components/BigButton';
+import { loadingFinishedAtom } from '@/store/loading';
+import { useAtom } from 'jotai';
 
 // Array of page imags for pre-loading the page
 const pageImages = [
@@ -170,7 +173,8 @@ const Loading = () => {
     <motion.div
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="w-screen h-screen bg-mango-100 flex items-center justify-center px-12"
+      className="w-screen h-screen bg-mango-100 flex absolute top-0 left-0 items-center
+        justify-center px-12"
     >
       <div className="@container w-full max-w-60">
         <p className="mb-2 text-mango-800/80 text-[clamp(1rem,10.7cqw,200rem)] font-bold">
@@ -189,6 +193,7 @@ function App() {
 
   // Ref
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [loadingFinished, setLoadingFinished] = useAtom(loadingFinishedAtom);
 
   const mouseDownPos = useRef<[number, number] | null>(null);
   const [ready, setReady] = useState(false);
@@ -237,12 +242,7 @@ function App() {
             </section>
             {/* Hero Section */}
             <section className="bg-mango-100 relative z-0 h-270 w-full overflow-hidden">
-              {/* <img
-                src={logo}
-                className="absolute top-82 left-1/2 -translate-x-1/2 -rotate-[9.6deg]"
-              /> */}
               <div className="absolute top-1/2 left-1/2 h-50 w-50">
-                {/* <div className="h-20 w-20 bg-red-500" /> */}
                 <HeroImg
                   src={mango2}
                   scrollY={scrollYSpring}
@@ -552,13 +552,13 @@ function App() {
                       our journey began. Shop our full range of classics and new
                       innovations directly from the source.
                     </p>
-                    <div
-                      className="mt-12 text-lg w-fit mx-auto px-4 font-semibold
-                        text-mango-400 border-mango-400 flex gap-3 py-1 sm:text-2xl
-                        lg:text-4xl border-5 rounded-xl border-dashed items-center"
-                    >
-                      <MapPin className="w-8 h-8 stroke-2" />
-                      Locate Store
+                    <div className="flex justify-center w-full mt-12">
+                      <BigButton
+                        img={pin}
+                        link="https://www.google.com/maps?cid=13376923318380608819"
+                      >
+                        Locate Store
+                      </BigButton>
                     </div>
                   </div>
                   <img
