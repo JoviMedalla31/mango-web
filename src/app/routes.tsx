@@ -1,65 +1,72 @@
 import { createHashRouter, Outlet } from 'react-router-dom';
+import Error from './routes/Error';
 
 const router = createHashRouter([
   {
-    index: true,
-    lazy: async () => {
-      let Home = await import('@/app/App');
-      return { Component: Home.default };
-    },
-  },
-  {
-    path: 'contact',
-    lazy: async () => {
-      let Contact = await import('@/app/routes/Contact');
-      return { Component: Contact.default };
-    },
-  },
-  {
-    path: 'products',
-    Component: Outlet,
+    path: '/',
+    ErrorBoundary: Error,
     children: [
       {
         index: true,
         lazy: async () => {
-          let ProductsList = await import('@/app/routes/ProductList');
-          return { Component: ProductsList.default };
+          let Home = await import('@/app/App');
+          return { Component: Home.default };
         },
       },
       {
-        path: 'strips',
+        path: 'contact',
         lazy: async () => {
-          let Products = await import('@/app/routes/products/Strips');
-          return { Component: Products.default };
+          let Contact = await import('@/app/routes/Contact');
+          return { Component: Contact.default };
         },
       },
       {
-        path: 'slices',
-        lazy: async () => {
-          let Products = await import('@/app/routes/products/Slices');
-          return { Component: Products.default };
-        },
-      },
-      {
-        path: 'spaghetti',
-        lazy: async () => {
-          let Products = await import('@/app/routes/products/Spaghetti');
-          return { Component: Products.default };
-        },
-      },
-      {
-        path: 'chocolate-slices',
-        lazy: async () => {
-          let Products = await import('@/app/routes/products/ChocolateSlices');
-          return { Component: Products.default };
-        },
-      },
-      {
-        path: 'chocolate-strips',
-        lazy: async () => {
-          let Products = await import('@/app/routes/products/ChocolateStrips');
-          return { Component: Products.default };
-        },
+        path: 'products',
+        Component: Outlet,
+        children: [
+          {
+            index: true,
+            lazy: async () => {
+              let ProductsList = await import('@/app/routes/ProductList');
+              return { Component: ProductsList.default };
+            },
+          },
+          {
+            path: 'strips',
+            lazy: async () => {
+              let Products = await import('@/app/routes/products/Strips');
+              return { Component: Products.default };
+            },
+          },
+          {
+            path: 'slices',
+            lazy: async () => {
+              let Products = await import('@/app/routes/products/Slices');
+              return { Component: Products.default };
+            },
+          },
+          {
+            path: 'spaghetti',
+            lazy: async () => {
+              let Products = await import('@/app/routes/products/Spaghetti');
+              return { Component: Products.default };
+            },
+          },
+          {
+            path: 'chocolate-slices',
+            lazy: async () => {
+              let Products = await import('@/app/routes/products/ChocolateSlices');
+              return { Component: Products.default };
+            },
+          },
+          {
+            path: 'chocolate-strips',
+            lazy: async () => {
+              let Products = await import('@/app/routes/products/ChocolateStrips');
+              return { Component: Products.default };
+            },
+          },
+        ],
       },
     ],
   },
