@@ -147,7 +147,7 @@ const HeroImg = ({
         transition: { duration: 2, ease: [0.07, 0.7, 0.2, 1.0], delay: 0.2 },
       }}
       style={{ x: transformX, y: transformY, rotate: rot, scale: isSm ? 0.7 : 1 }}
-      className="absolute"
+      className="absolute pointer-events-none"
     />
   );
 };

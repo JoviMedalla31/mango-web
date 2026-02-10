@@ -183,10 +183,7 @@ const Header = ({
                   <Link to="/products/#bulk-orders">
                     <p>Bulk Orders</p>
                   </Link>
-                  <Link
-                    to="/contact
-                  "
-                  >
+                  <Link to="/contact">
                     <p>Contact Us</p>
                   </Link>
                 </nav>
