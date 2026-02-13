@@ -135,12 +135,14 @@ const Footer = () => {
               <div className="gap-8 md:gap-2 mt-2 flex flex-row md:flex-col">
                 <a
                   href="https://www.instagram.com/guadalupe_dried_mangoes/"
+                  target="_blank"
                   className="cursor-pointer"
                 >
                   <img className="w-10" src={instagram} />
                 </a>
                 <a
                   href="https://www.facebook.com/GuadalupeDriedMangoes/"
+                  target="_blank"
                   className="cursor-pointer"
                 >
                   <img className="w-10" src={facebook} />

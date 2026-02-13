@@ -34,7 +34,7 @@ const BigButton = ({
   link?: string;
 }) => {
   return link != '' ? (
-    <a href={link}>
+    <a href={link} target="_blank">
       <Button img={img} onClick={handleClick}>
         {children}
       </Button>

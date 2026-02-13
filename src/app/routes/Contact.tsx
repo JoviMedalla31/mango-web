@@ -7,17 +7,12 @@ import phone from '/images/footer/phone.svg';
 import pin from '/images/products/pin-white.svg';
 
 // Shapes
-import mango3b from '/images/shapes/mango-3b.svg';
 import mango4 from '/images/shapes/mango-4.svg';
 import long1 from '/images/shapes/long-1.svg';
-import long5 from '/images/shapes/long-5.svg';
-import strips2 from '/images/shapes/strips-2.svg';
-import strips4 from '/images/shapes/strips-4.svg';
 import strips6 from '/images/shapes/strips-6.svg';
 import dashedLine from '/images/shapes/dashed-line.svg';
 import mapPin from '/images/shapes/map-pin.svg';
 
-import tree from '/images/home/tree.svg';
 import Footer from '@/components/FooterB';
 import { useEffect } from 'react';
 
@@ -88,7 +83,10 @@ const Contact = () => {
                   directly from the source.
                 </p>
 
-                <a href="https://www.google.com/maps?cid=13376923318380608819">
+                <a
+                  href="https://www.google.com/maps?cid=13376923318380608819"
+                  target="_blank"
+                >
                   <button
                     type="button"
                     className="cursor-pointer mx-auto mt-10 sm:mt-16 flex gap-3

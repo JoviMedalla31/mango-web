@@ -127,7 +127,10 @@ const ProductList = () => {
               Click below to connect to our <br className="sm:hidden block" />
               facebook to place your order!
             </p>
-            <BigButton link="https://m.me/GuadalupeDriedMangoes/" img={messengerImg}>
+            <BigButton
+              link="https://www.facebook.com/GuadalupeDriedMangoes/"
+              img={messengerImg}
+            >
               ORDER NOW
             </BigButton>
           </div>
@@ -154,6 +157,7 @@ const ProductList = () => {
                 <br />
                 <span className="font-bold">Outside Cebu:</span> Shipping via Docs Cargo,
                 <span className="italic">
+                  {' '}
                   Flying Tigers Express &#40;FTE&#41;, or LBC.
                 </span>
               </p>
@@ -216,8 +220,9 @@ const ProductList = () => {
           <DividerTitle>
             <h2 className="font-pt-serif text-5xl sm:text-6xl font-bold">Chocolate</h2>
             <p className="text-faded-mango-500 sm:text-2xl text-xl">
-              Premium chocolate meets our classic mango in a presentation designed to
-              impress.
+              Premium chocolate meets our classic mango in a
+              <br className="md:block hidden" />
+              presentation designed to impress.
             </p>
           </DividerTitle>
           <section
@@ -270,7 +275,8 @@ const ProductList = () => {
           <DividerTitle>
             <h2 className="font-pt-serif text-5xl sm:text-6xl font-bold">Fun</h2>
             <p className="text-faded-mango-500 sm:text-2xl text-xl">
-              Designed to spark a smile and a little bit of wonder before your first bite.
+              Designed to spark a smile and a little bit
+              <br className="sm:block hidden" /> of wonder before your first bite.
             </p>
           </DividerTitle>
           <section
