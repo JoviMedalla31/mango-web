@@ -8,16 +8,23 @@ const Spaghetti = () => {
       title={
         <div className="@container col-start-1 mx-auto w-full max-w-100 justify-center">
           <div className="text-mango-400 mx-auto mt-18 flex w-fit flex-col items-start">
-            <h1>
+            <h1 className="flex flex-col">
               <span className="text-[clamp(1rem,14cqw,200rem)] leading-[80%]">
                 Dried Mango
-              </span>{' '}
+              </span>
               <br />
               <span
-                className="text-mango-800 text-[clamp(1rem,16cqw,200rem)]/[120%]
+                className="text-mango-800 text-[clamp(1rem,16cqw,200rem)]/[130%]
                   font-extrabold"
               >
                 SPAGHETTI
+              </span>
+              <br />
+              <span
+                className="italic text-right self-end
+                  text-[clamp(1rem,12cqw,200rem)]/[70%]"
+              >
+                Strips
               </span>
             </h1>
           </div>
