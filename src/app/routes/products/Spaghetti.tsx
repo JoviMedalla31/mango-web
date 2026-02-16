@@ -31,7 +31,7 @@ const Spaghetti = () => {
         </div>
       }
       imgSrc={imgSrc}
-      description="Our Mango Spaghetti offers the authentic taste of Philippine mangoes in a fun, strip-style snack. Great for kids, parties, or anyone looking for a unique treat that brings a smile to every bite."
+      description="Our Mango Spaghetti strips offers the authentic taste of Philippine mangoes in a fun, strip-style snack. Great for kids, parties, or anyone looking for a unique treat that brings a smile to every bite."
       csvRaw={csvRaw}
     />
   );
