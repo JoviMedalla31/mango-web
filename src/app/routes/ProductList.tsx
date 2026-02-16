@@ -155,7 +155,7 @@ const ProductList = () => {
               <p className="mt-4 text-base md:text-2xl">
                 <span className="font-bold">Within Cebu:</span> Delivery via Lalamove.
                 <br />
-                <span className="font-bold">Outside Cebu:</span> Shipping via Docs Cargo,
+                <span className="font-bold">*Outside Cebu:</span> Shipping via Docs Cargo,
                 <span className="italic">
                   {' '}
                   Flying Tigers Express &#40;FTE&#41;, or LBC.
@@ -165,6 +165,9 @@ const ProductList = () => {
                 <li>2&#45;3 days &#40;Docs Cargo/FTE&#41;</li>
                 <li>5&#45;7 days &#40;LBC&#41;</li>
               </ul>
+              <p className="text-sm italic text-left w-full -mt-3">
+                *Courier availability varies by location.
+              </p>
               <p className="font-extralight italic text-base md:text-2xl text-center">
                 Fees apply and will be quoted upon order confirmation.
               </p>
