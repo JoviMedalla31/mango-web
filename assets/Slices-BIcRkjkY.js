@@ -1,4 +1,4 @@
-import{j as e}from"./index-vL4zqjVA.js";import{P as a}from"./Product-DjG_ftUo.js";import{b as o}from"./divider-b-BRhzZzlv.js";const r=`products/page/slice-size.png,Comes in a Large!,"Our classic slices also come in a large 200g pack."\r
+import{j as e}from"./index-DTJH4JHh.js";import{P as a}from"./Product-D1877sT6.js";import{b as o}from"./divider-b-CgACQmI-.js";const r=`products/page/slice-size.png,Comes in a Large!,"Our classic slices also come in a large 200g pack."\r
 products/page/local.png,Local Pinoy Magnoes,"Our mangoes are sourced from our local farmers, we believe in the taste and soul of  Philippine mangoes."\r
 products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."\r
 products/page/gift.svg,The Perfect Gift,"Share the unique flavor from the heart of Cebu."\r

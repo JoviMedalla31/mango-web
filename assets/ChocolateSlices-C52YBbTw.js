@@ -1,8 +1,0 @@
-import{j as a}from"./index-vL4zqjVA.js";import{P as e}from"./Product-DjG_ftUo.js";import{f as r}from"./divider-b-BRhzZzlv.js";const s=`products/page/variety.png,Sweet Variety,"Also comes in Dark, Extra Dark and White Chocolate."\r
-products/page/pack 2.png,Individually Packed,"Thoughtfully packed for freshness and giving."\r
-products/page/artif-flavors.svg,no artificial Flavors,"No Additives. No Compromises."\r
-products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."\r
-products/page/no-additives.svg,No Additives,"No gelatin, flour, or any binding agents."\r
-products/page/no-artificial-colors.svg,No Artificial Colours,"No gelatin, flour, or any binding agents."\r
-`,n=()=>a.jsx(e,{title:a.jsx("div",{className:"@container col-start-1 mx-auto w-full max-w-100 justify-center",children:a.jsx("div",{className:"text-mango-400 mx-auto mt-18 flex w-fit flex-col items-start",children:a.jsxs("h1",{children:[a.jsx("span",{className:"font-bold text-mango-800 text-[clamp(1rem,14.4cqw,200rem)]",children:"CHOCOLATE"}),a.jsx("br",{}),a.jsx("span",{className:"text-[clamp(1rem,14cqw,200rem)] leading-[80%]",children:"Dried Mango"})," ",a.jsx("br",{}),a.jsx("span",{className:`text-mango-800 text-[clamp(1rem,26cqw,200rem)]/[95%]\r
-                  font-extrabold`,children:"SLICES"})]})})}),imgSrc:r,description:"A match made in paradise. Our famous dried mangoes meets premium chocolate for a rich, tangy, and sweet sensation.",csvRaw:s});export{n as default};
