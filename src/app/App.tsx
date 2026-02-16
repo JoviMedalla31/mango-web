@@ -456,8 +456,8 @@ function App() {
               </div>
               <img
                 src={dividerA}
-                className="pointer-events-none absolute min-w-xl left-1/2 -translate-x-1/2
-                  bottom-0 select-none translate-y-px"
+                className="pointer-events-none absolute min-w-xl w-full left-1/2
+                  -translate-x-1/2 bottom-0 select-none translate-y-px"
               />
             </section>
             <section

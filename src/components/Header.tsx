@@ -160,7 +160,7 @@ const Header = ({
                 </nav>
               </motion.div>
               <Link to="/" className="cursor-pointer">
-                <img src={logo} className="pointer-events-none" />
+                <img src={logo} className="pointer-events-none w-full" />
               </Link>
             </motion.div>
             <div className="p-1 cursor-pointer">
