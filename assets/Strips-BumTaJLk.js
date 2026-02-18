@@ -1,6 +1,0 @@
-import{j as e}from"./index-DqGLT6KK.js";import{P as o}from"./Product-WZj5QaaA.js";import{e as r}from"./divider-b-bGDJdXeJ.js";const t=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."\r
-products/page/local.png,Local Pinoy Mangoes,"Our mangoes are sourced from our local farmers, we believe in the taste and soul of  Philippine mangoes"\r
-products/page/no-additives.svg,No Additives,"No Additives. No Compromises."\r
-products/page/gift.svg,The Perfect Gift,"share the unique flavor from the heart of cebu"\r
-products/page/no-artificial-colors.svg,No Artificial Colours,"no gelatin, flour, or any binding agents"`,n=()=>e.jsx(o,{title:e.jsx("div",{className:"@container col-start-1 mx-auto w-full max-w-100 justify-center",children:e.jsx("div",{className:"text-mango-400 mx-auto mt-18 flex w-fit flex-col items-start",children:e.jsxs("h1",{className:"text-[clamp(1rem,14cqw,200rem)]",children:["Dried Mango ",e.jsx("br",{}),e.jsx("span",{className:`text-mango-800 text-[clamp(1rem,26cqw,200rem)]/[90%]\r
-                  font-extrabold`,children:"STRIPS"})]})})}),imgSrc:r,description:"Made from 100% real mangoes. To achieve a smooth, strip-style texture, we gently remove the naturally fibrous, insoluble parts of the fruit before drying and shaping.",csvRaw:t});export{n as default};
