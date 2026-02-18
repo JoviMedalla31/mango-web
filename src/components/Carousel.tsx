@@ -54,7 +54,7 @@ const CarouselItem = ({
     const containerWidth = dimensions.full.current * itemCount.current;
     const scrollOffset = -((index + 1) * dimensions.full.current);
 
-    const smLayoutOffset = dimensions.gap.current / 2;
+    const smLayoutOffset = dimensions.item.current / 2;
     const mdLayoutOffset = dimensions.item.current / 2;
     const lgLayoutOffset = dimensions.item.current / 2;
 
@@ -184,8 +184,9 @@ const Carousel = ({
   // Framer Animation
   // -----------------------
 
+  // Animates the carousel automatically, making it move slowly over time.
   useAnimationFrame((t, delta) => {
-    // return;
+    // Stop the animation at certain breakpoints & when paused.
     if (isSm) return;
     if (pauseScroll.current) return;
 
@@ -215,11 +216,15 @@ const Carousel = ({
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) => {
+    // threshold from drag speed to check if offset should change
     const velocityThreshold = 500;
+    // pointer movement offset from px to % (percent of screen)
     const dvwOffset = (info.offset.x / windowWidth.current) * 100;
+    // offset of how many items user dragged between.
     let draggedOffset = Math.round(dvwOffset / fullItemWidth.current);
     let nextX: number;
 
+    // if no offset is detected, adds offset based on pointer velocity
     if (draggedOffset == 0 && Math.abs(info.velocity.x) > velocityThreshold)
       draggedOffset = info.velocity.x > 0 ? 1 : -1;
 
@@ -237,7 +242,7 @@ const Carousel = ({
 
   const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (dragStartX.current == null) {
-      // Stop the animation because if not it will still play in the BG.
+      // Stop the animation because if not it will still play & calculate in the BG.
       animation.current?.stop();
       return;
     }
