@@ -1,4 +1,4 @@
-import{j as e}from"./index-CwHUftKY.js";import{P as t}from"./Product-A7MFOzmn.js";import{i as a}from"./divider-b-BSrraum7.js";const r=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."\r
+import{j as e}from"./index-CbHFaHcI.js";import{P as t}from"./Product-CHJ8jE_z.js";import{i as a}from"./divider-b-Ba0NRJbr.js";const r=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."\r
 products/page/inside.png,On the Inside,"Arranged to create a stunning presentation, to ensure that receiving a gift from Guadalupe is as memorable as the first bite."\r
 products/page/variety.png,Sweet Variety,"Also comes in Dark, Extra Dark and White Chocolate."\r
 products/page/gift.svg,The Perfect Gift,"Share the unique flavor from the heart of Cebu."\r

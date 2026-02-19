@@ -1,4 +1,4 @@
-import{j as a}from"./index-CwHUftKY.js";import{P as e}from"./Product-A7MFOzmn.js";import{f as s}from"./divider-b-BSrraum7.js";const r=`products/page/variety.png,Sweet Variety,"Also comes in Dark, Extra Dark and White Chocolate."\r
+import{j as a}from"./index-CbHFaHcI.js";import{P as e}from"./Product-CHJ8jE_z.js";import{f as s}from"./divider-b-Ba0NRJbr.js";const r=`products/page/variety.png,Sweet Variety,"Also comes in Dark, Extra Dark and White Chocolate."\r
 products/page/pack 2.png,Individually Packed,"Thoughtfully packed for freshness and giving."\r
 products/page/artif-flavors.svg,no artificial Flavors,"No Additives. No Compromises."\r
 products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."\r
