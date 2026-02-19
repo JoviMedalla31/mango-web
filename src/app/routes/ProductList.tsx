@@ -205,7 +205,7 @@ const ProductList = () => {
               img={G200}
               code="G200"
               name="Dried Mango Slice"
-              desc="200 grams. Our signature slices in a larger format ideal for sharing"
+              desc="200 grams. Our signature slices in a larger format ideal for sharing."
             />
             <ProductItem
               img={G100}
@@ -236,7 +236,7 @@ const ProductList = () => {
               img={EXDST}
               code="EXDST"
               name="Extra Dark Chocolate Dried Mango Strips"
-              desc="120 grams. Intense, high-cacao chocolate over chewy mango strips"
+              desc="120 grams. Intense, high-cacao chocolate over chewy mango strips."
             />
             <ProductItem
               img={DST}
@@ -290,7 +290,7 @@ const ProductList = () => {
               img={SPAG90}
               code="SPAG90"
               name="Spaghetti Dried Mango"
-              desc='90 grams. The perfect "on-the-go" size. A compact, snack-ready pouch'
+              desc='90 grams. The perfect "on-the-go" size. A compact, snack-ready pouch.'
             />
             <ProductItem
               img={SPAG240}
@@ -315,7 +315,7 @@ const ProductList = () => {
           <div className="z-1 max-w-132 flex items-center flex-col text-center">
             <h1 className="font-pt-serif font-bold text-5xl sm:text-6xl">Bulk Orders?</h1>
             <p className="mt-8 mb-12 sm:text-2xl text-xl text-faded-mango-500">
-              Contact us through the following channels to get a quote
+              Contact us through the following channels to get a quote:
             </p>
             <div className="flex flex-col gap-4 w-full items-center">
               <div className="flex gap-2 w-full justify-center">

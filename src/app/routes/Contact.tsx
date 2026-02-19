@@ -35,7 +35,7 @@ const Contact = () => {
           <div className="z-1 max-w-132 flex items-center flex-col text-center">
             <h1 className="font-pt-serif font-bold text-5xl sm:text-6xl">Contact</h1>
             <p className="mt-8 mb-12 sm:text-2xl text-xl text-faded-mango-500">
-              Contact us through the following channels
+              Contact us through the following channels:
             </p>
             <div className="flex flex-col gap-4 w-full items-center">
               <div className="flex gap-2 w-full justify-center">
