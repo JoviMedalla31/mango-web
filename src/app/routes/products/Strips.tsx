@@ -21,7 +21,7 @@ const Strips = () => {
         </div>
       }
       imgSrc={imgSrc}
-      description="Made from 100% real mangoes. To achieve a smooth, strip-style texture, we gently remove the naturally fibrous, insoluble parts of the fruit before drying and shaping."
+      description="Made from 100% real mangoes. To achieve a smooth, strip-style texture, we carefully refine the fruit’s natural texture before drying and shaping."
       csvRaw={csvRaw}
     />
   );

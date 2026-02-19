@@ -1,0 +1,13 @@
+open terminal and use this to change to the F directory
+chdir /d F:
+then this to go to the project foleder
+cd F:\Projects\Godot\mango-web
+
+to preview changes
+npm run dev
+
+q+enter to stop dev
+
+npm run build 
+
+npm run deploy
