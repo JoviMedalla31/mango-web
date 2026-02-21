@@ -1,6 +1,15 @@
 import { createHashRouter, Outlet } from 'react-router-dom';
 import Error from './routes/Error';
 
+export const routes = {
+  products: '/products',
+  strips: '/products/strips',
+  slices: '/products/slices',
+  spaghetti: '/products/spaghetti',
+  chocolateSlices: '/products/chocolate-slices',
+  chocolateStrips: '/products/chocolate-strips',
+};
+
 const router = createHashRouter([
   {
     path: '/',

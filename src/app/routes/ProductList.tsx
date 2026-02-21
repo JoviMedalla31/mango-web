@@ -27,6 +27,8 @@ import MINIBOX from '/images/products/shots/MINIBOX.png';
 import SPAG90 from '/images/products/shots/SPAG90.png';
 import SPAG240 from '/images/products/shots/SPAG240.png';
 import SPAG500 from '/images/products/shots/SPAG500.png';
+import { Link } from 'react-router-dom';
+import { routes } from '../routes';
 
 const DividerTitle = ({ children }: { children?: ReactNode }) => {
   return (
@@ -201,24 +203,30 @@ const ProductList = () => {
             className="grid px-4 text-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3
               max-w-300 mx-auto gap-8 gap-y-10 py-12"
           >
-            <ProductItem
-              img={G200}
-              code="G200"
-              name="Dried Mango Slice"
-              desc="200 grams. Our signature slices in a larger format ideal for sharing."
-            />
-            <ProductItem
-              img={G100}
-              code="G100"
-              name="Dried Mango Slice"
-              desc="100 grams. Our classic recipe perfected for quick, authentic snacking."
-            />
-            <ProductItem
-              img={GS100}
-              code="GS100"
-              name="Dried Mango Strips"
-              desc="100 grams. The same authentic flavor, cut into uniform strips for a clean, consistent bite."
-            />
+            <Link to={routes.slices}>
+              <ProductItem
+                img={G200}
+                code="G200"
+                name="Dried Mango Slice"
+                desc="200 grams. Our signature slices in a larger format ideal for sharing."
+              />
+            </Link>
+            <Link to={routes.slices}>
+              <ProductItem
+                img={G100}
+                code="G100"
+                name="Dried Mango Slice"
+                desc="100 grams. Our classic recipe perfected for quick, authentic snacking."
+              />
+            </Link>
+            <Link to={routes.strips}>
+              <ProductItem
+                img={GS100}
+                code="GS100"
+                name="Dried Mango Strips"
+                desc="100 grams. The same authentic flavor, cut into uniform strips for a clean, consistent bite."
+              />
+            </Link>
           </section>
           <DividerTitle>
             <h2 className="font-pt-serif text-5xl sm:text-6xl font-bold">Chocolate</h2>
@@ -232,48 +240,62 @@ const ProductList = () => {
             className="grid px-4 text-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3
               max-w-300 mx-auto gap-8 gap-y-10 py-12"
           >
-            <ProductItem
-              img={EXDST}
-              code="EXDST"
-              name="Extra Dark Chocolate Dried Mango Strips"
-              desc="120 grams. Intense, high-cacao chocolate over chewy mango strips."
-            />
-            <ProductItem
-              img={DST}
-              code="DST"
-              name="Dark Chocolate Dried Mango Strips"
-              desc="120 grams. The perfect balance of bittersweet cacao and tangy mango strips."
-            />
-            <ProductItem
-              img={MST}
-              code="MST"
-              name="Milk Chocolate Dried Mango Strips"
-              desc="120 grams. A sweet, velvety treat featuring our signature mango strips."
-            />
-            <ProductItem
-              img={DSL}
-              code="DSL"
-              name="Dark Chocolate Dried Mango Slices"
-              desc="120 grams. Classic slices coated in a rich, bittersweet dark chocolate blend."
-            />
-            <ProductItem
-              img={MSL}
-              code="MSL"
-              name="Milk Chocolate Dried Mango Slices"
-              desc="120 grams. Classic slices dipped in a creamy, smooth milk chocolate coating."
-            />
-            <ProductItem
-              img={WSL}
-              code="WSL"
-              name="White Chocolate Dried Mango Slices"
-              desc="120 grams. Classic slices finished with a milky, buttery white chocolate glaze."
-            />
-            <ProductItem
-              img={MINIBOX}
-              code="MINIBOX"
-              name="Assorted Chocolate Dried Mango Sampler"
-              desc="60 grams. Features 6 individually wrapped strips: two each of Milk, Dark, and Extra Dark chocolate."
-            />
+            <Link to={routes.chocolateStrips}>
+              <ProductItem
+                img={EXDST}
+                code="EXDST"
+                name="Extra Dark Chocolate Dried Mango Strips"
+                desc="120 grams. Intense, high-cacao chocolate over chewy mango strips."
+              />
+            </Link>
+            <Link to={routes.chocolateStrips}>
+              <ProductItem
+                img={DST}
+                code="DST"
+                name="Dark Chocolate Dried Mango Strips"
+                desc="120 grams. The perfect balance of bittersweet cacao and tangy mango strips."
+              />
+            </Link>
+            <Link to={routes.chocolateStrips}>
+              <ProductItem
+                img={MST}
+                code="MST"
+                name="Milk Chocolate Dried Mango Strips"
+                desc="120 grams. A sweet, velvety treat featuring our signature mango strips."
+              />
+            </Link>
+            <Link to={routes.chocolateSlices}>
+              <ProductItem
+                img={DSL}
+                code="DSL"
+                name="Dark Chocolate Dried Mango Slices"
+                desc="120 grams. Classic slices coated in a rich, bittersweet dark chocolate blend."
+              />
+            </Link>
+            <Link to={routes.chocolateSlices}>
+              <ProductItem
+                img={MSL}
+                code="MSL"
+                name="Milk Chocolate Dried Mango Slices"
+                desc="120 grams. Classic slices dipped in a creamy, smooth milk chocolate coating."
+              />
+            </Link>
+            <Link to={routes.chocolateSlices}>
+              <ProductItem
+                img={WSL}
+                code="WSL"
+                name="White Chocolate Dried Mango Slices"
+                desc="120 grams. Classic slices finished with a milky, buttery white chocolate glaze."
+              />
+            </Link>
+            <Link to={routes.chocolateStrips}>
+              <ProductItem
+                img={MINIBOX}
+                code="MINIBOX"
+                name="Assorted Chocolate Dried Mango Sampler"
+                desc="60 grams. Features 6 individually wrapped strips: two each of Milk, Dark, and Extra Dark chocolate."
+              />
+            </Link>
           </section>
           <DividerTitle>
             <h2 className="font-pt-serif text-5xl sm:text-6xl font-bold">Fun</h2>
@@ -286,24 +308,30 @@ const ProductList = () => {
             className="grid px-4 text-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3
               max-w-300 mx-auto gap-8 gap-y-10 py-12"
           >
-            <ProductItem
-              img={SPAG90}
-              code="SPAG90"
-              name="Spaghetti Dried Mango"
-              desc='90 grams. The perfect "on-the-go" size. A compact, snack-ready pouch.'
-            />
-            <ProductItem
-              img={SPAG240}
-              code="SPAG240"
-              name="Spaghetti Dried Mango"
-              desc="240 grams. Ideal for keeping at your desk or sharing a unique tropical treat with a friend."
-            />
-            <ProductItem
-              img={SPAG500}
-              code="SPAG500"
-              name="Spaghetti Dried Mango"
-              desc="500 grams. The ultimate party size. designed for family gatherings, office sharing, or pure indulgence."
-            />
+            <Link to={routes.spaghetti}>
+              <ProductItem
+                img={SPAG90}
+                code="SPAG90"
+                name="Spaghetti Dried Mango"
+                desc='90 grams. The perfect "on-the-go" size. A compact, snack-ready pouch.'
+              />
+            </Link>
+            <Link to={routes.spaghetti}>
+              <ProductItem
+                img={SPAG240}
+                code="SPAG240"
+                name="Spaghetti Dried Mango"
+                desc="240 grams. Ideal for keeping at your desk or sharing a unique tropical treat with a friend."
+              />
+            </Link>
+            <Link to={routes.spaghetti}>
+              <ProductItem
+                img={SPAG500}
+                code="SPAG500"
+                name="Spaghetti Dried Mango"
+                desc="500 grams. The ultimate party size. designed for family gatherings, office sharing, or pure indulgence."
+              />
+            </Link>
           </section>
         </div>
         <section
