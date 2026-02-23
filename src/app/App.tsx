@@ -203,7 +203,7 @@ function App() {
   const scrollYSpring = useSpring(scrollYProgress, { bounce: 0.2 });
 
   // Hero
-  const heroLogoHeight = useTransform(scrollYProgress, [0, 1], [0, 800], { clamp: true });
+  const heroLogoHeight = useTransform(scrollYProgress, [0, 1], [0, 750], { clamp: true });
 
   // --------------------
   // Effects
@@ -230,8 +230,28 @@ function App() {
             {/* Branding Nav Bar (Not real nav bar) */}
             <section className="bg-faded-mango-100 w-full">
               <div className="bg-mango-400 h-4 w-full" />
-              <div className="relative h-16">
-                <div className="absolute w-88 left-1/2 -translate-x-1/2 z-20">
+              <div className="relative h-16 flex items-center justify-center">
+                <nav
+                  className="flex items-center flex-row text-mango-800 gap-10 text-xl font
+                    semi-bold"
+                >
+                  <Link to="/home" className="cursor-pointer">
+                    <p>Home</p>
+                  </Link>
+                  <Link to="/products" className="cursor-pointer">
+                    <p>Products</p>
+                  </Link>
+                  <Link to="/products/#bulk-orders" className="cursor-pointer">
+                    <p>Bulk Orders</p>
+                  </Link>
+                  <Link to="/contact" className="cursor-pointer">
+                    <p>Contact Us</p>
+                  </Link>
+                </nav>
+                <div
+                  className="absolute w-88 bottom-0 translate-y-1/1 left-1/2
+                    -translate-x-1/2 z-20"
+                >
                   <motion.div
                     className="w-full bg-mango-400 -mt-px"
                     style={{ height: heroLogoHeight }}
@@ -508,11 +528,21 @@ function App() {
                       Who Are We?
                     </h3>
                     <p className="text-faded-mango-500 text-base sm:text-xl lg:text-2xl">
-					The Guadalupe Brand began in 1973 as a single proprietorship and evolved into an established  manufacturing corporation in 1983<br /> under  <span className="font-bold">Camiluz Enterprises Inc.</span> <br className="hidden xl:block" /> 
-					<br /><br /> For over five decades, we have remained a family-owned business committed to producing premium dried mango products. 
-					<br /><br />Made without artificial colors, flavors, or enhancers, our products preserve the authentic taste of <span className="font-bold"> Philippine Carabao mango </span> — a flavor trusted by generations and enjoyed by travelers <br />around the world.
-
-
+                      The Guadalupe Brand began in 1973 as a single proprietorship and
+                      evolved into an established manufacturing corporation in 1983
+                      <br /> under{' '}
+                      <span className="font-bold">Camiluz Enterprises Inc.</span>{' '}
+                      <br className="hidden xl:block" />
+                      <br />
+                      <br /> For over five decades, we have remained a family-owned
+                      business committed to producing premium dried mango products.
+                      <br />
+                      <br />
+                      Made without artificial colors, flavors, or enhancers, our products
+                      preserve the authentic taste of{' '}
+                      <span className="font-bold"> Philippine Carabao mango </span> — a
+                      flavor trusted by generations and enjoyed by travelers <br />
+                      around the world.
                     </p>
                   </div>
                   <img
@@ -548,7 +578,9 @@ function App() {
                       The Heart
                     </h3>
                     <p className="text-faded-mango-500 text-base sm:text-xl lg:text-2xl">
-                      Visit our store at 787 Dr Pablo U. Abella St, Cebu City, 6000 Cebu and explore our complete selection of classic dried mangoes and exciting new creations — all available direct from the manufacturer.
+                      Visit our store at 787 Dr Pablo U. Abella St, Cebu City, 6000 Cebu
+                      and explore our complete selection of classic dried mangoes and
+                      exciting new creations — all available direct from the manufacturer.
                     </p>
                     <div className="flex justify-center w-full mt-12">
                       <BigButton

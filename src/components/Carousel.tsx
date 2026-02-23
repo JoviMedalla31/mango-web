@@ -130,8 +130,6 @@ const Carousel = ({
   const [offset, setOffset] = useState(0);
   const dragStartX = useRef<number | null>(null);
   const offsetPagination = modulo(items.length - offset, items.length);
-  // console.log('offset', offset);
-  // console.log('offsetPagination', offsetPagination);
 
   // Autoscroll
   const scrollProgress = useRef(fullItemWidth.current / 2);
@@ -280,8 +278,6 @@ const Carousel = ({
     const nextOffset = offset + offsetDiff;
     setOffset(nextOffset);
     animation.current?.stop();
-
-    console.log(nextOffset);
 
     animation.current = animate(translateX.current, nextOffset * fullItemWidth.current, {
       type: 'spring',
