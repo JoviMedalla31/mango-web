@@ -63,6 +63,7 @@ import stripImg from '/images/products/shots/strip.png';
 import BigButton from '@/components/BigButton';
 import { loadingFinishedAtom } from '@/store/loading';
 import { useAtom } from 'jotai';
+import ScrollHint from '@/components/ScrollHint';
 
 // Array of page imags for pre-loading the page
 const pageImages = [
@@ -220,6 +221,7 @@ function App() {
       <AnimatePresence>{!ready && <Loading />}</AnimatePresence>
       {ready && (
         <>
+          <ScrollHint scrollToRef={carouselRef} />
           <Header
             key="home"
             revealRef={carouselRef}
