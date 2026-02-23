@@ -1,4 +1,4 @@
-import{j as e}from"./index-B5p-ZOj4.js";import{P as t}from"./Product-BqcNlFo0.js";import{e as o}from"./divider-b-IKS8mesh.js";const r=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."
+import{j as e}from"./index-BbvyQwK-.js";import{P as t}from"./Product-C1y8hKLf.js";import{e as o}from"./divider-b-CZAEou1N.js";const r=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."
 products/page/local.png,Local Pinoy Mangoes,"Our mangoes are sourced from our local farmers, we believe in the taste and soul of  Philippine mangoes"
 products/page/no-additives.svg,No Additives,"No Additives. No Compromises."
 products/page/gift.svg,The Perfect Gift,"share the unique flavor from the heart of cebu"
