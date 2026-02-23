@@ -1,4 +1,4 @@
-import{j as e}from"./index-CEmC2mWa.js";import{P as t}from"./Product-NV7NYcSF.js";import{c as s}from"./divider-b-BiwIuflA.js";const a=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."
+import{j as e}from"./index-B5p-ZOj4.js";import{P as t}from"./Product-BqcNlFo0.js";import{c as s}from"./divider-b-IKS8mesh.js";const a=`products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."
 products/page/first.svg,First of its Kind,"A unique take on a classic flavor, our special process turns a dried mango pure into a fun innovative snack!"
 products/page/no-additives.svg,No Additives,"No gelatin, flour, or any binding agents."
 products/page/gift.svg,The Perfect Gift,"Share the unique flavor from the heart of Cebu."
