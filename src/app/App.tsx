@@ -234,8 +234,8 @@ function App() {
               <div className="bg-mango-400 h-4 w-full" />
               <div className="relative h-16 flex items-center justify-center">
                 <nav
-                  className="flex items-center flex-row text-mango-800 gap-10 text-xl font
-                    semi-bold"
+                  className="md:flex hidden items-center flex-row text-mango-800 gap-10
+                    text-xl font semi-bold"
                 >
                   <Link to="/home" className="cursor-pointer">
                     <p>Home</p>
@@ -251,8 +251,8 @@ function App() {
                   </Link>
                 </nav>
                 <div
-                  className="absolute w-88 bottom-0 translate-y-1/1 left-1/2
-                    -translate-x-1/2 z-20"
+                  className="absolute w-88 bottom-auto -top-px md:top-auto md:bottom-0
+                    md:translate-y-1/1 left-1/2 -translate-x-1/2 z-20"
                 >
                   <motion.div
                     className="w-full bg-mango-400 -mt-px"
