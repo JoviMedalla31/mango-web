@@ -4,6 +4,7 @@ import {
   ReactNode,
   RefObject,
   MouseEvent as RMouseEvent,
+  useState,
 } from 'react';
 import {
   motion,
@@ -15,7 +16,7 @@ import {
   useAnimationFrame,
 } from 'motion/react';
 import { CarouselDimensions } from '@/types/carousel';
-import { clamp, moduloOffset } from '@/util/math';
+import { clamp, modulo, moduloOffset } from '@/util/math';
 import useRerender from '@/hooks/useRerender';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
@@ -51,15 +52,17 @@ const CarouselItem = ({
   const { isSm, isMd } = useWidthCheck();
 
   const translateX = useTransform(x, (val) => {
+    // full width of the carousel
     const containerWidth = dimensions.full.current * itemCount.current;
     const scrollOffset = -((index + 1) * dimensions.full.current);
 
-    const smLayoutOffset = dimensions.item.current / 2;
-    const mdLayoutOffset = dimensions.item.current / 2;
-    const lgLayoutOffset = dimensions.item.current / 2;
+    const layoutOffset = dimensions.item.current / 2;
+    // const smLayoutOffset = dimensions.item.current / 2;
+    // const mdLayoutOffset = dimensions.item.current / 2;
+    // const lgLayoutOffset = dimensions.item.current / 2;
 
     // Add offset to items
-    val += isSm ? smLayoutOffset : isMd ? mdLayoutOffset : lgLayoutOffset;
+    val += dimensions.gap.current + dimensions.item.current / 2;
     // Wrap item on container
     val = moduloOffset(val, containerWidth, scrollOffset);
 
@@ -123,18 +126,19 @@ const Carousel = ({
   // const translateX = new MotionValue(0);
   const translateX = useRef<MotionValue>(new MotionValue(0));
   const animation = useRef<AnimationPlaybackControlsWithThen>(null);
-  const offset = useRef(0);
+  const [offset, setOffset] = useState(0);
   const dragStartX = useRef<number | null>(null);
+  const offsetPagination = modulo(offset, items.length);
 
   // Autoscroll
   const scrollProgress = useRef(fullItemWidth.current / 2);
-  const isResizing = useRef(false);
   const pauseScroll = useRef(false);
 
   // -----------------------
   // Effects
   // -----------------------
 
+  // Reposition Items when breakpoints are changed
   useLayoutEffect(() => {
     if (isMd) {
       fullItemWidth.current = FULL_ITEM_WIDTH.SM;
@@ -144,7 +148,7 @@ const Carousel = ({
 
     animation.current?.stop();
     itemWidth.current = fullItemWidth.current - gapWidth.current;
-    translateX.current.set(offset.current * fullItemWidth.current);
+    translateX.current.set(offset * fullItemWidth.current);
 
     rerender();
   }, [isSm, isMd]);
@@ -164,11 +168,9 @@ const Carousel = ({
 
   useLayoutEffect(() => {
     const measure = () => {
-      const next = offset.current * fullItemWidth.current;
+      const next = offset * fullItemWidth.current;
 
-      isResizing.current = true;
       scrollProgress.current = 0;
-
       translateX.current.set(next);
     };
     const observer = new ResizeObserver(() => {
@@ -198,7 +200,7 @@ const Carousel = ({
     translateX.current.set(next);
 
     if (scrollProgress.current >= fullItemWidth.current) {
-      offset.current -= 1;
+      setOffset((prev) => prev - 1);
       scrollProgress.current -= fullItemWidth.current;
     }
   });
@@ -208,7 +210,6 @@ const Carousel = ({
   // -----------------------
 
   const handleDragStart = () => {
-    scrollProgress.current = fullItemWidth.current / 2;
     dragStartX.current = translateX.current.get();
   };
 
@@ -220,18 +221,23 @@ const Carousel = ({
     const velocityThreshold = 500;
     // pointer movement offset from px to % (percent of screen)
     const dvwOffset = (info.offset.x / windowWidth.current) * 100;
+
     // offset of how many items user dragged between.
-    let draggedOffset = Math.round(dvwOffset / fullItemWidth.current);
+    let draggedOffset = Math.round(
+      (dvwOffset - scrollProgress.current) / fullItemWidth.current,
+    );
     let nextX: number;
 
     // if no offset is detected, adds offset based on pointer velocity
     if (draggedOffset == 0 && Math.abs(info.velocity.x) > velocityThreshold)
       draggedOffset = info.velocity.x > 0 ? 1 : -1;
 
-    offset.current += draggedOffset;
+    const nextOffset = offset + draggedOffset;
     dragStartX.current = null;
-    nextX = offset.current * fullItemWidth.current;
+    nextX = nextOffset * fullItemWidth.current;
+    scrollProgress.current = 0;
 
+    setOffset(nextOffset);
     translateX.current.stop();
     animation.current = animate(translateX.current, nextX, {
       type: 'spring',
@@ -296,6 +302,19 @@ const Carousel = ({
           </CarouselItem>
         ))}
       </motion.div>
+      <div className="mx-auto w-fit flex gap-2 mt-8">
+        {items.map((_, i) => (
+          <div
+            key={i}
+            className="w-7 h-7 aspect-square border-2 border-faded-mango-200 rounded-full
+              cursor-pointer flex items-center justify-center"
+          >
+            {offsetPagination == i && (
+              <div className="w-6 bg-red-600 h-6 aspect-square" />
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
