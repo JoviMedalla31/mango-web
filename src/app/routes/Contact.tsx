@@ -35,8 +35,9 @@ const Contact = () => {
             overflow-hidden"
         >
           <div className="z-1 max-w-132 flex items-center flex-col text-center">
-            <h1 className="font-pt-serif font-bold text-5xl sm:text-6xl">How to reach us?
-</h1>
+            <h1 className="font-pt-serif font-bold text-5xl sm:text-6xl">
+              How to reach us?
+            </h1>
             <p className="mt-8 mb-12 sm:text-2xl text-xl text-faded-mango-500">
               You can find us through the following channels:
             </p>
@@ -49,15 +50,18 @@ const Contact = () => {
                 <img className="sm:w-7 w-5" src={email} />
                 <p className="sm:text-2xl text-lg">camiluzenterprises@gmail.com</p>
               </div>
-			  <div className="flex gap-2">
-                <img className="sm:w-7 w-5" src={facebook} />
-                <p className="sm:text-2xl text-lg">facebook/GuadalupeDriedMangoes</p>
-              </div>
-			  <div className="flex gap-2">
-                <img className="sm:w-7 w-5" src={instagram} />
-                <p className="sm:text-2xl text-lg">@guadalupe_dried_mangoes</p>
-              </div>
-		
+              <a target="_blank" href="http://facebook.com/GuadalupeDriedMangoes">
+                <div className="flex gap-2">
+                  <img className="sm:w-7 w-5" src={facebook} />
+                  <p className="sm:text-2xl text-lg">facebook/GuadalupeDriedMangoes</p>
+                </div>
+              </a>
+              <a target="_blank" href="https://www.instagram.com/guadalupe_dried_mangoes">
+                <div className="flex gap-2">
+                  <img className="sm:w-7 w-5" src={instagram} />
+                  <p className="sm:text-2xl text-lg">@guadalupe_dried_mangoes</p>
+                </div>
+              </a>
             </div>
           </div>
           <img
