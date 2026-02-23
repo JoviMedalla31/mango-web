@@ -14,6 +14,7 @@ import {
   PanInfo,
   AnimationPlaybackControlsWithThen,
   useAnimationFrame,
+  AnimatePresence,
 } from 'motion/react';
 import { CarouselDimensions } from '@/types/carousel';
 import { clamp, modulo, moduloOffset } from '@/util/math';
@@ -128,7 +129,9 @@ const Carousel = ({
   const animation = useRef<AnimationPlaybackControlsWithThen>(null);
   const [offset, setOffset] = useState(0);
   const dragStartX = useRef<number | null>(null);
-  const offsetPagination = modulo(offset, items.length);
+  const offsetPagination = modulo(items.length - offset, items.length);
+  // console.log('offset', offset);
+  // console.log('offsetPagination', offsetPagination);
 
   // Autoscroll
   const scrollProgress = useRef(fullItemWidth.current / 2);
@@ -269,6 +272,24 @@ const Carousel = ({
     rerender();
   };
 
+  const handlePaginationClicked = (i: number) => () => {
+    let offsetDiff = offsetPagination - i;
+    if (offsetDiff > items.length / 2) offsetDiff -= items.length;
+    if (offsetDiff < -items.length / 2) offsetDiff += items.length;
+
+    const nextOffset = offset + offsetDiff;
+    setOffset(nextOffset);
+    animation.current?.stop();
+
+    console.log(nextOffset);
+
+    animation.current = animate(translateX.current, nextOffset * fullItemWidth.current, {
+      type: 'spring',
+      velocity: offsetDiff < 0 ? -100 : 100,
+      duration: 1.2,
+    });
+  };
+
   return (
     <div
       {...{ ref }}
@@ -306,12 +327,23 @@ const Carousel = ({
         {items.map((_, i) => (
           <div
             key={i}
+            onClick={handlePaginationClicked(i)}
             className="w-7 h-7 aspect-square border-2 border-faded-mango-200 rounded-full
               cursor-pointer flex items-center justify-center"
           >
-            {offsetPagination == i && (
-              <div className="w-6 bg-red-600 h-6 aspect-square" />
-            )}
+            <AnimatePresence>
+              {offsetPagination == i && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.05,
+                  }}
+                  className="w-5 bg-mango-400 rounded-full h-5 aspect-square"
+                />
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
