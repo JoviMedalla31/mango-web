@@ -195,8 +195,7 @@ const ProductList = () => {
           <DividerTitle>
             <h2 className="font-pt-serif text-5xl sm:text-6xl font-bold">Classic</h2>
             <p className="text-faded-mango-500 sm:text-2xl text-xl">
-              Pure. Authentic. Iconic. The clean texture and long-lasting flavor of the
-              original Cebuano mango.
+              Pure. Authentic. Iconic. Crafted from premium Philippine Carabao mango for that clean texture and long-lasting mango flavor you love.
             </p>
           </DividerTitle>
           <section

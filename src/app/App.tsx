@@ -508,11 +508,9 @@ function App() {
                       Who Are We?
                     </h3>
                     <p className="text-faded-mango-500 text-base sm:text-xl lg:text-2xl">
-                      The Guadalupe Brand has been under the careful watch of{' '}
-                      <span className="font-bold">Camiluz Enterprises Inc.</span> since
-                      1979. <br className="hidden xl:block" /> A family owned business
-                      aiming to for provide high-quality, additive-free dried mangoes that
-                      travelers are excited to bring back home to share.
+manufacturing corporation in 1983 under  <span className="font-bold"> Camiluz Enterprises Inc.</span> <br className="hidden xl:block" />  For over five decades, we have remained a family-owned business committed to producing premium dried mango products. Made without artificial colors, flavors, or enhancers, our products preserve the authentic taste of <span className="font-bold"> Philippine Carabao mango </span> — a flavor trusted by generations and enjoyed by travelers around the world.
+
+
                     </p>
                   </div>
                   <img
@@ -548,9 +546,7 @@ function App() {
                       The Heart
                     </h3>
                     <p className="text-faded-mango-500 text-base sm:text-xl lg:text-2xl">
-                      We invite you to visit our factory store on Happy Valley Road, where
-                      our journey began. Shop our full range of classics and new
-                      innovations directly from the source.
+                      Visit our store at 787 Dr Pablo U. Abella St, Cebu City, 6000 Cebu and explore our complete selection of classic dried mangoes and exciting new creations — all available direct from the manufacturer.
                     </p>
                     <div className="flex justify-center w-full mt-12">
                       <BigButton

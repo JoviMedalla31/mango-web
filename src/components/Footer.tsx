@@ -32,7 +32,7 @@ const Footer = () => {
                 Bulk Orders?
               </h3>
               <p className="mt-4 text-base sm:text-lg lg:text-xl xl:text-2xl">
-                Please contact us for bulk orders and wholesale pricing
+                Please contact us for bulk orders, wholesale pricing, and other special requests.
               </p>
             </div>
           </div>

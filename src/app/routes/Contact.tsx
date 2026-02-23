@@ -5,6 +5,8 @@ import bgB from '/images/hero/bg-b.svg';
 import email from '/images/footer/email.svg';
 import phone from '/images/footer/phone.svg';
 import pin from '/images/products/pin-white.svg';
+import instagram from '/images/footer/instagram.svg';
+import facebook from '/images/footer/facebook.svg';
 
 // Shapes
 import mango4 from '/images/shapes/mango-4.svg';
@@ -33,9 +35,10 @@ const Contact = () => {
             overflow-hidden"
         >
           <div className="z-1 max-w-132 flex items-center flex-col text-center">
-            <h1 className="font-pt-serif font-bold text-5xl sm:text-6xl">Contact</h1>
+            <h1 className="font-pt-serif font-bold text-5xl sm:text-6xl">How to reach us?
+</h1>
             <p className="mt-8 mb-12 sm:text-2xl text-xl text-faded-mango-500">
-              Contact us through the following channels:
+              You can find us through the following channels:
             </p>
             <div className="flex flex-col gap-4 w-full items-center">
               <div className="flex gap-2 w-full justify-center">
@@ -46,6 +49,15 @@ const Contact = () => {
                 <img className="sm:w-7 w-5" src={email} />
                 <p className="sm:text-2xl text-lg">camiluzenterprises@gmail.com</p>
               </div>
+			  <div className="flex gap-2">
+                <img className="sm:w-7 w-5" src={facebook} />
+                <p className="sm:text-2xl text-lg">facebook/GuadalupeDriedMangoes</p>
+              </div>
+			  <div className="flex gap-2">
+                <img className="sm:w-7 w-5" src={instagram} />
+                <p className="sm:text-2xl text-lg">@guadalupe_dried_mangoes</p>
+              </div>
+		
             </div>
           </div>
           <img
