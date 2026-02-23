@@ -508,9 +508,9 @@ function App() {
                       Who Are We?
                     </h3>
                     <p className="text-faded-mango-500 text-base sm:text-xl lg:text-2xl">
-					The Guadalupe Brand began in 1973 as a single proprietorship and evolved into an established  manufacturing corporation in 1983 under  <span className="font-bold">Camiluz Enterprises Inc.</span> <br className="hidden xl:block" /> 
+					The Guadalupe Brand began in 1973 as a single proprietorship and evolved into an established  manufacturing corporation in 1983<br /> under  <span className="font-bold">Camiluz Enterprises Inc.</span> <br className="hidden xl:block" /> 
 					<br /><br /> For over five decades, we have remained a family-owned business committed to producing premium dried mango products. 
-					<br /><br />Made without artificial colors, flavors, or enhancers, our products preserve the authentic taste of <span className="font-bold"> Philippine Carabao mango </span> — a flavor trusted by generations and enjoyed by travelers around the world.
+					<br /><br />Made without artificial colors, flavors, or enhancers, our products preserve the authentic taste of <span className="font-bold"> Philippine Carabao mango </span> — a flavor trusted by generations and enjoyed by travelers <br />around the world.
 
 
                     </p>
