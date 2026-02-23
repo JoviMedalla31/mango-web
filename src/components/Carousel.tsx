@@ -327,19 +327,17 @@ const Carousel = ({
             className="w-7 h-7 aspect-square border-2 border-faded-mango-200 rounded-full
               cursor-pointer flex items-center justify-center"
           >
-            <AnimatePresence>
-              {offsetPagination == i && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.05,
-                  }}
-                  className="w-5 bg-mango-400 rounded-full h-5 aspect-square"
-                />
-              )}
-            </AnimatePresence>
+            {offsetPagination == i && (
+              <motion.div
+                layout
+                layoutId="pagination"
+                transition={{
+                  duration: 0.5,
+                  type: 'spring',
+                }}
+                className="w-5 bg-mango-400 rounded-full h-5 aspect-square"
+              />
+            )}
           </div>
         ))}
       </div>
