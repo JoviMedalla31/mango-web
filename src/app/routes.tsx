@@ -1,5 +1,6 @@
 import { createHashRouter, Outlet } from 'react-router-dom';
 import Error from './routes/Error';
+import PageTracker from '@/features/googleAnalytics/components/PageTracker';
 
 export const routes = {
   products: '/products',
@@ -13,6 +14,7 @@ export const routes = {
 const router = createHashRouter([
   {
     path: '/',
+    element: <PageTracker />,
     ErrorBoundary: Error,
     children: [
       {
