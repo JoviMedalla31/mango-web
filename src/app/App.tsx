@@ -237,7 +237,7 @@ function App() {
                   className="md:flex hidden items-center flex-row text-mango-800 gap-10
                     text-xl font semi-bold"
                 >
-                  <Link to="/home" className="cursor-pointer">
+                  <Link to="/" className="cursor-pointer">
                     <p>Home</p>
                   </Link>
                   <Link to="/products" className="cursor-pointer">

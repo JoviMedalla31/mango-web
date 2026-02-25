@@ -61,10 +61,11 @@ const ScrollHint = ({
           transition={{
             duration: 0.12,
           }}
-          className="h-dvh w-dvw absolute z-20"
+          className="h-dvh w-dvw pointer-events-none absolute z-20"
         >
           <div
-            className="bottom-8 absolute left-1/2 -translate-x-1/2 cursor-pointer"
+            className="bottom-8 absolute left-1/2 -translate-x-1/2 pointer-events-auto
+              cursor-pointer"
             onClick={handleScrollClicked}
           >
             <Mouse />
