@@ -165,7 +165,7 @@ const ProductList = () => {
               </p>
               <ul className="italic list-disc w-full pl-6 text-base md:text-2xl">
                 <li>2&#45;3 days &#40;Docs Cargo/FTE&#41;</li>
-                <li>5&#45;7 days &#40;LBC&#41;</li>
+                <li>5&#45;10 days &#40;LBC&#41;</li>
               </ul>
               <p className="text-sm italic text-left w-full -mt-3">
                 *Courier availability varies by location.

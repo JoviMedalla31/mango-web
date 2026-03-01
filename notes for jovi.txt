@@ -3,6 +3,9 @@ chdir /d F:
 then this to go to the project foleder
 cd F:\Projects\Godot\mango-web
 
+
+When pulling changes use ‘npm i’ to check if kyle added any libraries
+
 to preview changes
 npm run dev
 

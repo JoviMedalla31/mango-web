@@ -94,9 +94,8 @@ const Contact = () => {
                   The Heart
                 </h3>
                 <p className="text-faded-mango-500 text-base sm:text-xl lg:text-2xl">
-                  We invite you to visit our factory store on Happy Valley Road, where our
-                  journey began. Shop our full range of classics and new innovations
-                  directly from the source.
+                  Visit our store at 787 Dr Pablo U. Abella St, Cebu City, 6000 Cebu and explore our complete selection of classic dried mangoes and exciting new creations — all available direct from the manufacturer.
+
                 </p>
 
                 <a
