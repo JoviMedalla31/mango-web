@@ -1,0 +1,2 @@
+import{j as s}from"./index-C1LGV88d.js";const c="/images/products/pin.svg",r=({img:t,children:e,onClick:n})=>s.jsxs("button",{type:"button",onClick:n,className:`cursor-pointer text-3xl sm:text-4xl text-mango-400 border-4 rounded-xl
+        font-semibold flex items-center gap-3 p-2 px-4 border-dashed`,children:[t&&s.jsx("img",{src:t,className:"pointer-events-none w-6 sm:w-8"}),e]}),a=({img:t,children:e,onClick:n,link:o=""})=>o!=""?s.jsx("a",{href:o,target:"_blank",children:s.jsx(r,{img:t,onClick:n,children:e})}):s.jsx(r,{img:t,onClick:n,children:e});export{a as B,c as p};
