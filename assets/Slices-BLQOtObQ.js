@@ -1,7 +1,0 @@
-import{j as a}from"./index-C1LGV88d.js";import{P as e}from"./Product-DN6Tk_3l.js";import{b as o}from"./divider-b-oGRS1g-3.js";const s=`products/page/slice-size.png,Comes in a Large!,"Our classic slices also come in a large 200g pack."
-products/page/local.png,Local Pinoy Mangoes,"We source our mangoes from local farmers, bringing out the true taste and soul of Philippine Carabao mangoes."
-products/page/artif-flavors.svg,No Artificial Flavors,"No Additives. No Compromises."
-products/page/gift.svg,The Perfect Gift,"Share the unique flavor from the heart of Cebu."
-products/page/slice-box.png,Grab a Box!,"An alternative packaging for a special occasion."
-products/page/no-artificial-colors.svg,No Artificial Colours,"No gelatin, flour,additives or any binding agents."`,n=()=>a.jsx(e,{title:a.jsx("div",{className:"@container col-start-1 mx-auto w-full max-w-100 justify-center",children:a.jsx("div",{className:"text-mango-400 mx-auto mt-18 flex w-fit flex-col items-start",children:a.jsxs("h1",{className:"text-[clamp(1rem,14cqw,200rem)]",children:["Dried Mango ",a.jsx("br",{}),a.jsx("span",{className:`text-mango-800 text-[clamp(1rem,27cqw,200rem)]/[90%]
-                  font-extrabold`,children:"SLICES"})]})})}),imgSrc:o,description:" Our classic dried mango slices offer a clean texture and long-lasting tropical flavor. 100% natural color, zero food enhancers, and packed with the real sweetness of premium Philippine mangoes.",csvRaw:s});export{n as default};
